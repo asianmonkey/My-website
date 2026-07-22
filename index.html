@@ -398,9 +398,9 @@
 
         function buildDefaultModels() {
             const positions = [
-                { x: -3.6, z: 0.5, rot: 0.3 },   
-                { x: 0.0, z: -0.8, rot: -0.1 },   
-                { x: 3.6, z: 0.5, rot: -0.3 }      
+                { x: -4.8, z: 0.6, rot: 0.35 },   // Model 1 (SBR Lobby)
+                { x: 0.0, z: -0.8, rot: -0.1 },   // Model 2 (Not a Hotel)
+                { x: 4.8, z: 0.6, rot: -0.35 }    // Model 3 (Chummy Chair Collection)
             ];
 
             const commonBaseHeight = -0.4;
@@ -505,15 +505,15 @@
                             const maxDim = Math.max(rawSize.x, rawSize.y, rawSize.z);
 
                             if (maxDim > 0) {
-                                const scale = 2.4 / maxDim;
+                                const scale = 2.0 / maxDim;
                                 model.scale.set(scale, scale, scale);
                             }
 
-                            // Calculate scaled bounding box AFTER scaling to accurately compute min Y ground plane
+                            // Calculate scaled bounding box AFTER scaling
                             const scaledBox = new THREE.Box3().setFromObject(model);
                             const center = scaledBox.getCenter(new THREE.Vector3());
 
-                            // Center X and Z, and place bottom (min Y) at exact Y = 0 baseline
+                            // Center X and Z, and align min Y to ground
                             model.position.set(-center.x, -scaledBox.min.y, -center.z);
 
                             model.traverse((node) => {

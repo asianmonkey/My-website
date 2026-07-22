@@ -125,8 +125,7 @@
 
                         <!-- Hover Info Overlay -->
                         <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
-                            <span id="hud-category" class="text-[8px] uppercase tracking-ultra text-zen-400 font-semibold font-title block">01 / CONCEPTUAL</span>
-                            <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 mt-1 block">Project Title</span>
+                            <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 block">Project Title</span>
                         </div>
                     </div>
 
@@ -243,8 +242,7 @@
 
                 <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
                     <div>
-                        <span id="detail-category" class="text-[9px] uppercase tracking-ultra text-zen-400 font-semibold block font-title">Category</span>
-                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 mt-2 leading-tight">Project Title</h1>
+                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 leading-tight">Project Title</h1>
                     </div>
 
                     <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed border-t border-zen-100 pt-6 font-body">
@@ -280,8 +278,7 @@
         // Database
         const projectDatabase = {
             1: {
-                title: "SBR",
-                category: "Architecture & Structure",
+                title: "SBR Lobby",
                 desc: "An architectural exploration balancing primary structural forms with ambient light.",
                 location: "Tokyo, Japan",
                 area: "3,400 sqft",
@@ -294,8 +291,7 @@
                 ]
             },
             2: {
-                title: "Clay Plaster Tea Lounge",
-                category: "Interior Space",
+                title: "Not a Hotel",
                 desc: "A public ritual retreat dedicated to local tea ceremonies. Designed entirely using clay plasters hand-applied by Kyoto artisans.",
                 location: "Kyoto, Japan",
                 area: "1,200 sqft",
@@ -308,8 +304,7 @@
                 ]
             },
             3: {
-                title: "Chummy Chair",
-                category: "3D Maquette & Object",
+                title: "Chummy Chair Collection",
                 desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes.",
                 location: "Tokyo, Japan",
                 area: "Furniture Scale",
@@ -337,7 +332,6 @@
         
         const hud = document.getElementById('hud-display');
         const hudTitle = document.getElementById('hud-title');
-        const hudCategory = document.getElementById('hud-category');
         const canvasContainer = document.getElementById('canvas-container');
 
         const studioPlasterMaterial = new THREE.MeshStandardMaterial({
@@ -488,8 +482,8 @@
 
             // Mapping your exact GitHub files to their corresponding slots
             const repoModels = [
-                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR' },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair' }
+                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby' },
+                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection' }
             ];
 
             repoModels.forEach(item => {
@@ -669,7 +663,6 @@
                     const dbEntry = projectDatabase[lastHoveredId];
                     if (dbEntry) {
                         hudTitle.innerText = dbEntry.title;
-                        hudCategory.innerText = `0${lastHoveredId} / ${dbEntry.category}`;
                         hud.classList.remove('opacity-0', 'translate-y-2');
                         hud.classList.add('opacity-100', 'translate-y-0');
                         canvasContainer.style.cursor = 'pointer';
@@ -694,7 +687,6 @@
 
                 if (projectData) {
                     document.getElementById('detail-title').innerText = projectData.title;
-                    document.getElementById('detail-category').innerText = `0${pId} / ${projectData.category}`;
                     document.getElementById('detail-desc').innerText = projectData.desc;
                     document.getElementById('detail-spec-location').innerText = projectData.location;
                     document.getElementById('detail-spec-area').innerText = projectData.area;

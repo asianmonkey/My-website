@@ -3,22 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio Handajuwana Zhu | Architecture & Interior Practice</title>
-    
+    <title>form + space</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Vector Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Three.js & GLTF Loader -->
+    <!-- Three.js & GLTFLoader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- FontAwesome for minimal icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -27,334 +23,257 @@
                     colors: {
                         zen: {
                             50: '#fbfbfa',
-                            100: '#f5f4ef',
-                            200: '#e9e7df',
-                            300: '#d5d2c4',
-                            400: '#a39f90',
-                            800: '#2d2b28',
-                            900: '#1c1b1a',
+                            100: '#f4f4f2',
+                            200: '#e5e5e0',
+                            300: '#d1d1cc',
+                            400: '#9e9e96',
+                            500: '#717169',
+                            600: '#52524b',
+                            700: '#3a3835',
+                            800: '#272624',
+                            900: '#191817',
                         }
                     },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        title: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
                     letterSpacing: {
-                        ultra: '0.25em',
-                        mega: '0.35em',
+                        'ultra': '0.25em',
                     }
                 }
             }
         }
     </script>
-    
     <style>
-        .font-title {
-            font-family: "Plus Jakarta Sans", "Yu Gothic", sans-serif;
-            font-weight: 300;
+        body {
+            background-color: #fbfbfa;
+            color: #272624;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        .font-body {
-            font-family: "Shippori Mincho", "Plus Jakarta Sans", serif;
-        }
-
+        /* Custom smooth scrollbar */
         ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
+            width: 5px;
         }
         ::-webkit-scrollbar-track {
             background: #fbfbfa;
         }
         ::-webkit-scrollbar-thumb {
-            background: #e9e7df;
-            border-radius: 2px;
+            background: #d1d1cc;
+            border-radius: 9999px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #a39f90;
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        #canvas-container {
-            cursor: grab;
-        }
-        #canvas-container:active {
-            cursor: grabbing;
+            background: #9e9e96;
         }
     </style>
 </head>
-<body class="bg-zen-50 text-zen-900 font-body antialiased overflow-hidden">
+<body class="selection:bg-zen-800 selection:text-zen-50">
 
-    <!-- MAIN HOME VIEW -->
-    <div id="home-view" class="h-screen w-screen overflow-hidden relative transition-opacity duration-500 ease-in-out">
-        
-        <!-- STATIONARY FOOTER OVERLAY -->
-        <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-8 px-6 sm:px-12">
-            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
-                <div class="pointer-events-auto">
-                    <a href="mailto:info@handajuwanazhu.com" class="text-xs font-title tracking-wider hover:text-zen-400 transition">info@handajuwanazhu.com</a>
-                </div>
-                <div class="pointer-events-auto text-[9px] font-title font-light uppercase tracking-wider text-zen-400">
-                    <span>&copy; 2026 Studio Handajuwana Zhu</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE DECK WRAPPER -->
-        <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
+    <!-- Top Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#fbfbfa]/90 backdrop-blur-md border-b border-zen-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <a href="#" class="font-title text-base sm:text-lg font-semibold tracking-wide text-zen-900 uppercase">
+                form + space
+            </a>
             
-            <!-- Slide 1: Interactive 3D Projects -->
-            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 py-12">
-                <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative w-full">
-                    
-                    <!-- Branding Header -->
-                    <div class="text-center mb-8 select-none flex flex-col items-center justify-center">
-                        <h1 class="text-2xl sm:text-4xl font-title tracking-[0.15em] uppercase text-zen-900 leading-none">
-                            STUDIO HANDAJUWANA ZHU
-                        </h1>
-                        <span class="font-body text-base sm:text-xl font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1.5 block">
-                            form + space
-                        </span>
-                    </div>
+            <nav class="hidden md:flex items-center gap-8 text-xs font-title uppercase tracking-widest text-zen-600">
+                <a href="#work" class="hover:text-zen-900 transition-colors">Work</a>
+                <a href="#studio" class="hover:text-zen-900 transition-colors">Studio</a>
+                <a href="#contact" class="hover:text-zen-900 transition-colors">Contact</a>
+            </nav>
 
-                    <!-- 3D Canvas Stage -->
-                    <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center">
-                        
-                        <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
-
-                        <!-- Hover Info Overlay -->
-                        <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
-                            <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 block">Project Title</span>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- Slide 2: About & Practice Profiles -->
-            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 py-16 px-6">
-                
-                <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
-                    <div class="space-y-12">
-                        
-                        <!-- Studio Partners Portrait -->
-                        <div class="max-w-md mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000" 
-                                 alt="Studio Partners" 
-                                 class="w-full h-full object-cover filter grayscale contrast-115 hover:scale-[1.03] transition-transform duration-700 ease-out"
-                                 onerror="this.src='https://placehold.co/600x400/f5f4ef/1c1b1a?text=Studio+Partners'">
-                        </div>
-
-                        <!-- Twin Partner Profiles -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
-                            
-                            <!-- Profile 1: Natasya Handajuwana -->
-                            <div class="space-y-6">
-                                <div class="text-center">
-                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
-                                </div>
-                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
-                                    <p>I am an interior designer at heart, but my work focuses on the dialogue where interiors and architecture meet. Having developed my practice from Milan to Tokyo—most recently serving as a senior designer at Sou Fujimoto Architects—I specialty in bridging detailed interior spaces with large-scale architectural design. My approach balances global concepts with deeply local traditions, focusing on how spaces come to life through human interaction. I thrive on collaborating across different cultures and minds to create meaningful, human-centric environments for our clients.</p>
-                                </div>
-                                
-                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2011 - 2015</span>
-                                        <span>Bachelor of Interior Architecture at Universitas Pelita Harapan, Indonesia</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2016 - 2016</span>
-                                        <span>Master of Interior Design at Istituto Europeo di Design, Italy</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2026</span>
-                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2019</span>
-                                        <span>Notable project: Renovation of Shiroiya Hotel in Gunma, Japan</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Profile 2: Ziwei Zhu -->
-                            <div class="space-y-6">
-                                <div class="text-center">
-                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
-                                </div>
-                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
-                                    <p>With my passion for architecture, nature and humans I explore the spatial experiences which allows one to become their true selves. Having a multicultural background allows me to transition easily between global modern architecture and true local design practices.</p>
-                                    <p>My personal hobbies are walking through nature and some natural photography which captures memories and moments which are more intimate.</p>
-                                </div>
-
-                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2010 - 2017</span>
-                                        <span>Bachelors and Masters of Architecture at University of Technology at Delft</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2018</span>
-                                        <span>Junior Architect at KAAN architects in Rotterdam, the Netherlands</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2018 - 2026</span>
-                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2023</span>
-                                        <span>Winner of the Starchitects Chair design competition</span>
-                                    </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2025</span>
-                                        <span>Golden Mention finalist for Living Ruins II design competition</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-        </div>
-    </div>
-
-    <!-- PROJECT CASE STUDY MODAL -->
-    <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pt-28 pb-20 px-6 transition-opacity duration-500 ease-in-out">
-        <div class="max-w-6xl mx-auto">
-            
-            <button onclick="navigateToHome()" class="group mb-12 flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
-                <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
-                <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
+            <button id="mobile-menu-btn" class="md:hidden text-zen-900 focus:outline-none p-2">
+                <i class="fa-solid fa-bars text-lg"></i>
             </button>
+        </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-[#fbfbfa] border-b border-zen-200 py-6 px-6 shadow-lg">
+            <nav class="flex flex-col gap-4 text-xs font-title uppercase tracking-widest text-zen-700">
+                <a href="#work" class="mobile-link hover:text-zen-900 transition-colors py-2">Work</a>
+                <a href="#studio" class="mobile-link hover:text-zen-900 transition-colors py-2">Studio</a>
+                <a href="#contact" class="mobile-link hover:text-zen-900 transition-colors py-2">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="pt-20">
+
+        <!-- Interactive 3D Showcase Section -->
+        <section id="work" class="relative w-full min-h-[90vh] flex flex-col justify-between py-12 px-6 lg:px-12 max-w-7xl mx-auto">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                <div>
+                    <span class="text-[10px] uppercase tracking-ultra text-zen-500 font-title font-semibold block mb-2">Selected Portfolio</span>
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-title font-medium text-zen-900 tracking-tight">Architectural Maquettes</h1>
+                </div>
+                <div class="text-xs text-zen-500 max-w-xs font-sans">
+                    Interactive 3D structural studies and furniture iterations. Click and drag to inspect from any angle.
+                </div>
+            </div>
+
+            <!-- Fluid Aspect 3D Stage Container -->
+            <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center border border-zen-200/80 rounded-2xl shadow-sm">
                 
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-zen-100 overflow-hidden">
-                        <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-full object-cover transition-opacity duration-500">
-                    </div>
+                <!-- WebGL Canvas Anchor -->
+                <div id="canvas-container" class="w-full h-full absolute inset-0 cursor-grab active:cursor-grabbing"></div>
 
-                    <div class="grid grid-cols-3 gap-4" id="detail-carousel-strip"></div>
+                <!-- Quiet Hover HUD Display -->
+                <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
+                    <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 font-medium block">Project Title</span>
                 </div>
+            </div>
 
-                <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
-                    <div>
-                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 leading-tight">Project Title</h1>
-                    </div>
+            <!-- Project Selector Thumbnail Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                <button onclick="switchProject(0)" id="selector-0" class="project-selector text-left p-4 rounded-xl border border-zen-300 bg-zen-100/60 hover:bg-zen-100 transition-all duration-300 group">
+                    <span class="text-xs font-title font-medium text-zen-900 block group-hover:translate-x-0.5 transition-transform">SBR Lobby</span>
+                    <span class="text-[11px] text-zen-500 block mt-0.5 font-sans">Custom 3D Model</span>
+                </button>
+                <button onclick="switchProject(1)" id="selector-1" class="project-selector text-left p-4 rounded-xl border border-zen-200 bg-transparent hover:bg-zen-100/40 transition-all duration-300 group">
+                    <span class="text-xs font-title font-medium text-zen-900 block group-hover:translate-x-0.5 transition-transform">Not a Hotel</span>
+                    <span class="text-[11px] text-zen-500 block mt-0.5 font-sans">Experimental Villa</span>
+                </button>
+                <button onclick="switchProject(2)" id="selector-2" class="project-selector text-left p-4 rounded-xl border border-zen-200 bg-transparent hover:bg-zen-100/40 transition-all duration-300 group">
+                    <span class="text-xs font-title font-medium text-zen-900 block group-hover:translate-x-0.5 transition-transform">Chummy Chair Collection</span>
+                    <span class="text-[11px] text-zen-500 block mt-0.5 font-sans">Furniture Design</span>
+                </button>
+            </div>
+        </section>
 
-                    <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed border-t border-zen-100 pt-6 font-body">
-                        Description content goes here.
+        <div class="max-w-7xl mx-auto px-6 lg:px-12"><hr class="border-zen-200"></div>
+
+        <!-- Studio Section -->
+        <section id="studio" class="py-24 sm:py-32 max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                <div class="lg:col-span-5">
+                    <span class="text-[10px] uppercase tracking-ultra text-zen-500 font-title font-semibold block mb-3">The Practice</span>
+                    <h2 class="text-3xl sm:text-4xl font-title font-normal text-zen-900 tracking-tight leading-snug">
+                        Materiality, light, and volumetric clarity.
+                    </h2>
+                </div>
+                <div class="lg:col-span-7 space-y-6 text-zen-600 text-sm sm:text-base font-sans leading-relaxed">
+                    <p>
+                        form + space is an architectural studio operating at the intersection of spatial volume, tactile craft, and atmospheric purity. We believe buildings and objects should converse quietly with their surrounding environment.
                     </p>
-
-                    <div class="border-t border-b border-zen-200/60 py-6 space-y-4">
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Location:</span>
-                            <span id="detail-spec-location" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Footprint Area:</span>
-                            <span id="detail-spec-area" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Primary Textures:</span>
-                            <span id="detail-spec-materials" class="text-zen-900 font-semibold uppercase tracking-wider font-body">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Completed Year:</span>
-                            <span id="detail-spec-year" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                    </div>
+                    <p>
+                        Led by Natasya Handajuwana and Ziwei Zhu, our methodology grounds conceptual rigor into built reality through precise digital fabrication and physical prototyping.
+                    </p>
                 </div>
+            </div>
 
+            <!-- Team / Partners -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-20 pt-16 border-t border-zen-200">
+                <div>
+                    <h3 class="font-title text-lg font-medium text-zen-900">Natasya Handajuwana</h3>
+                    <span class="text-xs uppercase tracking-wider text-zen-500 font-title block mt-1">Co-Founder & Principal Architect</span>
+                    <p class="text-sm text-zen-600 mt-4 leading-relaxed font-sans">
+                        Specializes in spatial narrative, conceptual programming, and volumetric layout orchestration across civic and residential commissions.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-title text-lg font-medium text-zen-900">Ziwei Zhu</h3>
+                    <span class="text-xs uppercase tracking-wider text-zen-500 font-title block mt-1">Co-Founder & Design Director</span>
+                    <p class="text-sm text-zen-600 mt-4 leading-relaxed font-sans">
+                        Focuses on material experimentation, detail articulation, and integrated digital-to-physical tectonic fabrication.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12"><hr class="border-zen-200"></div>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 sm:py-32 max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="max-w-2xl">
+                <span class="text-[10px] uppercase tracking-ultra text-zen-500 font-title font-semibold block mb-3">Inquiries</span>
+                <h2 class="text-3xl sm:text-4xl font-title font-normal text-zen-900 tracking-tight mb-8">
+                    Let’s discuss your upcoming spatial project.
+                </h2>
+                <a href="mailto:studio@formandspace.com" class="inline-flex items-center gap-3 text-base sm:text-lg font-title text-zen-900 hover:text-zen-600 transition-colors border-b border-zen-900 pb-1">
+                    <span>studio@formandspace.com</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zen-200 py-12 bg-zen-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-zen-500 font-title">
+            <span>&copy; <span id="current-year"></span> form + space studio. All rights reserved.</span>
+            <div class="flex items-center gap-6">
+                <a href="#" class="hover:text-zen-900 transition-colors">Instagram</a>
+                <a href="#" class="hover:text-zen-900 transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-zen-900 transition-colors">ArchDaily</a>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- Application Script -->
+    <!-- Three.js Application Logic -->
     <script>
-        // Database
-        const projectDatabase = {
-            1: {
-                title: "SBR Lobby",
-                desc: "An architectural exploration balancing primary structural forms with ambient light.",
-                location: "Tokyo, Japan",
-                area: "3,400 sqft",
-                materials: "Fair-faced Concrete, Timber, Glass",
-                year: "2025",
-                images: [
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1200"
-                ]
-            },
-            2: {
-                title: "Not a Hotel",
-                desc: "A public ritual retreat dedicated to local tea ceremonies. Designed entirely using clay plasters hand-applied by Kyoto artisans.",
-                location: "Kyoto, Japan",
-                area: "1,200 sqft",
-                materials: "Clay Plaster, Reclaimed Elm, Washi Paper",
-                year: "2023",
-                images: [
-                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200"
-                ]
-            },
-            3: {
-                title: "Chummy Chair Collection",
-                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes.",
-                location: "Tokyo, Japan",
-                area: "Furniture Scale",
-                materials: "Cast Plaster, Dark Cedar",
-                year: "2024",
-                images: [
-                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200"
-                ]
-            }
-        };
+        document.getElementById('current-year').innerText = new Date().getFullYear();
 
-        // WebGL & Three.js State
-        let scene, camera, renderer, interactionGroup;
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // 3D Scene Variables
+        let scene, camera, renderer;
         let maquetteObjects = [];
+        let currentProjectIndex = 0;
         let isDragging = false;
-        let dragDistance = 0;
         let previousMousePosition = { x: 0, y: 0 };
-        let targetRotationY = 0.5;
-        let targetRotationX = 0.4;
-        
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        
-        const hud = document.getElementById('hud-display');
-        const hudTitle = document.getElementById('hud-title');
-        const canvasContainer = document.getElementById('canvas-container');
+        let canvasContainer = document.getElementById('canvas-container');
+        let hud = document.getElementById('hud-display');
+        let hudTitle = document.getElementById('hud-title');
 
-        const studioPlasterMaterial = new THREE.MeshStandardMaterial({
-            color: 0x3a3835, 
-            roughness: 0.82,
-            metalness: 0.05,
-            side: THREE.DoubleSide,
-            flatShading: true
-        });
+        const projectsData = [
+            {
+                title: "SBR Lobby",
+                modelUrl: "Project 01_SBR.glb"
+            },
+            {
+                title: "Not a Hotel",
+                modelUrl: "Project 02_Not a Hotel.glb"
+            },
+            {
+                title: "Chummy Chair Collection",
+                modelUrl: "Project 03_Chummy Chair.glb"
+            }
+        ];
 
-        const timberMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1c1b1a, 
-            roughness: 0.7,
-            side: THREE.DoubleSide,
-            flatShading: true
-        });
+        function isWebGLSupported() {
+            try {
+                const canvas = document.createElement('canvas');
+                return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+            } catch (e) {
+                return false;
+            }
+        }
 
         function initThreeJS() {
+            if (!isWebGLSupported()) {
+                canvasContainer.innerHTML = '<div class="flex items-center justify-center h-full text-zen-500 text-xs uppercase tracking-wider">WebGL not supported in this browser.</div>';
+                return;
+            }
+
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
 
             scene = new THREE.Scene();
-            scene.background = new THREE.Color('#fbfbfa'); 
+            scene.background = new THREE.Color('#fbfbfa');
             scene.fog = new THREE.FogExp2('#fbfbfa', 0.04);
 
             camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
@@ -368,10 +287,6 @@
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             canvasContainer.appendChild(renderer.domElement);
 
-            interactionGroup = new THREE.Group();
-            scene.add(interactionGroup);
-
-            // Lighting
             const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
             scene.add(ambientLight);
 
@@ -380,16 +295,15 @@
             dirLight.castShadow = true;
             dirLight.shadow.mapSize.width = 2048;
             dirLight.shadow.mapSize.height = 2048;
+            dirLight.shadow.bias = -0.0005;
             scene.add(dirLight);
 
             const fillLight = new THREE.DirectionalLight('#e2e6ed', 0.5);
             fillLight.position.set(-12, 6, -10);
             scene.add(fillLight);
 
-            buildDefaultModels();
-            loadRepositoryModels();
+            createProjectsStage();
 
-            // Event Listeners
             window.addEventListener('resize', onWindowResize);
             canvasContainer.addEventListener('mousedown', onMouseDown);
             canvasContainer.addEventListener('mousemove', onMouseMove);
@@ -400,384 +314,190 @@
             canvasContainer.addEventListener('touchend', onTouchEnd);
 
             onWindowResize();
+            animate();
         }
 
-        function buildDefaultModels() {
-            const positions = [
-                { x: -3.6, z: 0.5, rot: 0.3 },   
-                { x: 0.0, z: -0.8, rot: -0.1 },   
-                { x: 3.6, z: 0.5, rot: -0.3 }      
-            ];
+        function createProjectsStage() {
+            maquetteObjects = [];
 
-            // Model 1 Placeholder (SBR)
-            const m1 = new THREE.Group();
-            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
-            seat.position.set(0, 0.5, 0);
-            m1.add(seat);
-            const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), studioPlasterMaterial);
-            back.position.set(0, 0.95, -0.56);
-            m1.add(back);
-            for(let x of [-0.5, 0.5]) {
-                for(let z of [-0.5, 0.5]) {
-                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 0.08), timberMaterial);
-                    leg.position.set(x, 0.25, z);
-                    m1.add(leg);
-                }
-            }
-            m1.position.set(positions[0].x, -0.2, positions[0].z);
-            m1.rotation.y = positions[0].rot;
-            m1.userData = { id: 1, baseHeight: -0.2 };
-            interactionGroup.add(m1);
-            maquetteObjects.push(m1);
+            projectsData.forEach((project, index) => {
+                const group = new THREE.Group();
+                group.visible = (index === 0);
+                scene.add(group);
+                maquetteObjects.push(group);
 
-            // Model 2 Placeholder (Tea Lounge)
-            const m2 = new THREE.Group();
-            const m2Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.1, 1.8), studioPlasterMaterial);
-            m2.add(m2Base);
-            const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
-            m2Cylinder.position.set(0, 0.6, 0);
-            m2.add(m2Cylinder);
-            m2.position.set(positions[1].x, -0.1, positions[1].z);
-            m2.rotation.y = positions[1].rot;
-            m2.userData = { id: 2, baseHeight: -0.1 };
-            interactionGroup.add(m2);
-            maquetteObjects.push(m2);
-
-            // Model 3 Placeholder (Chummy Chair)
-            const m3 = new THREE.Group();
-            const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 1.5), studioPlasterMaterial);
-            m3.add(m3Base);
-            for (let i = 0; i < 3; i++) {
-                const w = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.35 + i * 0.35, 1.1 - i * 0.2), studioPlasterMaterial);
-                w.position.set(-0.45 + i * 0.3, (0.35 + i * 0.35) / 2 + 0.04, 0);
-                m3.add(w);
-            }
-            m3.position.set(positions[2].x, -0.3, positions[2].z);
-            m3.rotation.y = positions[2].rot;
-            m3.userData = { id: 3, baseHeight: -0.3 };
-            interactionGroup.add(m3);
-            maquetteObjects.push(m3);
-
-            // Enable Shadows
-            maquetteObjects.forEach(group => {
-                group.traverse(child => {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                    }
-                });
+                // Load external GLB file if hosted, otherwise use procedural fallback
+                loadRepositoryModel(project.modelUrl, group, index);
             });
+
+            updateHUD(0);
         }
 
-        function loadRepositoryModels() {
-            if (typeof THREE.GLTFLoader === 'undefined') return;
+        function loadRepositoryModel(url, targetGroup, index) {
+            // Guard for blob previews where relative fetch fails
+            if (window.location.protocol === 'blob:') {
+                createProceduralFallback(targetGroup, index);
+                return;
+            }
 
-            // Safely skip relative GLTF fetching in blob/iframe preview environments to prevent XMLHttpRequest errors
-            if (window.location.protocol === 'blob:' || window.location.href.startsWith('blob:') || !window.location.protocol.startsWith('http')) {
-                console.log("Running in preview environment; procedural fallback models active.");
+            if (typeof THREE.GLTFLoader === 'undefined') {
+                createProceduralFallback(targetGroup, index);
                 return;
             }
 
             const loader = new THREE.GLTFLoader();
+            loader.load(url, (gltf) => {
+                const model = gltf.scene;
 
-            // Mapping your exact GitHub files to their corresponding slots
-            const repoModels = [
-                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby' },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection' }
-            ];
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
 
-            repoModels.forEach(item => {
-                const targetGroup = maquetteObjects[item.slot];
-                if (!targetGroup) return;
+                model.position.set(-center.x, -center.y, -center.z);
 
-                try {
-                    loader.load(
-                        encodeURI(item.path),
-                        (gltf) => {
-                            const model = gltf.scene;
-
-                            // Center & Scale GLTF Model
-                            const box = new THREE.Box3().setFromObject(model);
-                            const center = box.getCenter(new THREE.Vector3());
-                            const size = box.getSize(new THREE.Vector3());
-
-                            model.position.set(-center.x, -center.y, -center.z);
-
-                            // Clear procedural placeholder
-                            while (targetGroup.children.length > 0) {
-                                targetGroup.remove(targetGroup.children[0]);
-                            }
-
-                            targetGroup.add(model);
-
-                            const maxDim = Math.max(size.x, size.y, size.z);
-                            if (maxDim > 0) {
-                                const scale = 2.2 / maxDim;
-                                model.scale.set(scale, scale, scale);
-                            }
-
-                            model.traverse((node) => {
-                                if (node.isMesh) {
-                                    node.castShadow = true;
-                                    node.receiveShadow = true;
-                                    if (node.material) {
-                                        if (Array.isArray(node.material)) {
-                                            node.material.forEach(m => m.side = THREE.DoubleSide);
-                                        } else {
-                                            node.material.side = THREE.DoubleSide;
-                                        }
-                                    }
-                                }
-                            });
-
-                            if (projectDatabase[item.slot + 1]) {
-                                projectDatabase[item.slot + 1].title = item.title;
-                            }
-                        },
-                        undefined,
-                        (error) => {
-                            console.log(`GLB file "${item.path}" not found locally/in preview; procedural fallback is active.`);
-                        }
-                    );
-                } catch (e) {
-                    console.log(`Could not attempt loading "${item.path}":`, e);
+                const maxDim = Math.max(size.x, size.y, size.z);
+                if (maxDim > 0) {
+                    const scale = 2.2 / maxDim;
+                    model.scale.set(scale, scale, scale);
                 }
+
+                model.traverse((node) => {
+                    if (node.isMesh) {
+                        node.castShadow = true;
+                        node.receiveShadow = true;
+                        if (node.material) {
+                            node.material.side = THREE.DoubleSide;
+                        }
+                    }
+                });
+
+                targetGroup.add(model);
+            }, undefined, (error) => {
+                console.warn(`Could not load ${url}. Using procedural fallback maquette.`, error);
+                createProceduralFallback(targetGroup, index);
             });
         }
 
+        function createProceduralFallback(group, index) {
+            const material = new THREE.MeshStandardMaterial({
+                color: index === 0 ? 0x3a3835 : (index === 1 ? 0x717169 : 0x52524b),
+                roughness: 0.82,
+                metalness: 0.05,
+                side: THREE.DoubleSide,
+                flatShading: true
+            });
+
+            const coreGeometry = index === 0 ? new THREE.BoxGeometry(1.8, 1.8, 1.8) :
+                                 index === 1 ? new THREE.CylinderGeometry(1.1, 1.3, 1.6, 6) :
+                                 new THREE.ConeGeometry(1.2, 2.2, 5);
+
+            const coreMesh = new THREE.Mesh(coreGeometry, material);
+            coreMesh.castShadow = true;
+            coreMesh.receiveShadow = true;
+            coreMesh.position.y = 0.9;
+            group.add(coreMesh);
+        }
+
+        function switchProject(index) {
+            currentProjectIndex = index;
+            
+            maquetteObjects.forEach((obj, idx) => {
+                obj.visible = (idx === index);
+            });
+
+            document.querySelectorAll('.project-selector').forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.classList.add('bg-zen-100/60', 'border-zen-300');
+                    btn.classList.remove('bg-transparent', 'border-zen-200');
+                } else {
+                    btn.classList.remove('bg-zen-100/60', 'border-zen-300');
+                    btn.classList.add('bg-transparent', 'border-zen-200');
+                }
+            });
+
+            updateHUD(index);
+        }
+
+        function updateHUD(index) {
+            const project = projectsData[index];
+            hudTitle.innerText = project.title;
+
+            hud.classList.remove('opacity-0', 'translate-y-2');
+            hud.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                hud.classList.remove('opacity-100', 'translate-y-0');
+                hud.classList.add('opacity-0', 'translate-y-2');
+            }, 3000);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            if (maquetteObjects[currentProjectIndex]) {
+                maquetteObjects[currentProjectIndex].rotation.y += 0.003;
+            }
+
+            renderer.render(scene, camera);
+        }
+
         function onWindowResize() {
-            if (!renderer) return;
+            if (!canvasContainer) return;
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
-
-            let scaleFactor = width < 640 ? 0.55 : width < 1024 ? 0.8 : width < 1440 ? 1.15 : 1.45;
-            interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 
         function onMouseDown(e) {
             isDragging = true;
-            dragDistance = 0;
             previousMousePosition = { x: e.clientX, y: e.clientY };
         }
 
         function onMouseMove(e) {
-            const rect = renderer.domElement.getBoundingClientRect();
-            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+            if (!isDragging || !maquetteObjects[currentProjectIndex]) return;
 
-            if (isDragging) {
-                const deltaX = e.clientX - previousMousePosition.x;
-                const deltaY = e.clientY - previousMousePosition.y;
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
 
-                dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
+            maquetteObjects[currentProjectIndex].rotation.y += deltaX * 0.008;
+            maquetteObjects[currentProjectIndex].rotation.x += deltaY * 0.008;
 
-                targetRotationY += deltaX * 0.01;
-                targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.01));
+            // Clamp vertical rotation
+            maquetteObjects[currentProjectIndex].rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, maquetteObjects[currentProjectIndex].rotation.x));
 
-                previousMousePosition = { x: e.clientX, y: e.clientY };
-            }
+            previousMousePosition = { x: e.clientX, y: e.clientY };
         }
 
         function onMouseUp() {
-            if (isDragging) {
-                isDragging = false;
-                if (dragDistance < 6) performRaycast();
-            }
+            isDragging = false;
         }
 
         function onTouchStart(e) {
             if (e.touches.length === 1) {
                 isDragging = true;
-                dragDistance = 0;
                 previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             }
         }
 
         function onTouchMove(e) {
-            if (!isDragging || e.touches.length !== 1) return;
+            if (!isDragging || !maquetteObjects[currentProjectIndex] || e.touches.length !== 1) return;
+
             const deltaX = e.touches[0].clientX - previousMousePosition.x;
             const deltaY = e.touches[0].clientY - previousMousePosition.y;
 
-            dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
-            targetRotationY += deltaX * 0.012;
-            targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.012));
+            maquetteObjects[currentProjectIndex].rotation.y += deltaX * 0.008;
+            maquetteObjects[currentProjectIndex].rotation.x += deltaY * 0.008;
 
             previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         }
 
         function onTouchEnd() {
-            if (isDragging) {
-                isDragging = false;
-                if (dragDistance < 10) performRaycast();
-            }
+            isDragging = false;
         }
 
-        function performRaycast() {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(maquetteObjects, true);
-
-            if (intersects.length > 0) {
-                let obj = intersects[0].object;
-                while (obj && obj.parent && !obj.userData.id) obj = obj.parent;
-                if (obj && obj.userData.id) window.location.hash = `project-${obj.userData.id}`;
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            if (!renderer) return;
-
-            if (!isDragging) targetRotationY += 0.0015;
-
-            interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
-            
-            const targetCamY = 3 + (targetRotationX * 8);
-            camera.position.y += (targetCamY - camera.position.y) * 0.1;
-            camera.lookAt(0, 0, 0);
-
-            const time = performance.now() * 0.0015;
-            maquetteObjects.forEach((model, idx) => {
-                model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.12;
-            });
-
-            checkHover();
-            renderer.render(scene, camera);
-        }
-
-        let lastHoveredId = null;
-        function checkHover() {
-            if (isDragging || !renderer) return;
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(maquetteObjects, true);
-
-            if (intersects.length > 0) {
-                let obj = intersects[0].object;
-                while (obj && obj.parent && !obj.userData.id) obj = obj.parent;
-
-                if (obj && obj.userData.id && obj.userData.id !== lastHoveredId) {
-                    lastHoveredId = obj.userData.id;
-                    const dbEntry = projectDatabase[lastHoveredId];
-                    if (dbEntry) {
-                        hudTitle.innerText = dbEntry.title;
-                        hud.classList.remove('opacity-0', 'translate-y-2');
-                        hud.classList.add('opacity-100', 'translate-y-0');
-                        canvasContainer.style.cursor = 'pointer';
-                    }
-                }
-            } else if (lastHoveredId !== null) {
-                lastHoveredId = null;
-                hud.classList.add('opacity-0', 'translate-y-2');
-                hud.classList.remove('opacity-100', 'translate-y-0');
-                canvasContainer.style.cursor = 'grab';
-            }
-        }
-
-        function handleHashChange() {
-            const hash = window.location.hash;
-            const homeView = document.getElementById('home-view');
-            const projectView = document.getElementById('project-view');
-
-            if (hash.startsWith('#project-')) {
-                const pId = parseInt(hash.split('-')[1]);
-                const projectData = projectDatabase[pId];
-
-                if (projectData) {
-                    document.getElementById('detail-title').innerText = projectData.title;
-                    document.getElementById('detail-desc').innerText = projectData.desc;
-                    document.getElementById('detail-spec-location').innerText = projectData.location;
-                    document.getElementById('detail-spec-area').innerText = projectData.area;
-                    document.getElementById('detail-spec-materials').innerText = projectData.materials;
-                    document.getElementById('detail-spec-year').innerText = projectData.year;
-
-                    const mainImg = document.getElementById('detail-main-img');
-                    mainImg.src = projectData.images[0];
-
-                    const strip = document.getElementById('detail-carousel-strip');
-                    strip.innerHTML = '';
-                    projectData.images.forEach((imgUrl, idx) => {
-                        const thumb = document.createElement('div');
-                        thumb.className = `aspect-square bg-zen-100 overflow-hidden cursor-pointer border ${idx === 0 ? 'border-zen-900' : 'border-zen-200/50'} hover:border-zen-400 transition-colors duration-300`;
-                        thumb.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover transition duration-300 hover:scale-105" alt="Thumbnail">`;
-                        
-                        thumb.addEventListener('click', () => {
-                            Array.from(strip.children).forEach(child => child.classList.replace('border-zen-900', 'border-zen-200/50'));
-                            thumb.classList.replace('border-zen-200/50', 'border-zen-900');
-                            
-                            mainImg.style.opacity = '0.3';
-                            setTimeout(() => {
-                                mainImg.src = imgUrl;
-                                mainImg.style.opacity = '1';
-                            }, 150);
-                        });
-                        strip.appendChild(thumb);
-                    });
-
-                    homeView.style.opacity = '0';
-                    setTimeout(() => {
-                        homeView.classList.add('hidden');
-                        projectView.classList.remove('hidden');
-                        projectView.style.opacity = '1';
-                        window.scrollTo(0, 0);
-                    }, 250);
-                }
-            } else {
-                projectView.style.opacity = '0';
-                setTimeout(() => {
-                    projectView.classList.add('hidden');
-                    homeView.classList.remove('hidden');
-                    homeView.style.opacity = '1';
-                    onWindowResize();
-                }, 250);
-            }
-        }
-
-        function navigateToHome() {
-            window.location.hash = 'home';
-        }
-
-        let activeSection = 0;
-        let isTransitioning = false;
-
-        function glideToSection(index) {
-            if (index < 0 || index >= 2 || isTransitioning) return;
-            activeSection = index;
-            isTransitioning = true;
-            document.getElementById('slide-wrapper').style.transform = `translateY(-${index * 100}vh)`;
-            setTimeout(() => { isTransitioning = false; }, 1400);
-        }
-
-        function initAutoScrollGlide() {
-            window.addEventListener('wheel', (e) => {
-                const homeView = document.getElementById('home-view');
-                if (homeView.classList.contains('hidden') || isTransitioning) return;
-
-                if (Math.abs(e.deltaY) > 25) {
-                    if (e.deltaY > 0 && activeSection < 1) glideToSection(1);
-                    else if (e.deltaY < 0 && activeSection > 0) glideToSection(0);
-                }
-            }, { passive: true });
-
-            window.addEventListener('keydown', (e) => {
-                const homeView = document.getElementById('home-view');
-                if (homeView.classList.contains('hidden') || isTransitioning) return;
-
-                if (e.key === 'ArrowDown' && activeSection < 1) glideToSection(1);
-                else if (e.key === 'ArrowUp' && activeSection > 0) glideToSection(0);
-            });
-        }
-
-        window.addEventListener('hashchange', handleHashChange);
-
-        window.onload = function() {
-            initThreeJS();
-            animate();
-            initAutoScrollGlide();
-            if (window.location.hash !== '') handleHashChange();
-        };
+        window.addEventListener('load', initThreeJS);
     </script>
 </body>
 </html>

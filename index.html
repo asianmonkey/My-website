@@ -100,7 +100,6 @@
             </div>
         </div>
 
-        <!-- Slide Deck Wrapper -->
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
             <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 py-12">
@@ -366,7 +365,7 @@
             interactionGroup = new THREE.Group();
             scene.add(interactionGroup);
 
-            // Lighting
+            // Lighting setup
             const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
             scene.add(ambientLight);
 
@@ -404,6 +403,8 @@
                 { x: 3.6, z: 0.5, rot: -0.3 }      
             ];
 
+            const commonBaseHeight = -0.4;
+
             // Model 1 Placeholder (SBR Lobby)
             const m1 = new THREE.Group();
             const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
@@ -419,9 +420,9 @@
                     m1.add(leg);
                 }
             }
-            m1.position.set(positions[0].x, -0.2, positions[0].z);
+            m1.position.set(positions[0].x, commonBaseHeight, positions[0].z);
             m1.rotation.y = positions[0].rot;
-            m1.userData = { id: 1, baseHeight: -0.2 };
+            m1.userData = { id: 1, baseHeight: commonBaseHeight };
             interactionGroup.add(m1);
             maquetteObjects.push(m1);
 
@@ -432,9 +433,9 @@
             const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
             m2Cylinder.position.set(0, 0.6, 0);
             m2.add(m2Cylinder);
-            m2.position.set(positions[1].x, -0.1, positions[1].z);
+            m2.position.set(positions[1].x, commonBaseHeight, positions[1].z);
             m2.rotation.y = positions[1].rot;
-            m2.userData = { id: 2, baseHeight: -0.1 };
+            m2.userData = { id: 2, baseHeight: commonBaseHeight };
             interactionGroup.add(m2);
             maquetteObjects.push(m2);
 
@@ -447,9 +448,9 @@
                 w.position.set(-0.45 + i * 0.3, (0.35 + i * 0.35) / 2 + 0.04, 0);
                 m3.add(w);
             }
-            m3.position.set(positions[2].x, -0.3, positions[2].z);
+            m3.position.set(positions[2].x, commonBaseHeight, positions[2].z);
             m3.rotation.y = positions[2].rot;
-            m3.userData = { id: 3, baseHeight: -0.3 };
+            m3.userData = { id: 3, baseHeight: commonBaseHeight };
             interactionGroup.add(m3);
             maquetteObjects.push(m3);
 
@@ -467,7 +468,7 @@
         function loadRepositoryModels() {
             if (typeof THREE.GLTFLoader === 'undefined') return;
 
-            // Safely skip relative GLTF fetching in blob/iframe preview environments to prevent XMLHttpRequest errors
+            // Safely skip relative GLTF fetching in blob/iframe preview environments
             if (window.location.protocol === 'blob:' || window.location.href.startsWith('blob:') || !window.location.protocol.startsWith('http')) {
                 console.log("Running in preview environment; procedural fallback models active.");
                 return;
@@ -491,13 +492,6 @@
                         (gltf) => {
                             const model = gltf.scene;
 
-                            // Center & Scale GLTF Model
-                            const box = new THREE.Box3().setFromObject(model);
-                            const center = box.getCenter(new THREE.Vector3());
-                            const size = box.getSize(new THREE.Vector3());
-
-                            model.position.set(-center.x, -center.y, -center.z);
-
                             // Clear procedural placeholder
                             while (targetGroup.children.length > 0) {
                                 targetGroup.remove(targetGroup.children[0]);
@@ -505,11 +499,22 @@
 
                             targetGroup.add(model);
 
-                            const maxDim = Math.max(size.x, size.y, size.z);
+                            // Calculate unscaled bounding box max dimension
+                            const rawBox = new THREE.Box3().setFromObject(model);
+                            const rawSize = rawBox.getSize(new THREE.Vector3());
+                            const maxDim = Math.max(rawSize.x, rawSize.y, rawSize.z);
+
                             if (maxDim > 0) {
-                                const scale = 2.2 / maxDim;
+                                const scale = 2.4 / maxDim;
                                 model.scale.set(scale, scale, scale);
                             }
+
+                            // Calculate scaled bounding box AFTER scaling to accurately compute min Y ground plane
+                            const scaledBox = new THREE.Box3().setFromObject(model);
+                            const center = scaledBox.getCenter(new THREE.Vector3());
+
+                            // Center X and Z, and place bottom (min Y) at exact Y = 0 baseline
+                            model.position.set(-center.x, -scaledBox.min.y, -center.z);
 
                             model.traverse((node) => {
                                 if (node.isMesh) {

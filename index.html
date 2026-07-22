@@ -770,4 +770,776 @@
         };
     </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Handajuwana Zhu | Architecture & Interior Practice</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Vector Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js & GLTF Loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zen: {
+                            50: '#fbfbfa',
+                            100: '#f5f4ef',
+                            200: '#e9e7df',
+                            300: '#d5d2c4',
+                            400: '#a39f90',
+                            800: '#2d2b28',
+                            900: '#1c1b1a',
+                        }
+                    },
+                    letterSpacing: {
+                        ultra: '0.25em',
+                        mega: '0.35em',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .font-title {
+            font-family: "Plus Jakarta Sans", "Yu Gothic", sans-serif;
+            font-weight: 300;
+        }
+        .font-body {
+            font-family: "Shippori Mincho", "Plus Jakarta Sans", serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbfbfa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e9e7df;
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a39f90;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #canvas-container {
+            cursor: grab;
+        }
+        #canvas-container:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="bg-zen-50 text-zen-900 font-body antialiased overflow-hidden">
+
+    <div id="home-view" class="h-screen w-screen overflow-hidden relative transition-opacity duration-500 ease-in-out">
+        
+        <!-- Stationary Footer Overlay -->
+        <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-8 px-6 sm:px-12">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+                <div class="pointer-events-auto">
+                    <a href="mailto:info@handajuwanazhu.com" class="text-xs font-title tracking-wider hover:text-zen-400 transition">info@handajuwanazhu.com</a>
+                </div>
+                <div class="pointer-events-auto text-[9px] font-title font-light uppercase tracking-wider text-zen-400">
+                    <span>&copy; 2026 Studio Handajuwana Zhu</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
+            
+            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 py-12">
+                <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative w-full">
+                    
+                    <!-- Branding Header -->
+                    <div class="text-center mb-8 select-none flex flex-col items-center justify-center">
+                        <h1 class="text-2xl sm:text-4xl font-title tracking-[0.15em] uppercase text-zen-900 leading-none">
+                            STUDIO HANDAJUWANA ZHU
+                        </h1>
+                        <span class="font-body text-base sm:text-xl font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1.5 block">
+                            form + space
+                        </span>
+                    </div>
+
+                    <!-- 3D Canvas Stage -->
+                    <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center">
+                        
+                        <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
+
+                        <!-- Hover Info Display -->
+                        <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
+                            <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 block">Project Title</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 py-16 px-6">
+                
+                <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
+                    <div class="space-y-12">
+                        
+                        <!-- Studio Partners Portrait -->
+                        <div class="max-w-md mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000" 
+                                 alt="Studio Partners" 
+                                 class="w-full h-full object-cover filter grayscale contrast-115 hover:scale-[1.03] transition-transform duration-700 ease-out"
+                                 onerror="this.src='https://placehold.co/600x400/f5f4ef/1c1b1a?text=Studio+Partners'">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
+                            
+                            <!-- Profile 1: Natasya Handajuwana -->
+                            <div class="space-y-6">
+                                <div class="text-center">
+                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
+                                </div>
+                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
+                                    <p>I am an interior designer at heart, but my work focuses on the dialogue where interiors and architecture meet. Having developed my practice from Milan to Tokyo—most recently serving as a senior designer at Sou Fujimoto Architects—I specialty in bridging detailed interior spaces with large-scale architectural design. My approach balances global concepts with deeply local traditions, focusing on how spaces come to life through human interaction. I thrive on collaborating across different cultures and minds to create meaningful, human-centric environments for our clients.</p>
+                                </div>
+                                
+                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2011 - 2015</span>
+                                        <span>Bachelor of Interior Architecture at Universitas Pelita Harapan, Indonesia</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2016 - 2016</span>
+                                        <span>Master of Interior Design at Istituto Europeo di Design, Italy</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2026</span>
+                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2019</span>
+                                        <span>Notable project: Renovation of Shiroiya Hotel in Gunma, Japan</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Profile 2: Ziwei Zhu -->
+                            <div class="space-y-6">
+                                <div class="text-center">
+                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
+                                </div>
+                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
+                                    <p>With my passion for architecture, nature and humans I explore the spatial experiences which allows one to become their true selves. Having a multicultural background allows me to transition easily between global modern architecture and true local design practices.</p>
+                                    <p>My personal hobbies are walking through nature and some natural photography which captures memories and moments which are more intimate.</p>
+                                </div>
+
+                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2010 - 2017</span>
+                                        <span>Bachelors and Masters of Architecture at University of Technology at Delft</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2018</span>
+                                        <span>Junior Architect at KAAN architects in Rotterdam, the Netherlands</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2018 - 2026</span>
+                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2023</span>
+                                        <span>Winner of the Starchitects Chair design competition</span>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <span class="w-24 shrink-0 text-zen-500">2025</span>
+                                        <span>Golden Mention finalist for Living Ruins II design competition</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pt-28 pb-20 px-6 transition-opacity duration-500 ease-in-out">
+        <div class="max-w-6xl mx-auto">
+            
+            <button onclick="navigateToHome()" class="group mb-12 flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
+                <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
+                <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
+            </button>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+                
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-zen-100 overflow-hidden">
+                        <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-full object-cover transition-opacity duration-500">
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4" id="detail-carousel-strip"></div>
+                </div>
+
+                <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
+                    <div>
+                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 leading-tight">Project Title</h1>
+                    </div>
+
+                    <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed border-t border-zen-100 pt-6 font-body">
+                        Description content goes here.
+                    </p>
+
+                    <div class="border-t border-b border-zen-200/60 py-6 space-y-4">
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-zen-400 font-medium font-title">Location:</span>
+                            <span id="detail-spec-location" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-zen-400 font-medium font-title">Footprint Area:</span>
+                            <span id="detail-spec-area" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-zen-400 font-medium font-title">Primary Textures:</span>
+                            <span id="detail-spec-materials" class="text-zen-900 font-semibold uppercase tracking-wider font-body">-</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-zen-400 font-medium font-title">Completed Year:</span>
+                            <span id="detail-spec-year" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectDatabase = {
+            1: {
+                title: "SBR Lobby",
+                modelUrl: "Project 01_SBR.glb",
+                targetSize: 2.2, // Visual scale target
+                yOffset: 0.0,     // Vertical fine tuning
+                desc: "An architectural exploration balancing primary structural forms with ambient light.",
+                location: "Tokyo, Japan",
+                area: "3,400 sqft",
+                materials: "Fair-faced Concrete, Timber, Glass",
+                year: "2025",
+                images: [
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1200"
+                ]
+            },
+            2: {
+                title: "Not a Hotel",
+                modelUrl: "Project 02_Not a Hotel.glb",
+                targetSize: 3.6, // Larger scale target for wide landscape site
+                yOffset: 0.25,   // Elevated slightly so terrain matches ground line
+                desc: "A public ritual retreat dedicated to local tea ceremonies. Designed entirely using clay plasters hand-applied by Kyoto artisans.",
+                location: "Kyoto, Japan",
+                area: "1,200 sqft",
+                materials: "Clay Plaster, Reclaimed Elm, Washi Paper",
+                year: "2023",
+                images: [
+                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200"
+                ]
+            },
+            3: {
+                title: "Chummy Chair Collection",
+                modelUrl: "Project 03_Chummy Chair.glb",
+                targetSize: 2.2, // Standard scale
+                yOffset: 0.0,
+                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes.",
+                location: "Tokyo, Japan",
+                area: "Furniture Scale",
+                materials: "Cast Plaster, Dark Cedar",
+                year: "2024",
+                images: [
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200",
+                    "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200"
+                ]
+            }
+        };
+
+        let scene, camera, renderer, interactionGroup;
+        let maquetteObjects = [];
+        let isDragging = false;
+        let dragDistance = 0;
+        let previousMousePosition = { x: 0, y: 0 };
+        let targetRotationY = 0.5;
+        let targetRotationX = 0.4;
+        
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        
+        const hud = document.getElementById('hud-display');
+        const hudTitle = document.getElementById('hud-title');
+        const canvasContainer = document.getElementById('canvas-container');
+
+        const studioPlasterMaterial = new THREE.MeshStandardMaterial({
+            color: 0x3a3835, 
+            roughness: 0.82,
+            metalness: 0.05,
+            side: THREE.DoubleSide,
+            flatShading: true
+        });
+
+        const timberMaterial = new THREE.MeshStandardMaterial({
+            color: 0x1c1b1a, 
+            roughness: 0.7,
+            side: THREE.DoubleSide,
+            flatShading: true
+        });
+
+        function initThreeJS() {
+            const width = canvasContainer.clientWidth;
+            const height = canvasContainer.clientHeight;
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color('#fbfbfa'); 
+            scene.fog = new THREE.FogExp2('#fbfbfa', 0.04);
+
+            camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+            camera.position.set(0, 9, 16);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            canvasContainer.appendChild(renderer.domElement);
+
+            interactionGroup = new THREE.Group();
+            scene.add(interactionGroup);
+
+            // Lighting setup
+            const ambientLight = new THREE.AmbientLight('#ffffff', 0.75);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight('#ffffff', 1.0);
+            dirLight.position.set(12, 18, 10);
+            dirLight.castShadow = true;
+            dirLight.shadow.mapSize.width = 2048;
+            dirLight.shadow.mapSize.height = 2048;
+            scene.add(dirLight);
+
+            const fillLight = new THREE.DirectionalLight('#e2e6ed', 0.5);
+            fillLight.position.set(-12, 6, -10);
+            scene.add(fillLight);
+
+            buildDefaultModels();
+            loadRepositoryModels();
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            canvasContainer.addEventListener('mousedown', onMouseDown);
+            canvasContainer.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('mouseup', onMouseUp);
+
+            canvasContainer.addEventListener('touchstart', onTouchStart, { passive: true });
+            canvasContainer.addEventListener('touchmove', onTouchMove, { passive: true });
+            canvasContainer.addEventListener('touchend', onTouchEnd);
+
+            onWindowResize();
+        }
+
+        function buildDefaultModels() {
+            const positions = [
+                { x: -5.0, z: 0.6, rot: 0.35 },   // Model 1 (SBR Lobby)
+                { x: 0.0, z: -0.4, rot: -0.1 },   // Model 2 (Not a Hotel)
+                { x: 5.0, z: 0.6, rot: -0.35 }    // Model 3 (Chummy Chair Collection)
+            ];
+
+            const commonBaseHeight = -0.4;
+
+            // Model 1 Placeholder
+            const m1 = new THREE.Group();
+            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
+            seat.position.set(0, 0.5, 0);
+            m1.add(seat);
+            m1.position.set(positions[0].x, commonBaseHeight, positions[0].z);
+            m1.rotation.y = positions[0].rot;
+            m1.userData = { id: 1, baseHeight: commonBaseHeight };
+            interactionGroup.add(m1);
+            maquetteObjects.push(m1);
+
+            // Model 2 Placeholder
+            const m2 = new THREE.Group();
+            const m2Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.1, 1.8), studioPlasterMaterial);
+            m2.add(m2Base);
+            m2.position.set(positions[1].x, commonBaseHeight, positions[1].z);
+            m2.rotation.y = positions[1].rot;
+            m2.userData = { id: 2, baseHeight: commonBaseHeight };
+            interactionGroup.add(m2);
+            maquetteObjects.push(m2);
+
+            // Model 3 Placeholder
+            const m3 = new THREE.Group();
+            const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 1.5), studioPlasterMaterial);
+            m3.add(m3Base);
+            m3.position.set(positions[2].x, commonBaseHeight, positions[2].z);
+            m3.rotation.y = positions[2].rot;
+            m3.userData = { id: 3, baseHeight: commonBaseHeight };
+            interactionGroup.add(m3);
+            maquetteObjects.push(m3);
+        }
+
+        function loadRepositoryModels() {
+            if (typeof THREE.GLTFLoader === 'undefined') return;
+
+            if (window.location.protocol === 'blob:' || window.location.href.startsWith('blob:')) {
+                console.log("Running in preview environment; procedural fallback models active.");
+                return;
+            }
+
+            const loader = new THREE.GLTFLoader();
+
+            const repoModels = [
+                { slot: 0, id: 1, path: 'Project 01_SBR.glb', title: 'SBR Lobby' },
+                { slot: 1, id: 2, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel' },
+                { slot: 2, id: 3, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection' }
+            ];
+
+            repoModels.forEach(item => {
+                const targetGroup = maquetteObjects[item.slot];
+                const dbConfig = projectDatabase[item.id] || { targetSize: 2.2, yOffset: 0.0 };
+
+                if (!targetGroup) return;
+
+                try {
+                    loader.load(
+                        encodeURI(item.path),
+                        (gltf) => {
+                            const model = gltf.scene;
+
+                            // Clear placeholder group
+                            while (targetGroup.children.length > 0) {
+                                targetGroup.remove(targetGroup.children[0]);
+                            }
+
+                            targetGroup.add(model);
+
+                            // Calculate Mesh-Only bounding box (ignores camera/light nodes)
+                            const box = new THREE.Box3();
+                            model.traverse((node) => {
+                                if (node.isMesh && node.geometry) {
+                                    node.geometry.computeBoundingBox();
+                                    const meshBox = node.geometry.boundingBox.clone();
+                                    meshBox.applyMatrix4(node.matrixWorld);
+                                    box.union(meshBox);
+                                }
+                            });
+
+                            if (box.isEmpty()) {
+                                box.setFromObject(model);
+                            }
+
+                            const size = box.getSize(new THREE.Vector3());
+                            const center = box.getCenter(new THREE.Vector3());
+                            const maxDim = Math.max(size.x, size.y, size.z);
+
+                            // Apply custom target scale factor per project
+                            if (maxDim > 0) {
+                                const scale = dbConfig.targetSize / maxDim;
+                                model.scale.set(scale, scale, scale);
+                            }
+
+                            // Compute scaled bounding box to accurately compute base plane Y
+                            const scaledBox = new THREE.Box3().setFromObject(model);
+                            const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
+
+                            // Align center X/Z and set bottom edge to ground baseline + custom offset
+                            model.position.set(-scaledCenter.x, -scaledBox.min.y + dbConfig.yOffset, -scaledCenter.z);
+
+                            model.traverse((node) => {
+                                if (node.isMesh) {
+                                    node.castShadow = true;
+                                    node.receiveShadow = true;
+                                    if (node.material) {
+                                        if (Array.isArray(node.material)) {
+                                            node.material.forEach(m => m.side = THREE.DoubleSide);
+                                        } else {
+                                            node.material.side = THREE.DoubleSide;
+                                        }
+                                    }
+                                }
+                            });
+                        },
+                        undefined,
+                        (error) => {
+                            console.log(`GLB file "${item.path}" not found locally; fallback active.`);
+                        }
+                    );
+                } catch (e) {
+                    console.log(`Could not attempt loading "${item.path}":`, e);
+                }
+            });
+        }
+
+        function onWindowResize() {
+            if (!renderer) return;
+            const width = canvasContainer.clientWidth;
+            const height = canvasContainer.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+
+            let scaleFactor = width < 640 ? 0.55 : width < 1024 ? 0.8 : width < 1440 ? 1.15 : 1.45;
+            interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
+        }
+
+        function onMouseDown(e) {
+            isDragging = true;
+            dragDistance = 0;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        }
+
+        function onMouseMove(e) {
+            const rect = renderer.domElement.getBoundingClientRect();
+            mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+            if (isDragging) {
+                const deltaX = e.clientX - previousMousePosition.x;
+                const deltaY = e.clientY - previousMousePosition.y;
+
+                dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
+
+                targetRotationY += deltaX * 0.01;
+                targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.01));
+
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            }
+        }
+
+        function onMouseUp() {
+            if (isDragging) {
+                isDragging = false;
+                if (dragDistance < 6) performRaycast();
+            }
+        }
+
+        function onTouchStart(e) {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                dragDistance = 0;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+        }
+
+        function onTouchMove(e) {
+            if (!isDragging || e.touches.length !== 1) return;
+            const deltaX = e.touches[0].clientX - previousMousePosition.x;
+            const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+            dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
+            targetRotationY += deltaX * 0.012;
+            targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.012));
+
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+
+        function onTouchEnd() {
+            if (isDragging) {
+                isDragging = false;
+                if (dragDistance < 10) performRaycast();
+            }
+        }
+
+        function performRaycast() {
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(maquetteObjects, true);
+
+            if (intersects.length > 0) {
+                let obj = intersects[0].object;
+                while (obj && obj.parent && !obj.userData.id) obj = obj.parent;
+                if (obj && obj.userData.id) window.location.hash = `project-${obj.userData.id}`;
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!renderer) return;
+
+            if (!isDragging) targetRotationY += 0.0015;
+
+            interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
+            
+            const targetCamY = 3 + (targetRotationX * 8);
+            camera.position.y += (targetCamY - camera.position.y) * 0.1;
+            camera.lookAt(0, 0, 0);
+
+            const time = performance.now() * 0.0015;
+            maquetteObjects.forEach((model, idx) => {
+                model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.12;
+            });
+
+            checkHover();
+            renderer.render(scene, camera);
+        }
+
+        let lastHoveredId = null;
+        function checkHover() {
+            if (isDragging || !renderer) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(maquetteObjects, true);
+
+            if (intersects.length > 0) {
+                let obj = intersects[0].object;
+                while (obj && obj.parent && !obj.userData.id) obj = obj.parent;
+
+                if (obj && obj.userData.id && obj.userData.id !== lastHoveredId) {
+                    lastHoveredId = obj.userData.id;
+                    const dbEntry = projectDatabase[lastHoveredId];
+                    if (dbEntry) {
+                        hudTitle.innerText = dbEntry.title;
+                        hud.classList.remove('opacity-0', 'translate-y-2');
+                        hud.classList.add('opacity-100', 'translate-y-0');
+                        canvasContainer.style.cursor = 'pointer';
+                    }
+                }
+            } else if (lastHoveredId !== null) {
+                lastHoveredId = null;
+                hud.classList.add('opacity-0', 'translate-y-2');
+                hud.classList.remove('opacity-100', 'translate-y-0');
+                canvasContainer.style.cursor = 'grab';
+            }
+        }
+
+        function handleHashChange() {
+            const hash = window.location.hash;
+            const homeView = document.getElementById('home-view');
+            const projectView = document.getElementById('project-view');
+
+            if (hash.startsWith('#project-')) {
+                const pId = parseInt(hash.split('-')[1]);
+                const projectData = projectDatabase[pId];
+
+                if (projectData) {
+                    document.getElementById('detail-title').innerText = projectData.title;
+                    document.getElementById('detail-desc').innerText = projectData.desc;
+                    document.getElementById('detail-spec-location').innerText = projectData.location;
+                    document.getElementById('detail-spec-area').innerText = projectData.area;
+                    document.getElementById('detail-spec-materials').innerText = projectData.materials;
+                    document.getElementById('detail-spec-year').innerText = projectData.year;
+
+                    const mainImg = document.getElementById('detail-main-img');
+                    mainImg.src = projectData.images[0];
+
+                    const strip = document.getElementById('detail-carousel-strip');
+                    strip.innerHTML = '';
+                    projectData.images.forEach((imgUrl, idx) => {
+                        const thumb = document.createElement('div');
+                        thumb.className = `aspect-square bg-zen-100 overflow-hidden cursor-pointer border ${idx === 0 ? 'border-zen-900' : 'border-zen-200/50'} hover:border-zen-400 transition-colors duration-300`;
+                        thumb.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover transition duration-300 hover:scale-105" alt="Thumbnail">`;
+                        
+                        thumb.addEventListener('click', () => {
+                            Array.from(strip.children).forEach(child => child.classList.replace('border-zen-900', 'border-zen-200/50'));
+                            thumb.classList.replace('border-zen-200/50', 'border-zen-900');
+                            
+                            mainImg.style.opacity = '0.3';
+                            setTimeout(() => {
+                                mainImg.src = imgUrl;
+                                mainImg.style.opacity = '1';
+                            }, 150);
+                        });
+                        strip.appendChild(thumb);
+                    });
+
+                    homeView.style.opacity = '0';
+                    setTimeout(() => {
+                        homeView.classList.add('hidden');
+                        projectView.classList.remove('hidden');
+                        projectView.style.opacity = '1';
+                        window.scrollTo(0, 0);
+                    }, 250);
+                }
+            } else {
+                projectView.style.opacity = '0';
+                setTimeout(() => {
+                    projectView.classList.add('hidden');
+                    homeView.classList.remove('hidden');
+                    homeView.style.opacity = '1';
+                    onWindowResize();
+                }, 250);
+            }
+        }
+
+        function navigateToHome() {
+            window.location.hash = 'home';
+        }
+
+        let activeSection = 0;
+        let isTransitioning = false;
+
+        function glideToSection(index) {
+            if (index < 0 || index >= 2 || isTransitioning) return;
+            activeSection = index;
+            isTransitioning = true;
+            document.getElementById('slide-wrapper').style.transform = `translateY(-${index * 100}vh)`;
+            setTimeout(() => { isTransitioning = false; }, 1400);
+        }
+
+        function initAutoScrollGlide() {
+            window.addEventListener('wheel', (e) => {
+                const homeView = document.getElementById('home-view');
+                if (homeView.classList.contains('hidden') || isTransitioning) return;
+
+                if (Math.abs(e.deltaY) > 25) {
+                    if (e.deltaY > 0 && activeSection < 1) glideToSection(1);
+                    else if (e.deltaY < 0 && activeSection > 0) glideToSection(0);
+                }
+            }, { passive: true });
+
+            window.addEventListener('keydown', (e) => {
+                const homeView = document.getElementById('home-view');
+                if (homeView.classList.contains('hidden') || isTransitioning) return;
+
+                if (e.key === 'ArrowDown' && activeSection < 1) glideToSection(1);
+                else if (e.key === 'ArrowUp' && activeSection > 0) glideToSection(0);
+            });
+        }
+
+        window.addEventListener('hashchange', handleHashChange);
+
+        window.onload = function() {
+            initThreeJS();
+            animate();
+            initAutoScrollGlide();
+            if (window.location.hash !== '') handleHashChange();
+        };
+    </script>
+</body>
 </html>

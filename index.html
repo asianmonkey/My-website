@@ -342,6 +342,7 @@
     </div>
 
     <script>
+        // Comprehensive Project Database
         const projectDatabase = {
             1: {
                 title: "SBR ELEMENTARY SCHOOL FRONT RENOVATION",
@@ -416,6 +417,45 @@
                     "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1600"
                 ],
                 smallImages: []
+            },
+            4: {
+                title: "EW Residence",
+                subtitle: "Cantilever & Courtyard Pavilion",
+                type: "Private Residence & Interior",
+                descParagraphs: [
+                    "A private residential sanctuary exploring seamless transitions between internal living spaces and surrounding landscape. Designed with an emphasis on natural light, tactile material framing, and tranquil open courtyard views."
+                ],
+                location: "Jakarta, Indonesia",
+                area: "480 m²",
+                year: "2025",
+                team: "STUDIO HANDAJUWANA ZHU",
+                animationGif: "",
+                largeImages: [
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1600"
+                ],
+                smallImages: []
+            },
+            5: {
+                title: "Living Ruins",
+                subtitle: "Temporal Adaptive Architecture",
+                type: "Competition & Research",
+                descParagraphs: [
+                    "Living Ruins explores the intersection of decay and re-habitation, transforming historic architectural remnants into vibrant, self-sustaining habitats. Rather than restoring structure to a static past or demolishing memory, the design embraces natural erosion while introducing lightweight, modern glass and timber inserts that coexist with raw masonry.",
+                    "The project creates an ongoing dialogue between time, nature, and human occupancy—allowing natural light, native vegetation, and community gathering spaces to permeate ancient spatial bones."
+                ],
+                location: "Rome, Italy",
+                area: "1,200 m²",
+                year: "2025",
+                team: "STUDIO HANDAJUWANA ZHU",
+                animationGif: "",
+                largeImages: [
+                    "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b2?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600"
+                ],
+                smallImages: []
             }
         };
 
@@ -465,8 +505,8 @@
 
         window.navigateProject = function(direction) {
             let nextId = activeProjectId + direction;
-            if (nextId < 1) nextId = 3;
-            if (nextId > 3) nextId = 1;
+            if (nextId < 1) nextId = 5;
+            if (nextId > 5) nextId = 1;
             window.location.hash = `project-${nextId}`;
         };
 
@@ -476,7 +516,6 @@
 
             scene = new THREE.Scene();
             scene.background = new THREE.Color('#fbfbfa'); 
-            scene.fog = new THREE.FogExp2('#fbfbfa', 0.04);
 
             camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
             camera.position.set(0, 9, 22);
@@ -485,6 +524,7 @@
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(width, height);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.outputEncoding = THREE.sRGBEncoding;
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             canvasContainer.appendChild(renderer.domElement);
@@ -493,7 +533,7 @@
             scene.add(interactionGroup);
 
             // Lighting Setup
-            scene.add(new THREE.AmbientLight('#ffffff', 0.7));
+            scene.add(new THREE.AmbientLight('#ffffff', 0.6));
             const dirLight = new THREE.DirectionalLight('#ffffff', 1.0);
             dirLight.position.set(12, 18, 10);
             dirLight.castShadow = true;
@@ -501,7 +541,7 @@
             dirLight.shadow.mapSize.height = 2048;
             scene.add(dirLight);
 
-            const fillLight = new THREE.DirectionalLight('#e2e6ed', 0.5);
+            const fillLight = new THREE.DirectionalLight('#e2e6ed', 0.4);
             fillLight.position.set(-12, 6, -10);
             scene.add(fillLight);
 
@@ -521,11 +561,17 @@
         }
 
         function buildDefaultModels() {
-            const positions = [
-                { x: -8.2, z: 0.0, rot: 0.3 },   
-                { x: 0.0, z: -0.5, rot: -0.1 },   
-                { x: 8.2, z: 0.0, rot: -0.3 }      
-            ];
+            const radius = 7.2;
+            const count = 5;
+            const positions = [];
+            for (let i = 0; i < count; i++) {
+                const angle = (i * (2 * Math.PI / count)) + (Math.PI / 5);
+                positions.push({
+                    x: radius * Math.cos(angle),
+                    z: radius * Math.sin(angle),
+                    rot: -angle
+                });
+            }
 
             // Model 1 Placeholder (SBR)
             const m1 = new THREE.Group();
@@ -572,6 +618,36 @@
             interactionGroup.add(m3);
             maquetteObjects.push(m3);
 
+            // Model 4 Placeholder (EW Residence)
+            const m4 = new THREE.Group();
+            const m4Base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 1.4), pastelOakMaterial);
+            m4.add(m4Base);
+            const m4Pavilion = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.7, 1.0), pastelSageMaterial);
+            m4Pavilion.position.set(-0.2, 0.4, 0); m4.add(m4Pavilion);
+            const m4Roof = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.06, 1.2), studioPlasterMaterial);
+            m4Roof.position.set(-0.1, 0.8, 0); m4.add(m4Roof);
+            m4.position.set(positions[3].x, -0.2, positions[3].z);
+            m4.rotation.y = positions[3].rot;
+            m4.userData = { id: 4, baseHeight: -0.2, targetScale: 2.8 };
+            interactionGroup.add(m4);
+            maquetteObjects.push(m4);
+
+            // Model 5 Placeholder (Living Ruins)
+            const m5 = new THREE.Group();
+            const m5Base = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.08, 1.8), studioPlasterMaterial);
+            m5.add(m5Base);
+            const m5RuinWall1 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.9, 1.4), pastelTerracottaMaterial);
+            m5RuinWall1.position.set(-0.7, 0.49, 0); m5.add(m5RuinWall1);
+            const m5RuinWall2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.7, 0.2), pastelTerracottaMaterial);
+            m5RuinWall2.position.set(0, 0.39, -0.6); m5.add(m5RuinWall2);
+            const m5GlassInsert = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.8, 1.0), pastelSageMaterial);
+            m5GlassInsert.position.set(0.2, 0.44, 0.1); m5.add(m5GlassInsert);
+            m5.position.set(positions[4].x, -0.2, positions[4].z);
+            m5.rotation.y = positions[4].rot;
+            m5.userData = { id: 5, baseHeight: -0.2, targetScale: 2.6 };
+            interactionGroup.add(m5);
+            maquetteObjects.push(m5);
+
             maquetteObjects.forEach(group => {
                 group.traverse(child => {
                     if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; }
@@ -588,7 +664,9 @@
             const repoModels = [
                 { slot: 0, path: 'Project 01_SBR.glb' },
                 { slot: 1, path: 'Project 02_Not a Hotel.glb' },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb' }
+                { slot: 2, path: 'Project 03_Chummy Chair.glb' },
+                { slot: 3, path: 'Project 04_EW Residence.glb' },
+                { slot: 4, path: 'Project 05_Living Ruins.glb' }
             ];
 
             repoModels.forEach(item => {
@@ -786,7 +864,7 @@
                         heroImg.src = projectData.largeImages[0];
                         heroImg.onerror = function() {
                             this.onerror = null;
-                            this.src = 'https://placehold.co/1200x800/f5f4ef/2d2b28?text=SBR+Large+Photo+01';
+                            this.src = 'https://placehold.co/1200x800/f5f4ef/2d2b28?text=Project+Large+Photo+01';
                         };
                         currentImageSequence.push(projectData.largeImages[0]);
                     }
@@ -798,7 +876,7 @@
                         animGif.src = projectData.animationGif;
                         animGif.onerror = function() {
                             this.onerror = null;
-                            this.src = 'https://placehold.co/1200x600/e9e7df/2d2b28?text=SBR+Animation+GIF';
+                            this.src = 'https://placehold.co/1200x600/e9e7df/2d2b28?text=Project+Animation+GIF';
                         };
                         animContainer.classList.remove('hidden');
                         currentImageSequence.push(projectData.animationGif);
@@ -823,7 +901,7 @@
                         imgEl.src = imgUrl;
                         imgEl.onerror = function() {
                             this.onerror = null;
-                            this.src = `https://placehold.co/1200x800/f5f4ef/a39f90?text=SBR+Large+Photo+0${i + 1}`;
+                            this.src = `https://placehold.co/1200x800/f5f4ef/a39f90?text=Project+Large+Photo+0${i + 1}`;
                         };
                         imgEl.className = "w-full max-h-[85vh] object-contain block mx-auto";
                         

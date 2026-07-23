@@ -128,19 +128,19 @@
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
             <!-- Slide 1: Interactive 3D Projects -->
-            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-4 sm:px-6 pt-16 sm:pt-20 pb-12 relative">
+            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-0 sm:px-6 pt-16 sm:pt-20 pb-12 relative">
                 <div class="w-full mx-auto flex flex-col items-center justify-center relative">
                     
                     <div class="relative w-full h-[68vh] sm:h-[75vh] lg:h-[80vh] max-h-[850px] min-h-[420px] bg-zen-50 overflow-hidden flex items-center justify-center">
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
                         <!-- Hover Overlay Title centered at stage bottom -->
-                        <div id="hud-display" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
+                        <div id="hud-display" class="absolute bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
                             <span id="hud-title" class="text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 mt-1 block">Project Title</span>
                         </div>
 
                         <!-- Mobile Touch Helper Indicator -->
-                        <div id="mobile-drag-hint" class="sm:hidden absolute bottom-1 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest text-zen-400/80 pointer-events-none flex items-center gap-1.5 bg-zen-50/80 backdrop-blur-xs px-2.5 py-1 rounded-full border border-zen-200/50">
+                        <div id="mobile-drag-hint" class="sm:hidden absolute bottom-14 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest text-zen-400/80 pointer-events-none flex items-center gap-1.5 bg-zen-50/90 backdrop-blur-xs px-2.5 py-1 rounded-full border border-zen-200/60 shadow-xs z-10">
                             <i class="fa-solid fa-arrows-left-right text-[8px]"></i>
                             <span>Drag to rotate • Tap to view</span>
                         </div>
@@ -251,17 +251,17 @@
     <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pb-24 w-full transition-opacity duration-500 ease-in-out">
         
         <!-- Header Controls Wrapper -->
-        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-24 sm:pt-32 pb-6">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-20 sm:pt-32 pb-4">
             <button onclick="window.navigateToHome()" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
                 <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
                 <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
             </button>
         </div>
 
-        <!-- Hero Viewport Image Container (Flush Background, Viewport Height Capped) -->
-        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
+        <!-- Hero Viewport Image Container (Edge-to-edge on mobile, generous margins on desktop) -->
+        <div class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
             <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
-                <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[75vh] sm:max-h-[85vh] object-contain block mx-auto">
+                <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[80vh] sm:max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
@@ -272,7 +272,7 @@
         </div>
 
         <!-- Content Details Block -->
-        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-10 sm:mt-12 space-y-12 sm:space-y-16">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-8 sm:mt-12 space-y-10 sm:space-y-16">
             
             <!-- Technical Specs Block (Centered Container with Left-Aligned Key-Values in Yu Gothic Light Font) -->
             <div class="w-full max-w-md mx-auto font-yugothic text-[10px] sm:text-xs uppercase tracking-wider space-y-3 py-2">
@@ -306,27 +306,27 @@
             </div>
         </div>
 
-        <!-- Animation GIF Slot (Centered below description) -->
-        <div id="detail-animation-container" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-28 hidden">
+        <!-- Animation GIF Slot (Edge-to-edge on mobile) -->
+        <div id="detail-animation-container" class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-12 sm:mt-28 hidden">
             <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
-                <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[75vh] sm:max-h-[85vh] object-contain block mx-auto">
+                <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[80vh] sm:max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
-        <!-- Vertical Visual Sequence (Large Photos Stacked with Max Height Constraint) -->
-        <div id="detail-gallery-container" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-28 flex flex-col space-y-16 sm:space-y-28 lg:space-y-36">
+        <!-- Vertical Visual Sequence (Edge-to-edge images on mobile, stacked with desktop side margins) -->
+        <div id="detail-gallery-container" class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-12 sm:mt-28 flex flex-col space-y-12 sm:space-y-28 lg:space-y-36">
             <!-- Dynamic large project images print here -->
         </div>
 
-        <!-- Small Photo Grid Gallery (Positioned at end) -->
-        <div id="detail-small-gallery-wrapper" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 sm:mt-36 hidden space-y-8">
-            <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
+        <!-- Small Photo Grid Gallery (Maximized width on mobile) -->
+        <div id="detail-small-gallery-wrapper" class="w-full px-2 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-36 hidden space-y-8">
+            <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-6 lg:gap-8">
                 <!-- Dynamic small thumbnail photos print here -->
             </div>
         </div>
 
         <!-- Project Navigation Footers -->
-        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 sm:mt-36">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-36">
             <div class="w-full flex justify-between items-center text-[9px] sm:text-[10px] font-title uppercase tracking-ultra pt-8 border-t border-zen-200/60">
                 <button id="prev-project-btn" onclick="window.navigateProject(-1)" class="text-zen-400 hover:text-zen-900 transition flex items-center space-x-2">
                     <span>← Previous Project</span>

@@ -538,9 +538,9 @@
             scene = new THREE.Scene();
             scene.background = new THREE.Color('#fbfbfa'); 
 
-            // Adaptive FOV for mobile viewports
-            camera = new THREE.PerspectiveCamera(isMobile ? 50 : 36, width / height, 0.1, 100);
-            camera.position.set(0, isMobile ? 11 : 9, isMobile ? 26 : 22);
+            // Adaptive FOV and framing for mobile portrait viewports
+            camera = new THREE.PerspectiveCamera(isMobile ? 68 : 36, width / height, 0.1, 100);
+            camera.position.set(0, isMobile ? 7 : 9, isMobile ? 22 : 22);
             camera.lookAt(0, 0, 0);
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -749,14 +749,14 @@
             const isMobile = width < 640;
 
             camera.aspect = width / height;
-            camera.fov = isMobile ? 48 : 36;
-            camera.position.z = isMobile ? 25 : 22;
-            camera.position.y = isMobile ? 11 : 9;
+            camera.fov = isMobile ? 68 : 36;
+            camera.position.z = isMobile ? 22 : 22;
+            camera.position.y = isMobile ? 7 : 9;
             camera.updateProjectionMatrix();
 
             renderer.setSize(width, height);
 
-            let scaleFactor = isMobile ? 0.48 : width < 1024 ? 0.68 : width < 1440 ? 0.85 : 1.00;
+            let scaleFactor = isMobile ? 1.25 : width < 1024 ? 0.68 : width < 1440 ? 0.85 : 1.00;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 
@@ -820,7 +820,7 @@
             if (!isDragging) targetRotationY += 0.0015;
             interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
             
-            camera.position.y += (((window.innerWidth < 640 ? 11 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
+            camera.position.y += (((window.innerWidth < 640 ? 7 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
             camera.lookAt(0, 0, 0);
 
             const time = performance.now() * 0.0015;

@@ -53,7 +53,7 @@
             font-family: "Shippori Mincho", "Plus Jakarta Sans", serif;
         }
         .font-yugothic {
-            font-family: "Yu Gothic Light", "Yu Gothic", "YuGothic", "Plus Jakarta Sans", sans-serif;
+            font-family: "Yu Gothic Light", "Yu Gothic", "MS Gothic", sans-serif;
             font-weight: 300;
         }
 
@@ -90,50 +90,50 @@
 </head>
 <body class="bg-zen-50 text-zen-900 font-body antialiased overflow-x-hidden">
 
-    <!-- STATIONARY HEADER OVERLAY (Fixed Top Edge-to-Edge with Auto-Hide on Scroll) -->
-    <div id="main-header" class="fixed top-0 left-0 w-full z-40 pointer-events-none pt-8 sm:pt-10 px-6 sm:px-12 md:px-16 transition-all duration-500 ease-in-out opacity-100 transform translate-y-0">
-        <div class="w-full flex justify-center items-center">
-            <div class="text-center select-none pointer-events-auto cursor-pointer" onclick="window.navigateToHome()">
-                <h1 class="text-xs sm:text-xl lg:text-2xl font-title tracking-[0.15em] uppercase text-zen-900 leading-none">
-                    STUDIO HANDAJUWANA ZHU
-                </h1>
-                <span class="font-body text-[10px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1.5 block">
-                    form + space
-                </span>
-            </div>
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 pointer-events-none pt-6 sm:pt-10 transition-all duration-500 ease-in-out">
+        <div class="w-full text-center select-none flex flex-col items-center justify-center pointer-events-auto cursor-pointer" onclick="window.navigateToHome()">
+            <h1 class="text-xs sm:text-xl lg:text-2xl font-title tracking-[0.18em] uppercase text-zen-900 leading-none hover:text-zen-400 transition-colors">
+                STUDIO HANDAJUWANA ZHU
+            </h1>
+            <span class="font-body text-[10px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1 block">
+                form + space
+            </span>
         </div>
-    </div>
+    </header>
 
-    <!-- STATIONARY FOOTER OVERLAY (Fluid Edge-to-Edge) -->
-    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-8 px-6 sm:px-12 md:px-16">
-        <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 items-center text-center">
+    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-6 px-6 sm:px-12 bg-gradient-to-t from-zen-50 via-zen-50/80 to-transparent pt-6">
+        <div class="w-full mx-auto grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 text-center">
+            
+            <!-- Left: Contact Email -->
             <div class="pointer-events-auto sm:text-left">
-                <a href="mailto:info@handajuwanazhu.com" class="text-xs font-title tracking-wider hover:text-zen-400 transition">info@handajuwanazhu.com</a>
+                <a href="mailto:info@handajuwanazhu.com" class="text-[10px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">info@handajuwanazhu.com</a>
             </div>
-            <div class="pointer-events-auto text-center">
-                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-xs font-title tracking-wider hover:text-zen-400 transition">@han___zhu</a>
+
+            <!-- Center: Instagram Profile -->
+            <div class="pointer-events-auto sm:text-center">
+                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-[10px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">@han___zhu</a>
             </div>
-            <div class="pointer-events-auto sm:text-right text-[9px] font-title font-light uppercase tracking-wider text-zen-400">
+
+            <!-- Right: Copyright Statement -->
+            <div class="pointer-events-auto sm:text-right text-[9px] sm:text-[10px] font-title font-light uppercase tracking-wider text-zen-400">
                 <span>&copy; 2026 Studio Handajuwana Zhu</span>
             </div>
+
         </div>
     </div>
 
-    <!-- MAIN HOME VIEW (Fluid Full Width Layout) -->
     <div id="home-view" class="h-screen w-screen overflow-hidden relative transition-opacity duration-500 ease-in-out">
         
-        <!-- SLIDE DECK WRAPPER -->
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
-            <!-- Slide 1: Interactive 3D Projects (Fluid Stage) -->
-            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-4 sm:px-8 md:px-12 pt-16 pb-12">
-                <div class="w-full flex flex-col items-center justify-center relative">
+            <!-- Slide 1: Interactive 3D Projects -->
+            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 pt-20 pb-12">
+                <div class="w-full mx-auto flex flex-col items-center justify-center relative">
                     
-                    <!-- 3D Canvas Stage (Unconstrained Width) -->
-                    <div class="relative w-full h-[68vh] sm:h-[78vh] lg:h-[84vh] bg-zen-50 overflow-hidden flex items-center justify-center">
+                    <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center">
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
-                        <!-- Minimal Hover Info Overlay -->
+                        <!-- Hover Overlay Title centered at stage bottom -->
                         <div id="hud-display" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
                             <span id="hud-title" class="text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 mt-1 block">Project Title</span>
                         </div>
@@ -142,13 +142,12 @@
                 </div>
             </section>
 
-            <!-- Slide 2: About & Practice Profiles (Fluid Width Layout) -->
-            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 pt-28 pb-16 px-6 sm:px-12 md:px-16">
-                <div class="w-full max-w-6xl mx-auto my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
-                    <div class="space-y-12 sm:space-y-16">
+            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 pt-28 pb-16 px-6">
+                <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
+                    <div class="space-y-12">
                         
-                        <!-- Studio Partners Portrait (Static Image, Natural Color) -->
-                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
+                        <!-- Studio Partners Portrait -->
+                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm">
                             <img src="01_About photo.jpg" 
                                  alt="Studio Partners" 
                                  style="transform: none !important; transition: none !important;"
@@ -157,18 +156,18 @@
                         </div>
 
                         <!-- Twin Partner Profiles -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16 lg:gap-24">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
                             
                             <!-- Profile 1: Natasya Handajuwana -->
                             <div class="space-y-6">
                                 <div class="text-center">
                                     <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
                                 </div>
-                                <div class="space-y-4 text-xs sm:text-sm text-zen-800 font-light leading-relaxed font-sans">
+                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
                                     <p>I am an interior designer at heart, but my work focuses on the dialogue where interiors and architecture meet. Having developed my practice from Milan to Tokyo—most recently serving as a senior designer at Sou Fujimoto Architects—I specialty in bridging detailed interior spaces with large-scale architectural design. My approach balances global concepts with deeply local traditions, focusing on how spaces come to life through human interaction. I thrive on collaborating across different cultures and minds to create meaningful, human-centric environments for our clients.</p>
                                 </div>
                                 
-                                <div class="space-y-3 pt-2 text-xs sm:text-sm text-zen-800 font-light font-sans">
+                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
                                     <div class="flex gap-4 items-start">
                                         <span class="w-24 shrink-0 text-zen-500">2011 - 2015</span>
                                         <span>Bachelor of Interior Architecture at Universitas Pelita Harapan, Indonesia</span>
@@ -193,12 +192,12 @@
                                 <div class="text-center">
                                     <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
                                 </div>
-                                <div class="space-y-4 text-xs sm:text-sm text-zen-800 font-light leading-relaxed font-sans">
+                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
                                     <p>With my passion for architecture, nature and humans I explore the spatial experiences which allows one to become their true selves. Having a multicultural background allows me to transition easily between global modern architecture and true local design practices.</p>
                                     <p>My personal hobbies are walking through nature and some natural photography which captures memories and moments which are more intimate.</p>
                                 </div>
 
-                                <div class="space-y-3 pt-2 text-xs sm:text-sm text-zen-800 font-light font-sans">
+                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
                                     <div class="flex gap-4 items-start">
                                         <span class="w-24 shrink-0 text-zen-500">2010 - 2017</span>
                                         <span>Bachelors and Masters of Architecture at University of Technology at Delft</span>
@@ -229,88 +228,86 @@
         </div>
     </div>
 
-    <!-- PROJECT CASE STUDY VIEW (Fluid Full Viewport Width Structure) -->
     <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pb-24 w-full transition-opacity duration-500 ease-in-out">
         
         <!-- Header Controls Wrapper -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-28 sm:pt-32 pb-6">
+        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-28 pb-6">
             <button onclick="window.navigateToHome()" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
                 <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
                 <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
             </button>
         </div>
 
-        <!-- Project Title Header Section -->
-        <div class="w-full text-center pb-12 px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
+        <!-- Scaled Down Project Title Header -->
+        <div class="w-full text-center pb-10 px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 space-y-1">
             <h1 id="detail-title" class="text-xs sm:text-base lg:text-lg font-title tracking-[0.2em] uppercase text-zen-900 leading-tight">Project Title</h1>
-            <span id="detail-subtitle" class="block text-[10px] sm:text-xs font-title tracking-[0.25em] uppercase text-zen-400 mt-2 hidden">Subtitle</span>
+            <h2 id="detail-subtitle" class="text-[10px] sm:text-xs font-title tracking-[0.15em] uppercase text-zen-400">Subtitle</h2>
         </div>
 
-        <!-- Hero Viewport Image -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 flex justify-center">
-            <div class="w-full overflow-hidden bg-zen-100 flex justify-center">
-                <img id="detail-main-img" src="" alt="Project Visual" class="max-h-[85vh] w-auto max-w-full mx-auto block object-contain" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600'">
+        <!-- Hero Viewport Image Container (Flush Background, Viewport Height Capped) -->
+        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
+            <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
+                <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
         <!-- Content Details Block -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 space-y-16">
             
-            <!-- Technical Specs Block (Left-Justified Index with Yu Gothic Light Font) -->
-            <div class="w-full max-w-xl text-left font-yugothic text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
-                <div class="grid grid-cols-3">
+            <!-- Technical Specs Block (Centered Container with Left-Aligned Key-Values in Yu Gothic Light Font) -->
+            <div class="w-full max-w-md mx-auto font-yugothic text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
+                <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Type</span>
                     <span id="detail-spec-type" class="col-span-2 text-zen-900 font-medium">Interior Transformation</span>
                 </div>
-                <div class="grid grid-cols-3">
+                <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Location</span>
                     <span id="detail-spec-location" class="col-span-2 text-zen-900 font-medium">-</span>
                 </div>
-                <div class="grid grid-cols-3">
+                <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Footprint / Area</span>
                     <span id="detail-spec-area" class="col-span-2 text-zen-900 font-medium">-</span>
                 </div>
-                <div class="grid grid-cols-3">
+                <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Year</span>
                     <span id="detail-spec-year" class="col-span-2 text-zen-900 font-medium">-</span>
                 </div>
-                <div class="grid grid-cols-3">
+                <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Practice / Team</span>
                     <span id="detail-spec-team" class="col-span-2 text-zen-900 font-medium">STUDIO HANDAJUWANA ZHU</span>
                 </div>
             </div>
 
             <!-- Conceptual Framework Narrative Block (Centered with Yu Gothic Light Font) -->
-            <div class="w-full max-w-4xl mx-auto text-center border-0 pt-4">
-                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm md:text-base leading-relaxed font-yugothic space-y-4 whitespace-pre-line text-center">
+            <div class="w-full max-w-3xl mx-auto text-center border-0 pt-4">
+                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed font-yugothic space-y-4">
                     Description content.
                 </div>
             </div>
+        </div>
 
-            <!-- Animation GIF Section (Placed after concept description) -->
-            <div id="detail-animation-block" class="w-full hidden pt-4 flex justify-center">
-                <div class="w-full overflow-hidden bg-zen-100 flex justify-center">
-                    <img id="detail-animation-img" src="" alt="Project Animation" class="max-h-[85vh] w-auto max-w-full mx-auto block object-contain">
-                </div>
+        <!-- Animation GIF Slot (Centered below description) -->
+        <div id="detail-animation-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 hidden">
+            <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
+                <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[85vh] object-contain block mx-auto">
             </div>
-
         </div>
 
-        <!-- Vertical Visual Sequence (Max Height Constrained for Screen Fit) -->
-        <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-20 flex flex-col items-center space-y-12 sm:space-y-16">
-            <!-- Dynamic large project images -->
+        <!-- Vertical Visual Sequence (Large Photos Stacked with Max Height Constraint) -->
+        <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 flex flex-col space-y-12 sm:space-y-16">
+            <!-- Dynamic large project images print here -->
         </div>
 
-        <!-- Small Photo Gallery Section (Clean grid format without header or divider line) -->
-        <div id="detail-small-gallery-wrapper" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 hidden">
-            <div id="detail-small-gallery-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
-                <!-- Dynamic small thumbnail images -->
+        <!-- Small Photo Grid Gallery (Positioned at end) -->
+        <div id="detail-small-gallery-wrapper" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 hidden space-y-6">
+            <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+                <!-- Dynamic small thumbnail photos print here -->
             </div>
         </div>
 
         <!-- Project Navigation Footers -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-24">
-            <div class="w-full flex justify-between items-center text-[10px] sm:text-xs font-title uppercase tracking-ultra pt-8 border-t border-zen-200/60">
+            <div class="w-full flex justify-between items-center text-[10px] font-title uppercase tracking-ultra pt-8">
                 <button id="prev-project-btn" onclick="window.navigateProject(-1)" class="text-zen-400 hover:text-zen-900 transition flex items-center space-x-2">
                     <span>← Previous Project</span>
                 </button>
@@ -322,19 +319,44 @@
 
     </div>
 
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-zen-900/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8" onclick="closeLightbox()">
+        <!-- Lightbox Close Button -->
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-zen-100 hover:text-white text-2xl transition focus:outline-none z-10">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Previous Image Chevron -->
+        <button onclick="event.stopPropagation(); navigateLightbox(-1)" class="absolute left-4 sm:left-8 text-zen-300 hover:text-white text-2xl sm:text-3xl transition focus:outline-none z-10">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <!-- Fullscreen Enlarged Image Container -->
+        <div class="relative max-w-6xl max-h-[90vh] flex items-center justify-center" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Enlarged View" class="max-w-full max-h-[88vh] object-contain shadow-2xl">
+        </div>
+
+        <!-- Next Image Chevron -->
+        <button onclick="event.stopPropagation(); navigateLightbox(1)" class="absolute right-4 sm:right-8 text-zen-300 hover:text-white text-2xl sm:text-3xl transition focus:outline-none z-10">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
     <script>
-        // Project Database Definitions
+        // Comprehensive Project Database
         const projectDatabase = {
             1: {
                 title: "SBR ELEMENTARY SCHOOL FRONT RENOVATION",
                 subtitle: "COLORFUL PLAYBLOCKS",
                 type: "Interior transformation",
+                descParagraphs: [
+                    "Our goal for this school lobby was to replace a sterile, institutional entrance with an environment that instantly feels welcoming, creative, and inspiring for children and parents alike. Because this was a partial renovation, we needed a design that would inject fresh energy without clashing with the rest of the existing school. We drew inspiration from the universal simplicity of childhood building blocks and geometric toys, taking those classic shapes and scaling them up into architectural features to create a space that feels inherently familiar and playful.",
+                    "The heart of the design is a striking, repetitive runway of yellow arches. This inviting arcade serves as a joyful, sunlit gateway for students as they enter the school every morning, turning a standard hallway into an immersive experience. To balance the bright yellow, we used warm terracotta at the reception desk to welcome visitors, and paired it with deep blue administrative areas and soft, flowing curtains that easily close to create private meeting spaces when needed."
+                ],
                 location: "Bogor, Indonesia",
                 area: "320 m²",
                 year: "Completed 2021",
                 team: "In Collaboration with Oktanto Khang",
-                desc: "Our goal for this school lobby was to replace a sterile, institutional entrance with an environment that instantly feels welcoming, creative, and inspiring for children and parents alike. Because this was a partial renovation, we needed a design that would inject fresh energy without clashing with the rest of the existing school. We drew inspiration from the universal simplicity of childhood building blocks and geometric toys, taking those classic shapes and scaling them up into architectural features to create a space that feels inherently familiar and playful.\n\nThe heart of the design is a striking, repetitive runway of yellow arches. This inviting arcade serves as a joyful, sunlit gateway for students as they enter the school every morning, turning a standard hallway into an immersive experience. To balance the bright yellow, we used warm terracotta at the reception desk to welcome visitors, and paired it with deep blue administrative areas and soft, flowing curtains that easily close to create private meeting spaces when needed.",
-                animation: "01_SBR_Animation_01.gif",
+                animationGif: "01_SBR_Animation_01.gif",
                 largeImages: [
                     "01_SBR_Large_01.jpg",
                     "01_SBR_Large_02.png",
@@ -356,23 +378,20 @@
                     "01_SBR_Small_09.jpg",
                     "01_SBR_Small_10.jpg",
                     "01_SBR_Small_11.jpg"
-                ],
-                fallbackImages: [
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600",
-                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
-                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1600"
                 ]
             },
             2: {
                 title: "Not a Hotel",
-                subtitle: "",
-                type: "Architecture & Masterplan",
+                subtitle: "Landscape & Villa Masterplan",
+                type: "Architectural Masterplan",
+                descParagraphs: [
+                    "An expansive landscape and villa masterplan integrated into the forested contours of Tochigi. The architecture dissolves boundary lines between living quarters and surrounding topography, featuring subterranean courtyards, sweeping turf roofs, and floor-to-ceiling glass pavilions that frame seasonal shifts across the valley."
+                ],
                 location: "Tochigi, Japan",
                 area: "12,500 sqft",
                 year: "2024",
                 team: "STUDIO HANDAJUWANA ZHU",
-                desc: "An expansive landscape and villa masterplan integrated into the forested contours of Tochigi. The architecture dissolves boundary lines between living quarters and surrounding topography, featuring subterranean courtyards, sweeping turf roofs, and floor-to-ceiling glass pavilions that frame seasonal shifts across the valley.",
-                animation: null,
+                animationGif: "",
                 largeImages: [
                     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1600",
@@ -382,14 +401,16 @@
             },
             3: {
                 title: "Chummy Chair Collection",
-                subtitle: "",
-                type: "Object & Furniture Design",
+                subtitle: "Ergonomic Timber Study",
+                type: "Furniture Design & Prototyping",
+                descParagraphs: [
+                    "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes. Developed to investigate timber bending limitations and casting textures."
+                ],
                 location: "Tokyo, Japan",
                 area: "Furniture Scale",
                 year: "2024",
                 team: "STUDIO HANDAJUWANA ZHU",
-                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes. Developed to investigate timber bending limitations and casting textures.",
-                animation: null,
+                animationGif: "",
                 largeImages: [
                     "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1600",
@@ -399,7 +420,7 @@
             }
         };
 
-        // UI & ThreeJS Global Variables
+        // UI & Lightbox Global Variables
         let scene, camera, renderer, interactionGroup;
         let maquetteObjects = [];
         let isDragging = false;
@@ -408,6 +429,8 @@
         let targetRotationY = 0.5;
         let targetRotationX = 0.4;
         let activeProjectId = 1;
+        let currentImageSequence = [];
+        let currentImageIndex = 0;
         
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
@@ -424,7 +447,7 @@
             color: 0x1c1b1a, roughness: 0.7, side: THREE.DoubleSide, flatShading: true
         });
 
-        // Register Global Navigation Functions
+        // Setup Window Scope Functions Globally
         window.navigateToHome = function() {
             window.location.hash = 'home';
         };
@@ -474,7 +497,7 @@
             buildDefaultModels();
             loadRepositoryModels();
 
-            // Setup Event Listeners
+            // Setup Listeners
             window.addEventListener('resize', onWindowResize);
             canvasContainer.addEventListener('mousedown', onMouseDown);
             canvasContainer.addEventListener('mousemove', onMouseMove);
@@ -487,7 +510,6 @@
         }
 
         function buildDefaultModels() {
-            // Strictly Locked X = 8.2 Spacing Framework
             const positions = [
                 { x: -8.2, z: 0.0, rot: 0.3 },   
                 { x: 0.0, z: -0.5, rot: -0.1 },   
@@ -547,18 +569,14 @@
 
         function loadRepositoryModels() {
             if (typeof THREE.GLTFLoader === 'undefined') return;
-            
             const isHttp = window.location.protocol.startsWith('http');
-            if (!isHttp) {
-                console.log("Running in preview/sandbox environment. Procedural studio maquettes active.");
-                return;
-            }
+            if (!isHttp) return;
 
             const loader = new THREE.GLTFLoader();
             const repoModels = [
-                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby' },
-                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel' },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection' }
+                { slot: 0, path: 'Project 01_SBR.glb' },
+                { slot: 1, path: 'Project 02_Not a Hotel.glb' },
+                { slot: 2, path: 'Project 03_Chummy Chair.glb' }
             ];
 
             repoModels.forEach(item => {
@@ -569,7 +587,6 @@
                     const absoluteModelUrl = new URL(item.path, window.location.href).href;
                     loader.load(absoluteModelUrl, (gltf) => {
                         const model = gltf.scene;
-                        
                         const box = new THREE.Box3().setFromObject(model);
                         const size = box.getSize(new THREE.Vector3());
                         const min = box.min;
@@ -601,10 +618,10 @@
                             }
                         });
                     }, undefined, (err) => {
-                        console.log(`Model file "${item.path}" fallback active.`);
+                        console.log(`Model file "${item.path}" running procedural fallback.`);
                     });
                 } catch (e) {
-                    console.error("Model loader URL error:", e);
+                    console.error("Model loader skipped:", e);
                 }
             });
         }
@@ -617,7 +634,6 @@
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
 
-            // Global Canvas Multipliers: 0.35 (Mobile) to 1.00 (Desktop)
             let scaleFactor = width < 640 ? 0.35 : width < 1024 ? 0.65 : width < 1440 ? 0.85 : 1.00;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
@@ -725,7 +741,6 @@
             const hash = window.location.hash;
             const homeView = document.getElementById('home-view');
             const projectView = document.getElementById('project-view');
-            const mainHeader = document.getElementById('main-header');
 
             if (hash.startsWith('#project-')) {
                 activeProjectId = parseInt(hash.split('-')[1]);
@@ -733,93 +748,102 @@
 
                 if (projectData) {
                     document.getElementById('detail-title').innerText = projectData.title;
+                    document.getElementById('detail-subtitle').innerText = projectData.subtitle || "";
                     
-                    const subtitleEl = document.getElementById('detail-subtitle');
-                    if (projectData.subtitle) {
-                        subtitleEl.innerText = projectData.subtitle;
-                        subtitleEl.classList.remove('hidden');
-                    } else {
-                        subtitleEl.classList.add('hidden');
-                    }
-
-                    document.getElementById('detail-desc').innerText = projectData.desc;
-                    document.getElementById('detail-spec-type').innerText = projectData.type || "Architecture / Interior";
+                    document.getElementById('detail-spec-type').innerText = projectData.type || "Architecture";
                     document.getElementById('detail-spec-location').innerText = projectData.location;
                     document.getElementById('detail-spec-area').innerText = projectData.area;
                     document.getElementById('detail-spec-year').innerText = projectData.year;
-                    document.getElementById('detail-spec-team').innerText = projectData.team || "STUDIO HANDAJUWANA ZHU";
+                    document.getElementById('detail-spec-team').innerText = projectData.team;
 
-                    // Large Images / Hero Setup
-                    const largeList = projectData.largeImages && projectData.largeImages.length > 0 
-                        ? projectData.largeImages 
-                        : (projectData.fallbackImages || []);
+                    // Render Paragraphs
+                    const descContainer = document.getElementById('detail-desc');
+                    descContainer.innerHTML = '';
+                    projectData.descParagraphs.forEach(para => {
+                        const p = document.createElement('p');
+                        p.innerText = para;
+                        descContainer.appendChild(p);
+                    });
 
-                    const heroImage = largeList[0];
-                    const detailMainImg = document.getElementById('detail-main-img');
-                    detailMainImg.src = heroImage;
-                    detailMainImg.onerror = function() {
-                        if (projectData.fallbackImages && projectData.fallbackImages[0]) {
-                            this.src = projectData.fallbackImages[0];
-                        }
-                    };
+                    // Build image sequence array for lightbox navigation
+                    currentImageSequence = [];
 
-                    // Animation GIF Placement (Placed right after concept description)
-                    const animBlock = document.getElementById('detail-animation-block');
-                    const animImg = document.getElementById('detail-animation-img');
-                    if (projectData.animation) {
-                        animImg.src = projectData.animation;
-                        animImg.onerror = function() {
-                            if (projectData.fallbackImages && projectData.fallbackImages[1]) {
-                                this.src = projectData.fallbackImages[1];
-                            }
+                    // Set Hero image
+                    if (projectData.largeImages && projectData.largeImages.length > 0) {
+                        const heroImg = document.getElementById('detail-main-img');
+                        heroImg.src = projectData.largeImages[0];
+                        heroImg.onerror = function() {
+                            this.onerror = null;
+                            this.src = 'https://placehold.co/1200x800/f5f4ef/2d2b28?text=SBR+Large+Photo+01';
                         };
-                        animBlock.classList.remove('hidden');
-                    } else {
-                        animBlock.classList.add('hidden');
+                        currentImageSequence.push(projectData.largeImages[0]);
                     }
 
-                    // Stacked Large Images Gallery (Screen Height Constrained)
+                    // Handle Animation GIF Slot
+                    const animContainer = document.getElementById('detail-animation-container');
+                    const animGif = document.getElementById('detail-animation-gif');
+                    if (projectData.animationGif) {
+                        animGif.src = projectData.animationGif;
+                        animGif.onerror = function() {
+                            this.onerror = null;
+                            this.src = 'https://placehold.co/1200x600/e9e7df/2d2b28?text=SBR+Animation+GIF';
+                        };
+                        animContainer.classList.remove('hidden');
+                        currentImageSequence.push(projectData.animationGif);
+                    } else {
+                        animContainer.classList.add('hidden');
+                    }
+
+                    // Generate large image gallery stream
                     const galleryContainer = document.getElementById('detail-gallery-container');
                     galleryContainer.innerHTML = '';
                     
-                    const sequentialLarge = largeList.slice(1);
-                    sequentialLarge.forEach((imgUrl, idx) => {
+                    const startIndex = projectData.largeImages.length > 1 ? 1 : 0;
+                    for (let i = startIndex; i < projectData.largeImages.length; i++) {
+                        const imgUrl = projectData.largeImages[i];
+                        currentImageSequence.push(imgUrl);
+
+                        const wrapperDiv = document.createElement('div');
+                        wrapperDiv.className = "w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in";
+                        wrapperDiv.onclick = function() { openLightbox(imgUrl); };
+
                         const imgEl = document.createElement('img');
                         imgEl.src = imgUrl;
-                        imgEl.alt = `${projectData.title} - Visual ${idx + 2}`;
-                        imgEl.className = "max-h-[85vh] w-auto max-w-full mx-auto block object-contain bg-zen-100";
                         imgEl.onerror = function() {
-                            if (projectData.fallbackImages && projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length]) {
-                                this.src = projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length];
-                            }
+                            this.onerror = null;
+                            this.src = `https://placehold.co/1200x800/f5f4ef/a39f90?text=SBR+Large+Photo+0${i + 1}`;
                         };
-                        galleryContainer.appendChild(imgEl);
-                    });
+                        imgEl.className = "w-full max-h-[85vh] object-contain block mx-auto";
+                        
+                        wrapperDiv.appendChild(imgEl);
+                        galleryContainer.appendChild(wrapperDiv);
+                    }
 
-                    // Small Thumbnail Gallery (Clean grid format at the end)
+                    // Generate small thumbnails grid
                     const smallWrapper = document.getElementById('detail-small-gallery-wrapper');
-                    const smallContainer = document.getElementById('detail-small-gallery-container');
-                    smallContainer.innerHTML = '';
+                    const smallGrid = document.getElementById('detail-small-gallery-grid');
+                    smallGrid.innerHTML = '';
 
                     if (projectData.smallImages && projectData.smallImages.length > 0) {
-                        projectData.smallImages.forEach((sUrl, sIdx) => {
-                            const wrapperDiv = document.createElement('div');
-                            wrapperDiv.className = "aspect-square bg-zen-100 overflow-hidden";
-                            
-                            const sImg = document.createElement('img');
-                            sImg.src = sUrl;
-                            sImg.alt = `${projectData.title} Detail ${sIdx + 1}`;
-                            sImg.className = "w-full h-full object-cover hover:scale-105 transition-transform duration-500 ease-out";
-                            sImg.onerror = function() {
-                                if (projectData.fallbackImages && projectData.fallbackImages[sIdx % projectData.fallbackImages.length]) {
-                                    this.src = projectData.fallbackImages[sIdx % projectData.fallbackImages.length];
-                                }
-                            };
-                            
-                            wrapperDiv.appendChild(sImg);
-                            smallContainer.appendChild(wrapperDiv);
-                        });
                         smallWrapper.classList.remove('hidden');
+                        projectData.smallImages.forEach((imgUrl, idx) => {
+                            currentImageSequence.push(imgUrl);
+
+                            const thumbDiv = document.createElement('div');
+                            thumbDiv.className = "aspect-square bg-zen-50 overflow-hidden cursor-zoom-in group shadow-sm flex items-center justify-center";
+                            thumbDiv.onclick = function() { openLightbox(imgUrl); };
+
+                            const thumbImg = document.createElement('img');
+                            thumbImg.src = imgUrl;
+                            thumbImg.onerror = function() {
+                                this.onerror = null;
+                                this.src = `https://placehold.co/600x600/f5f4ef/a39f90?text=Small+Photo+0${idx + 1}`;
+                            };
+                            thumbImg.className = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105";
+                            
+                            thumbDiv.appendChild(thumbImg);
+                            smallGrid.appendChild(thumbDiv);
+                        });
                     } else {
                         smallWrapper.classList.add('hidden');
                     }
@@ -830,10 +854,6 @@
                         projectView.classList.remove('hidden');
                         projectView.style.opacity = '1';
                         window.scrollTo(0, 0);
-                        if (mainHeader) {
-                            mainHeader.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
-                            mainHeader.classList.add('opacity-100', 'translate-y-0');
-                        }
                     }, 250);
                 }
             } else {
@@ -842,34 +862,70 @@
                     projectView.classList.add('hidden');
                     homeView.classList.remove('hidden');
                     homeView.style.opacity = '1';
-                    if (mainHeader) {
-                        mainHeader.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
-                        mainHeader.classList.add('opacity-100', 'translate-y-0');
-                    }
                     onWindowResize();
                 }, 250);
             }
         }
 
-        // Scroll listener to hide branding header when scrolling down project pages
-        window.addEventListener('scroll', () => {
-            const mainHeader = document.getElementById('main-header');
-            const projectView = document.getElementById('project-view');
-            if (!mainHeader || !projectView) return;
+        function openLightbox(imgSrc) {
+            const modal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            currentImageIndex = currentImageSequence.indexOf(imgSrc);
+            if (currentImageIndex === -1) currentImageIndex = 0;
 
-            if (!projectView.classList.contains('hidden')) {
-                if (window.scrollY > 40) {
-                    mainHeader.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
-                    mainHeader.classList.remove('opacity-100', 'translate-y-0');
-                } else {
-                    mainHeader.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
-                    mainHeader.classList.add('opacity-100', 'translate-y-0');
-                }
-            } else {
-                mainHeader.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
-                mainHeader.classList.add('opacity-100', 'translate-y-0');
+            lightboxImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateLightbox(direction) {
+            if (currentImageSequence.length === 0) return;
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) currentImageIndex = currentImageSequence.length - 1;
+            if (currentImageIndex >= currentImageSequence.length) currentImageIndex = 0;
+
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = currentImageSequence[currentImageIndex];
+        }
+
+        // Keyboard navigation for lightbox & slide deck
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('lightbox-modal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
             }
-        }, { passive: true });
+        });
+
+        function initHeaderScrollFade() {
+            const mainHeader = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                const projectView = document.getElementById('project-view');
+                if (!projectView.classList.contains('hidden')) {
+                    if (window.scrollY > 40) {
+                        mainHeader.classList.add('opacity-0', '-translate-y-4');
+                    } else {
+                        mainHeader.classList.remove('opacity-0', '-translate-y-4');
+                    }
+                } else {
+                    mainHeader.classList.remove('opacity-0', '-translate-y-4');
+                }
+            }, { passive: true });
+        }
 
         let activeSection = 0;
         let isTransitioning = false;
@@ -905,6 +961,7 @@
             initThreeJS();
             animate();
             initAutoScrollGlide();
+            initHeaderScrollFade();
             if (window.location.hash !== '') handleHashChange();
         };
     </script>

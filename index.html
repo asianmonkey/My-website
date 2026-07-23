@@ -445,6 +445,18 @@
         const timberMaterial = new THREE.MeshStandardMaterial({
             color: 0x1c1b1a, roughness: 0.7, side: THREE.DoubleSide, flatShading: true
         });
+        const pastelYellowMaterial = new THREE.MeshStandardMaterial({
+            color: 0xe5be6b, roughness: 0.6, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
+        });
+        const pastelOakMaterial = new THREE.MeshStandardMaterial({
+            color: 0xbc9e82, roughness: 0.7, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
+        });
+        const pastelTerracottaMaterial = new THREE.MeshStandardMaterial({
+            color: 0xcc7758, roughness: 0.6, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
+        });
+        const pastelSageMaterial = new THREE.MeshStandardMaterial({
+            color: 0x98a795, roughness: 0.6, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
+        });
 
         // Setup Window Scope Functions Globally
         window.navigateToHome = function() {
@@ -515,21 +527,22 @@
                 { x: 8.2, z: 0.0, rot: -0.3 }      
             ];
 
-            // Model 1 Placeholder (SBR)
+            // Model 1 Placeholder (SBR - Scaled 2/3 smaller)
             const m1 = new THREE.Group();
-            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
+            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), pastelYellowMaterial);
             seat.position.set(0, 0.5, 0); m1.add(seat);
-            const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), studioPlasterMaterial);
+            const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), pastelYellowMaterial);
             back.position.set(0, 0.95, -0.56); m1.add(back);
             for(let x of [-0.5, 0.5]) {
                 for(let z of [-0.5, 0.5]) {
-                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 0.08), timberMaterial);
+                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 0.08), pastelOakMaterial);
                     leg.position.set(x, 0.25, z); m1.add(leg);
                 }
             }
             m1.position.set(positions[0].x, -0.2, positions[0].z);
             m1.rotation.y = positions[0].rot;
-            m1.userData = { id: 1, baseHeight: -0.2, targetScale: 2.5 };
+            m1.scale.set(0.333, 0.333, 0.333);
+            m1.userData = { id: 1, baseHeight: -0.2, targetScale: 0.833 };
             interactionGroup.add(m1);
             maquetteObjects.push(m1);
 

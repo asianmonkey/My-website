@@ -485,9 +485,9 @@
             const loader = new THREE.GLTFLoader();
 
             const repoModels = [
-                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby', targetScale: 4.0 },
-                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel', targetScale: 4.4 },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 4.0 }
+                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby', targetScale: 3.5 },
+                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel', targetScale: 4.0 },
+                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 3.5 }
             ];
 
             repoModels.forEach(item => {
@@ -564,7 +564,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
 
-            let scaleFactor = width < 640 ? 0.9 : width < 1024 ? 1.3 : width < 1440 ? 1.8 : 2.4;
+            let scaleFactor = width < 640 ? 0.55 : width < 1024 ? 0.8 : width < 1440 ? 1.15 : 1.45;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 

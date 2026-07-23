@@ -425,6 +425,7 @@
                     m1.add(leg);
                 }
             }
+            m1.scale.set(2, 2, 2);
             m1.position.set(positions[0].x, -0.2, positions[0].z);
             m1.rotation.y = positions[0].rot;
             m1.userData = { id: 1, baseHeight: -0.2 };
@@ -438,6 +439,7 @@
             const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
             m2Cylinder.position.set(0, 0.6, 0);
             m2.add(m2Cylinder);
+            m2.scale.set(2, 2, 2);
             m2.position.set(positions[1].x, -0.1, positions[1].z);
             m2.rotation.y = positions[1].rot;
             m2.userData = { id: 2, baseHeight: -0.1 };
@@ -453,6 +455,7 @@
                 w.position.set(-0.45 + i * 0.3, (0.35 + i * 0.35) / 2 + 0.04, 0);
                 m3.add(w);
             }
+            m3.scale.set(2, 2, 2);
             m3.position.set(positions[2].x, -0.3, positions[2].z);
             m3.rotation.y = positions[2].rot;
             m3.userData = { id: 3, baseHeight: -0.3 };
@@ -482,9 +485,9 @@
             const loader = new THREE.GLTFLoader();
 
             const repoModels = [
-                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby', targetScale: 2.0 },
-                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel', targetScale: 2.2 },
-                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 2.0 }
+                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby', targetScale: 4.0 },
+                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel', targetScale: 4.4 },
+                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 4.0 }
             ];
 
             repoModels.forEach(item => {
@@ -561,7 +564,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
 
-            let scaleFactor = width < 640 ? 0.45 : width < 1024 ? 0.65 : width < 1440 ? 0.95 : 1.25;
+            let scaleFactor = width < 640 ? 0.9 : width < 1024 ? 1.3 : width < 1440 ? 1.8 : 2.4;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 

@@ -86,9 +86,10 @@
 </head>
 <body class="bg-zen-50 text-zen-900 font-body antialiased overflow-hidden">
 
+    <!-- MAIN HOME VIEW -->
     <div id="home-view" class="h-screen w-screen overflow-hidden relative transition-opacity duration-500 ease-in-out">
         
-        <!-- Stationary Footer Overlay -->
+        <!-- STATIONARY FOOTER OVERLAY -->
         <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-8 px-6 sm:px-12">
             <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
                 <div class="pointer-events-auto">
@@ -100,8 +101,10 @@
             </div>
         </div>
 
+        <!-- SLIDE DECK WRAPPER -->
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
+            <!-- Slide 1: Interactive 3D Projects -->
             <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 py-12">
                 <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative w-full">
                     
@@ -120,7 +123,7 @@
                         
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
-                        <!-- Hover Info Display -->
+                        <!-- Minimal Hover Info Overlay -->
                         <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
                             <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 block">Project Title</span>
                         </div>
@@ -129,6 +132,7 @@
                 </div>
             </section>
 
+            <!-- Slide 2: About & Practice Profiles -->
             <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 py-16 px-6">
                 
                 <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
@@ -142,6 +146,7 @@
                                  onerror="this.src='https://placehold.co/600x400/f5f4ef/1c1b1a?text=Studio+Partners'">
                         </div>
 
+                        <!-- Twin Partner Profiles -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
                             
                             <!-- Profile 1: Natasya Handajuwana -->
@@ -216,6 +221,7 @@
         </div>
     </div>
 
+    <!-- PROJECT CASE STUDY MODAL -->
     <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pt-28 pb-20 px-6 transition-opacity duration-500 ease-in-out">
         <div class="max-w-6xl mx-auto">
             
@@ -236,7 +242,7 @@
 
                 <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
                     <div>
-                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 leading-tight">Project Title</h1>
+                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 mt-2 leading-tight">Project Title</h1>
                     </div>
 
                     <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed border-t border-zen-100 pt-6 font-body">
@@ -267,13 +273,12 @@
         </div>
     </div>
 
+    <!-- Application Script -->
     <script>
+        // Database
         const projectDatabase = {
             1: {
                 title: "SBR Lobby",
-                modelUrl: "Project 01_SBR.glb",
-                targetSize: 2.2, // Visual scale target
-                yOffset: 0.0,     // Vertical fine tuning
                 desc: "An architectural exploration balancing primary structural forms with ambient light.",
                 location: "Tokyo, Japan",
                 area: "3,400 sqft",
@@ -287,14 +292,11 @@
             },
             2: {
                 title: "Not a Hotel",
-                modelUrl: "Project 02_Not a Hotel.glb",
-                targetSize: 2.8, // Balanced scale for background depth
-                yOffset: 0.1,    // Natural ground line offset
-                desc: "A public ritual retreat dedicated to local tea ceremonies. Designed entirely using clay plasters hand-applied by Kyoto artisans.",
+                desc: "A public ritual retreat dedicated to quiet spatial experience and integrated landscape contouring.",
                 location: "Kyoto, Japan",
-                area: "1,200 sqft",
-                materials: "Clay Plaster, Reclaimed Elm, Washi Paper",
-                year: "2023",
+                area: "12,200 sqft",
+                materials: "Clay Plaster, Reclaimed Elm, Local Vegetation",
+                year: "2025",
                 images: [
                     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
                     "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1200",
@@ -303,9 +305,6 @@
             },
             3: {
                 title: "Chummy Chair Collection",
-                modelUrl: "Project 03_Chummy Chair.glb",
-                targetSize: 2.2, // Standard scale
-                yOffset: 0.0,
                 desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes.",
                 location: "Tokyo, Japan",
                 area: "Furniture Scale",
@@ -319,6 +318,7 @@
             }
         };
 
+        // WebGL & Three.js State
         let scene, camera, renderer, interactionGroup;
         let maquetteObjects = [];
         let isDragging = false;
@@ -355,10 +355,10 @@
 
             scene = new THREE.Scene();
             scene.background = new THREE.Color('#fbfbfa'); 
-            scene.fog = new THREE.FogExp2('#fbfbfa', 0.04);
+            scene.fog = new THREE.FogExp2('#fbfbfa', 0.035);
 
             camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-            camera.position.set(0, 9, 16);
+            camera.position.set(0, 11, 22);
             camera.lookAt(0, 0, 0);
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -371,8 +371,8 @@
             interactionGroup = new THREE.Group();
             scene.add(interactionGroup);
 
-            // Lighting setup
-            const ambientLight = new THREE.AmbientLight('#ffffff', 0.75);
+            // Lighting
+            const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
             scene.add(ambientLight);
 
             const dirLight = new THREE.DirectionalLight('#ffffff', 1.0);
@@ -403,113 +403,126 @@
         }
 
         function buildDefaultModels() {
-            // Triangular 3D spatial layout for spatial separation
+            // Widened X coordinates (-8.2, 0.0, 8.2) for generous breathing room
             const positions = [
-                { x: -5.8, z: 2.2, rot: 0.35 },   // Model 1 (SBR Lobby - Front Left)
-                { x: 0.0, z: -3.5, rot: -0.1 },   // Model 2 (Not a Hotel - Back Center)
-                { x: 5.8, z: 2.2, rot: -0.35 }    // Model 3 (Chummy Chair Collection - Front Right)
+                { x: -8.2, z: 0.8, rot: 0.25 },   
+                { x: 0.0, z: -0.5, rot: -0.05 },   
+                { x: 8.2, z: 0.8, rot: -0.25 }      
             ];
 
-            const commonBaseHeight = -0.4;
-
-            // Model 1 Placeholder
+            // Model 1 Placeholder (SBR Lobby)
             const m1 = new THREE.Group();
             const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
             seat.position.set(0, 0.5, 0);
             m1.add(seat);
-            m1.position.set(positions[0].x, commonBaseHeight, positions[0].z);
+            const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), studioPlasterMaterial);
+            back.position.set(0, 0.95, -0.56);
+            m1.add(back);
+            for(let x of [-0.5, 0.5]) {
+                for(let z of [-0.5, 0.5]) {
+                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 0.08), timberMaterial);
+                    leg.position.set(x, 0.25, z);
+                    m1.add(leg);
+                }
+            }
+            m1.position.set(positions[0].x, -0.2, positions[0].z);
             m1.rotation.y = positions[0].rot;
-            m1.userData = { id: 1, baseHeight: commonBaseHeight };
+            m1.userData = { id: 1, baseHeight: -0.2 };
             interactionGroup.add(m1);
             maquetteObjects.push(m1);
 
-            // Model 2 Placeholder
+            // Model 2 Placeholder (Not a Hotel)
             const m2 = new THREE.Group();
             const m2Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.1, 1.8), studioPlasterMaterial);
             m2.add(m2Base);
-            m2.position.set(positions[1].x, commonBaseHeight, positions[1].z);
+            const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
+            m2Cylinder.position.set(0, 0.6, 0);
+            m2.add(m2Cylinder);
+            m2.position.set(positions[1].x, -0.1, positions[1].z);
             m2.rotation.y = positions[1].rot;
-            m2.userData = { id: 2, baseHeight: commonBaseHeight };
+            m2.userData = { id: 2, baseHeight: -0.1 };
             interactionGroup.add(m2);
             maquetteObjects.push(m2);
 
-            // Model 3 Placeholder
+            // Model 3 Placeholder (Chummy Chair Collection)
             const m3 = new THREE.Group();
             const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 1.5), studioPlasterMaterial);
             m3.add(m3Base);
-            m3.position.set(positions[2].x, commonBaseHeight, positions[2].z);
+            for (let i = 0; i < 3; i++) {
+                const w = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.35 + i * 0.35, 1.1 - i * 0.2), studioPlasterMaterial);
+                w.position.set(-0.45 + i * 0.3, (0.35 + i * 0.35) / 2 + 0.04, 0);
+                m3.add(w);
+            }
+            m3.position.set(positions[2].x, -0.3, positions[2].z);
             m3.rotation.y = positions[2].rot;
-            m3.userData = { id: 3, baseHeight: commonBaseHeight };
+            m3.userData = { id: 3, baseHeight: -0.3 };
             interactionGroup.add(m3);
             maquetteObjects.push(m3);
+
+            // Enable Shadows
+            maquetteObjects.forEach(group => {
+                group.traverse(child => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+            });
         }
 
         function loadRepositoryModels() {
             if (typeof THREE.GLTFLoader === 'undefined') return;
 
-            if (window.location.protocol === 'blob:' || window.location.href.startsWith('blob:')) {
-                console.log("Running in preview environment; procedural fallback models active.");
+            const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+            if (!isHttp) {
+                console.log('Running in preview sandbox environment; using procedural studio maquettes.');
                 return;
             }
 
             const loader = new THREE.GLTFLoader();
 
             const repoModels = [
-                { slot: 0, id: 1, path: 'Project 01_SBR.glb', title: 'SBR Lobby' },
-                { slot: 1, id: 2, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel' },
-                { slot: 2, id: 3, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection' }
+                { slot: 0, path: 'Project 01_SBR.glb', title: 'SBR Lobby', targetScale: 2.0 },
+                { slot: 1, path: 'Project 02_Not a Hotel.glb', title: 'Not a Hotel', targetScale: 2.2 },
+                { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 2.0 }
             ];
 
             repoModels.forEach(item => {
                 const targetGroup = maquetteObjects[item.slot];
-                const dbConfig = projectDatabase[item.id] || { targetSize: 2.2, yOffset: 0.0 };
-
                 if (!targetGroup) return;
 
                 try {
+                    const fullUrl = new URL(item.path, window.location.href).href;
+
                     loader.load(
-                        encodeURI(item.path),
+                        fullUrl,
                         (gltf) => {
                             const model = gltf.scene;
 
-                            // Clear placeholder group
+                            // Calculate mesh bounding box
+                            const box = new THREE.Box3().setFromObject(model);
+                            const size = box.getSize(new THREE.Vector3());
+                            const maxDim = Math.max(size.x, size.y, size.z);
+
+                            if (maxDim > 0) {
+                                const scale = item.targetScale / maxDim;
+                                model.scale.set(scale, scale, scale);
+                            }
+
+                            // Align ground surface
+                            const scaledBox = new THREE.Box3().setFromObject(model);
+                            model.position.set(
+                                - (scaledBox.min.x + scaledBox.max.x) / 2,
+                                - scaledBox.min.y,
+                                - (scaledBox.min.z + scaledBox.max.z) / 2
+                            );
+
+                            // Clear procedural placeholder
                             while (targetGroup.children.length > 0) {
                                 targetGroup.remove(targetGroup.children[0]);
                             }
 
                             targetGroup.add(model);
-
-                            // Calculate Mesh-Only bounding box (ignores camera/light nodes)
-                            const box = new THREE.Box3();
-                            model.traverse((node) => {
-                                if (node.isMesh && node.geometry) {
-                                    node.geometry.computeBoundingBox();
-                                    const meshBox = node.geometry.boundingBox.clone();
-                                    meshBox.applyMatrix4(node.matrixWorld);
-                                    box.union(meshBox);
-                                }
-                            });
-
-                            if (box.isEmpty()) {
-                                box.setFromObject(model);
-                            }
-
-                            const size = box.getSize(new THREE.Vector3());
-                            const center = box.getCenter(new THREE.Vector3());
-                            const maxDim = Math.max(size.x, size.y, size.z);
-
-                            // Apply custom target scale factor per project
-                            if (maxDim > 0) {
-                                const scale = dbConfig.targetSize / maxDim;
-                                model.scale.set(scale, scale, scale);
-                            }
-
-                            // Compute scaled bounding box to accurately compute base plane Y
-                            const scaledBox = new THREE.Box3().setFromObject(model);
-                            const scaledCenter = scaledBox.getCenter(new THREE.Vector3());
-
-                            // Align center X/Z and set bottom edge to ground baseline + custom offset
-                            model.position.set(-scaledCenter.x, -scaledBox.min.y + dbConfig.yOffset, -scaledCenter.z);
 
                             model.traverse((node) => {
                                 if (node.isMesh) {
@@ -524,14 +537,18 @@
                                     }
                                 }
                             });
+
+                            if (projectDatabase[item.slot + 1]) {
+                                projectDatabase[item.slot + 1].title = item.title;
+                            }
                         },
                         undefined,
                         (error) => {
-                            console.log(`GLB file "${item.path}" not found locally; fallback active.`);
+                            console.log(`GLB file "${item.path}" fallback active.`);
                         }
                     );
                 } catch (e) {
-                    console.log(`Could not attempt loading "${item.path}":`, e);
+                    console.log(`Could not load GLB model "${item.path}":`, e);
                 }
             });
         }
@@ -544,7 +561,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
 
-            let scaleFactor = width < 640 ? 0.55 : width < 1024 ? 0.8 : width < 1440 ? 1.15 : 1.45;
+            let scaleFactor = width < 640 ? 0.45 : width < 1024 ? 0.65 : width < 1440 ? 0.95 : 1.25;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 

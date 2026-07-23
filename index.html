@@ -82,6 +82,7 @@
 
         #canvas-container {
             cursor: grab;
+            touch-action: none; /* Prevents mobile browser pull-to-refresh while orbiting 3D models */
         }
         #canvas-container:active {
             cursor: grabbing;
@@ -90,32 +91,32 @@
 </head>
 <body class="bg-zen-50 text-zen-900 font-body antialiased overflow-x-hidden">
 
-    <header id="main-header" class="fixed top-0 left-0 w-full z-50 pointer-events-none pt-6 sm:pt-10 transition-all duration-500 ease-in-out">
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 pointer-events-none pt-8 sm:pt-12 lg:pt-16 transition-all duration-500 ease-in-out">
         <div class="w-full text-center select-none flex flex-col items-center justify-center pointer-events-auto cursor-pointer" onclick="window.navigateToHome()">
-            <h1 class="text-xs sm:text-xl lg:text-2xl font-title tracking-[0.18em] uppercase text-zen-900 leading-none hover:text-zen-400 transition-colors">
+            <h1 class="text-sm sm:text-xl lg:text-2xl font-title tracking-[0.18em] uppercase text-zen-900 leading-none hover:text-zen-400 transition-colors px-4">
                 STUDIO HANDAJUWANA ZHU
             </h1>
-            <span class="font-body text-[10px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1 block">
+            <span class="font-body text-[9px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1 block">
                 form + space
             </span>
         </div>
     </header>
 
-    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-6 px-6 sm:px-12">
-        <div class="w-full mx-auto grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 text-center">
+    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-4 sm:pb-6 px-4 sm:px-12">
+        <div class="w-full mx-auto flex flex-col sm:grid sm:grid-cols-3 items-center gap-1 sm:gap-4 text-center">
             
             <!-- Left: Contact Email -->
-            <div class="pointer-events-auto sm:text-left">
-                <a href="mailto:info@handajuwanazhu.com" class="text-[10px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">info@handajuwanazhu.com</a>
+            <div class="pointer-events-auto text-center sm:text-left">
+                <a href="mailto:info@handajuwanazhu.com" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">info@handajuwanazhu.com</a>
             </div>
 
             <!-- Center: Instagram Profile -->
-            <div class="pointer-events-auto sm:text-center">
-                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-[10px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">@han___zhu</a>
+            <div class="pointer-events-auto text-center">
+                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">@han___zhu</a>
             </div>
 
             <!-- Right: Copyright Statement -->
-            <div class="pointer-events-auto sm:text-right text-[9px] sm:text-[10px] font-title font-light uppercase tracking-wider text-zen-400">
+            <div class="pointer-events-auto text-center sm:text-right text-[8px] sm:text-[10px] font-title font-light uppercase tracking-wider text-zen-400">
                 <span>&copy; 2026 Studio Handajuwana Zhu</span>
             </div>
 
@@ -127,24 +128,43 @@
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
             <!-- Slide 1: Interactive 3D Projects -->
-            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-6 pt-20 pb-12">
+            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-4 sm:px-6 pt-16 sm:pt-20 pb-12 relative">
                 <div class="w-full mx-auto flex flex-col items-center justify-center relative">
                     
-                    <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[80vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center">
+                    <div class="relative w-full h-[68vh] sm:h-[75vh] lg:h-[80vh] max-h-[850px] min-h-[420px] bg-zen-50 overflow-hidden flex items-center justify-center">
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
                         <!-- Hover Overlay Title centered at stage bottom -->
                         <div id="hud-display" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
                             <span id="hud-title" class="text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 mt-1 block">Project Title</span>
                         </div>
+
+                        <!-- Mobile Touch Helper Indicator -->
+                        <div id="mobile-drag-hint" class="sm:hidden absolute bottom-1 left-1/2 -translate-x-1/2 text-[9px] uppercase tracking-widest text-zen-400/80 pointer-events-none flex items-center gap-1.5 bg-zen-50/80 backdrop-blur-xs px-2.5 py-1 rounded-full border border-zen-200/50">
+                            <i class="fa-solid fa-arrows-left-right text-[8px]"></i>
+                            <span>Drag to rotate • Tap to view</span>
+                        </div>
                     </div>
 
                 </div>
+
+                <!-- Downward Arrow Cue for About Section on Mobile -->
+                <button onclick="glideToSection(1)" class="sm:hidden absolute bottom-12 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider">
+                    <span>About Studio</span>
+                    <i class="fa-solid fa-chevron-down text-[8px] animate-bounce"></i>
+                </button>
             </section>
 
-            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 pt-28 pb-16 px-6">
-                <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16">
-                    <div class="space-y-12">
+            <section id="about" class="h-screen w-full shrink-0 flex flex-col justify-between bg-zen-50 pt-24 sm:pt-28 pb-16 px-4 sm:px-6 relative">
+                
+                <!-- Upward Arrow Cue to return to 3D Projects on Mobile -->
+                <button onclick="glideToSection(0)" class="sm:hidden absolute top-20 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider z-10">
+                    <i class="fa-solid fa-chevron-up text-[8px]"></i>
+                    <span>Back to 3D Projects</span>
+                </button>
+
+                <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16 pt-6 sm:pt-0">
+                    <div class="space-y-10 sm:space-y-12">
                         
                         <!-- Studio Partners Portrait -->
                         <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm">
@@ -156,66 +176,66 @@
                         </div>
 
                         <!-- Twin Partner Profiles -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16">
                             
                             <!-- Profile 1: Natasya Handajuwana -->
-                            <div class="space-y-6">
+                            <div class="space-y-5 sm:space-y-6">
                                 <div class="text-center">
-                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
+                                    <h2 class="text-lg sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
                                 </div>
-                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
+                                <div class="space-y-3 sm:space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
                                     <p>I am an interior designer at heart, but my work focuses on the dialogue where interiors and architecture meet. Having developed my practice from Milan to Tokyo—most recently serving as a senior designer at Sou Fujimoto Architects—I specialty in bridging detailed interior spaces with large-scale architectural design. My approach balances global concepts with deeply local traditions, focusing on how spaces come to life through human interaction. I thrive on collaborating across different cultures and minds to create meaningful, human-centric environments for our clients.</p>
                                 </div>
                                 
-                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2011 - 2015</span>
+                                <div class="space-y-2.5 sm:space-y-3 pt-2 text-[11px] sm:text-xs text-zen-800 font-light font-sans">
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2011 - 2015</span>
                                         <span>Bachelor of Interior Architecture at Universitas Pelita Harapan, Indonesia</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2016 - 2016</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2016 - 2016</span>
                                         <span>Master of Interior Design at Istituto Europeo di Design, Italy</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2026</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2017 - 2026</span>
                                         <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2019</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2019</span>
                                         <span>Notable project: Renovation of Shiroiya Hotel in Gunma, Japan</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Profile 2: Ziwei Zhu -->
-                            <div class="space-y-6">
+                            <div class="space-y-5 sm:space-y-6">
                                 <div class="text-center">
-                                    <h2 class="text-xl sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
+                                    <h2 class="text-lg sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
                                 </div>
-                                <div class="space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
+                                <div class="space-y-3 sm:space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
                                     <p>With my passion for architecture, nature and humans I explore the spatial experiences which allows one to become their true selves. Having a multicultural background allows me to transition easily between global modern architecture and true local design practices.</p>
                                     <p>My personal hobbies are walking through nature and some natural photography which captures memories and moments which are more intimate.</p>
                                 </div>
 
-                                <div class="space-y-3 pt-2 text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2010 - 2017</span>
+                                <div class="space-y-2.5 sm:space-y-3 pt-2 text-[11px] sm:text-xs text-zen-800 font-light font-sans">
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2010 - 2017</span>
                                         <span>Bachelors and Masters of Architecture at University of Technology at Delft</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2017 - 2018</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2017 - 2018</span>
                                         <span>Junior Architect at KAAN architects in Rotterdam, the Netherlands</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2018 - 2026</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2018 - 2026</span>
                                         <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2023</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2023</span>
                                         <span>Winner of the Starchitects Chair design competition</span>
                                     </div>
-                                    <div class="flex gap-4 items-start">
-                                        <span class="w-24 shrink-0 text-zen-500">2025</span>
+                                    <div class="flex gap-3 sm:gap-4 items-start">
+                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2025</span>
                                         <span>Golden Mention finalist for Living Ruins II design competition</span>
                                     </div>
                                 </div>
@@ -231,31 +251,31 @@
     <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pb-24 w-full transition-opacity duration-500 ease-in-out">
         
         <!-- Header Controls Wrapper -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-28 pb-6">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-24 sm:pt-32 pb-6">
             <button onclick="window.navigateToHome()" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
                 <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
                 <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
             </button>
         </div>
 
-        <!-- Scaled Down Project Title Header -->
-        <div class="w-full text-center pb-10 px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 space-y-1">
+        <!-- Hero Viewport Image Container (Flush Background, Viewport Height Capped) -->
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
+            <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
+                <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[75vh] sm:max-h-[85vh] object-contain block mx-auto">
+            </div>
+        </div>
+
+        <!-- Scaled Down Project Title Header (Positioned Under First Image) -->
+        <div class="w-full text-center pt-6 sm:pt-8 pb-4 px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 space-y-1">
             <h1 id="detail-title" class="text-xs sm:text-base lg:text-lg font-title tracking-[0.2em] uppercase text-zen-900 leading-tight">Project Title</h1>
             <h2 id="detail-subtitle" class="text-[10px] sm:text-xs font-title tracking-[0.15em] uppercase text-zen-400">Subtitle</h2>
         </div>
 
-        <!-- Hero Viewport Image Container (Flush Background, Viewport Height Capped) -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
-            <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
-                <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[85vh] object-contain block mx-auto">
-            </div>
-        </div>
-
         <!-- Content Details Block -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 space-y-16">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-10 sm:mt-12 space-y-12 sm:space-y-16">
             
             <!-- Technical Specs Block (Centered Container with Left-Aligned Key-Values in Yu Gothic Light Font) -->
-            <div class="w-full max-w-md mx-auto font-yugothic text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
+            <div class="w-full max-w-md mx-auto font-yugothic text-[10px] sm:text-xs uppercase tracking-wider space-y-3 py-2">
                 <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Type</span>
                     <span id="detail-spec-type" class="col-span-2 text-zen-900 font-medium">Interior Transformation</span>
@@ -279,7 +299,7 @@
             </div>
 
             <!-- Conceptual Framework Narrative Block (Centered with Yu Gothic Light Font) -->
-            <div class="w-full max-w-3xl mx-auto text-center border-0 pt-4">
+            <div class="w-full max-w-3xl mx-auto text-center border-0 pt-2">
                 <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed font-yugothic space-y-4">
                     Description content.
                 </div>
@@ -287,27 +307,27 @@
         </div>
 
         <!-- Animation GIF Slot (Centered below description) -->
-        <div id="detail-animation-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 hidden">
+        <div id="detail-animation-container" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-28 hidden">
             <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
-                <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[85vh] object-contain block mx-auto">
+                <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[75vh] sm:max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
         <!-- Vertical Visual Sequence (Large Photos Stacked with Max Height Constraint) -->
-        <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 flex flex-col space-y-12 sm:space-y-16">
+        <div id="detail-gallery-container" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-28 flex flex-col space-y-16 sm:space-y-28 lg:space-y-36">
             <!-- Dynamic large project images print here -->
         </div>
 
         <!-- Small Photo Grid Gallery (Positioned at end) -->
-        <div id="detail-small-gallery-wrapper" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 hidden space-y-6">
-            <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
+        <div id="detail-small-gallery-wrapper" class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 sm:mt-36 hidden space-y-8">
+            <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
                 <!-- Dynamic small thumbnail photos print here -->
             </div>
         </div>
 
         <!-- Project Navigation Footers -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-24">
-            <div class="w-full flex justify-between items-center text-[10px] font-title uppercase tracking-ultra pt-8">
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 sm:mt-36">
+            <div class="w-full flex justify-between items-center text-[9px] sm:text-[10px] font-title uppercase tracking-ultra pt-8 border-t border-zen-200/60">
                 <button id="prev-project-btn" onclick="window.navigateProject(-1)" class="text-zen-400 hover:text-zen-900 transition flex items-center space-x-2">
                     <span>← Previous Project</span>
                 </button>
@@ -319,24 +339,24 @@
 
     </div>
 
-    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-zen-900/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4 sm:p-8" onclick="closeLightbox()">
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-zen-900/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-2 sm:p-8" onclick="closeLightbox()">
         <!-- Lightbox Close Button -->
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-zen-100 hover:text-white text-2xl transition focus:outline-none z-10">
+        <button onclick="closeLightbox()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-zen-100 hover:text-white text-2xl p-2 transition focus:outline-none z-20">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
         <!-- Previous Image Chevron -->
-        <button onclick="event.stopPropagation(); navigateLightbox(-1)" class="absolute left-4 sm:left-8 text-zen-300 hover:text-white text-2xl sm:text-3xl transition focus:outline-none z-10">
+        <button onclick="event.stopPropagation(); navigateLightbox(-1)" class="absolute left-2 sm:left-8 text-zen-300 hover:text-white text-2xl sm:text-3xl p-3 transition focus:outline-none z-20">
             <i class="fa-solid fa-chevron-left"></i>
         </button>
 
         <!-- Fullscreen Enlarged Image Container -->
-        <div class="relative max-w-6xl max-h-[90vh] flex items-center justify-center" onclick="event.stopPropagation()">
-            <img id="lightbox-img" src="" alt="Enlarged View" class="max-w-full max-h-[88vh] object-contain shadow-2xl">
+        <div class="relative max-w-6xl max-h-[90vh] flex items-center justify-center p-2" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" alt="Enlarged View" class="max-w-full max-h-[85vh] sm:max-h-[88vh] object-contain shadow-2xl">
         </div>
 
         <!-- Next Image Chevron -->
-        <button onclick="event.stopPropagation(); navigateLightbox(1)" class="absolute right-4 sm:right-8 text-zen-300 hover:text-white text-2xl sm:text-3xl transition focus:outline-none z-10">
+        <button onclick="event.stopPropagation(); navigateLightbox(1)" class="absolute right-2 sm:right-8 text-zen-300 hover:text-white text-2xl sm:text-3xl p-3 transition focus:outline-none z-20">
             <i class="fa-solid fa-chevron-right"></i>
         </button>
     </div>
@@ -513,12 +533,14 @@
         function initThreeJS() {
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
+            const isMobile = width < 640;
 
             scene = new THREE.Scene();
             scene.background = new THREE.Color('#fbfbfa'); 
 
-            camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-            camera.position.set(0, 9, 22);
+            // Adaptive FOV for mobile viewports
+            camera = new THREE.PerspectiveCamera(isMobile ? 50 : 36, width / height, 0.1, 100);
+            camera.position.set(0, isMobile ? 11 : 9, isMobile ? 26 : 22);
             camera.lookAt(0, 0, 0);
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -548,7 +570,7 @@
             buildDefaultModels();
             loadRepositoryModels();
 
-            // Setup Listeners
+            // Setup Event Listeners
             window.addEventListener('resize', onWindowResize);
             canvasContainer.addEventListener('mousedown', onMouseDown);
             canvasContainer.addEventListener('mousemove', onMouseMove);
@@ -587,8 +609,8 @@
             }
             m1.position.set(positions[0].x, -0.2, positions[0].z);
             m1.rotation.y = positions[0].rot;
-            m1.scale.set(0.96, 0.96, 0.96);
-            m1.userData = { id: 1, baseHeight: -0.2, targetScale: 2.4 };
+            m1.scale.set(0.8, 0.8, 0.8);
+            m1.userData = { id: 1, baseHeight: -0.2, targetScale: 2.0 };
             interactionGroup.add(m1);
             maquetteObjects.push(m1);
 
@@ -724,11 +746,17 @@
             if (!renderer) return;
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
+            const isMobile = width < 640;
+
             camera.aspect = width / height;
+            camera.fov = isMobile ? 48 : 36;
+            camera.position.z = isMobile ? 25 : 22;
+            camera.position.y = isMobile ? 11 : 9;
             camera.updateProjectionMatrix();
+
             renderer.setSize(width, height);
 
-            let scaleFactor = width < 640 ? 0.35 : width < 1024 ? 0.65 : width < 1440 ? 0.85 : 1.00;
+            let scaleFactor = isMobile ? 0.48 : width < 1024 ? 0.68 : width < 1440 ? 0.85 : 1.00;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 
@@ -772,7 +800,7 @@
         }
 
         function onTouchEnd() {
-            if (isDragging) { isDragging = false; if (dragDistance < 10) performRaycast(); }
+            if (isDragging) { isDragging = false; if (dragDistance < 12) performRaycast(); }
         }
 
         function performRaycast() {
@@ -792,7 +820,7 @@
             if (!isDragging) targetRotationY += 0.0015;
             interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
             
-            camera.position.y += ((3 + (targetRotationX * 8)) - camera.position.y) * 0.1;
+            camera.position.y += (((window.innerWidth < 640 ? 11 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
             camera.lookAt(0, 0, 0);
 
             const time = performance.now() * 0.0015;
@@ -907,7 +935,7 @@
                             this.onerror = null;
                             this.src = `https://placehold.co/1200x800/f5f4ef/a39f90?text=Project+Large+Photo+0${i + 1}`;
                         };
-                        imgEl.className = "w-full max-h-[85vh] object-contain block mx-auto";
+                        imgEl.className = "w-full max-h-[75vh] sm:max-h-[85vh] object-contain block mx-auto";
                         
                         wrapperDiv.appendChild(imgEl);
                         galleryContainer.appendChild(wrapperDiv);
@@ -995,7 +1023,29 @@
             lightboxImg.src = currentImageSequence[currentImageIndex];
         }
 
-        // Keyboard navigation for lightbox & slide deck
+        // Keyboard & Touch Swipe Navigation for Lightbox
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        const lightboxModal = document.getElementById('lightbox-modal');
+        lightboxModal.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        lightboxModal.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+
+            // Detect horizontal swipe gesture
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX < 0) navigateLightbox(1);  // Swipe left -> next
+                else navigateLightbox(-1);          // Swipe right -> prev
+            }
+        }, { passive: true });
+
         window.addEventListener('keydown', (e) => {
             const modal = document.getElementById('lightbox-modal');
             if (!modal.classList.contains('hidden')) {
@@ -1032,6 +1082,7 @@
         }
 
         function initAutoScrollGlide() {
+            // Wheel event for desktop trackpad / mouse wheel
             window.addEventListener('wheel', (e) => {
                 const homeView = document.getElementById('home-view');
                 if (homeView.classList.contains('hidden') || isTransitioning) return;
@@ -1041,12 +1092,32 @@
                 }
             }, { passive: true });
 
+            // Keyboard navigation
             window.addEventListener('keydown', (e) => {
                 const homeView = document.getElementById('home-view');
                 if (homeView.classList.contains('hidden') || isTransitioning) return;
                 if (e.key === 'ArrowDown' && activeSection < 1) glideToSection(1);
                 else if (e.key === 'ArrowUp' && activeSection > 0) glideToSection(0);
             });
+
+            // Touch vertical swipe detection for mobile section switching
+            let sectionTouchStartY = 0;
+            const homeView = document.getElementById('home-view');
+            homeView.addEventListener('touchstart', (e) => {
+                sectionTouchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            homeView.addEventListener('touchend', (e) => {
+                if (homeView.classList.contains('hidden') || isTransitioning) return;
+                const touchEndY = e.changedTouches[0].clientY;
+                const diffY = touchEndY - sectionTouchStartY;
+
+                // Vertical swipe gesture threshold
+                if (Math.abs(diffY) > 60) {
+                    if (diffY < 0 && activeSection < 1) glideToSection(1);      // Swipe up -> About section
+                    else if (diffY > 0 && activeSection > 0) glideToSection(0); // Swipe down -> 3D stage
+                }
+            }, { passive: true });
         }
 
         window.addEventListener('hashchange', handleHashChange);

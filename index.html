@@ -52,6 +52,10 @@
         .font-body {
             font-family: "Shippori Mincho", "Plus Jakarta Sans", serif;
         }
+        .font-yugothic {
+            font-family: "Yu Gothic Light", "Yu Gothic", "YuGothic", "Plus Jakarta Sans", sans-serif;
+            font-weight: 300;
+        }
 
         ::-webkit-scrollbar {
             width: 4px;
@@ -243,17 +247,17 @@
         </div>
 
         <!-- Hero Viewport Image -->
-        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
-            <div class="w-full overflow-hidden bg-zen-100">
-                <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-auto block object-cover" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600'">
+        <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 flex justify-center">
+            <div class="w-full overflow-hidden bg-zen-100 flex justify-center">
+                <img id="detail-main-img" src="" alt="Project Visual" class="max-h-[85vh] w-auto max-w-full mx-auto block object-contain" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600'">
             </div>
         </div>
 
         <!-- Content Details Block -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 space-y-16">
             
-            <!-- Technical Specs Block (Left-Justified Index) -->
-            <div class="w-full max-w-xl text-left font-title text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
+            <!-- Technical Specs Block (Left-Justified Index with Yu Gothic Light Font) -->
+            <div class="w-full max-w-xl text-left font-yugothic text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
                 <div class="grid grid-cols-3">
                     <span class="text-zen-400">Type</span>
                     <span id="detail-spec-type" class="col-span-2 text-zen-900 font-medium">Interior Transformation</span>
@@ -276,32 +280,29 @@
                 </div>
             </div>
 
-            <!-- Conceptual Framework Narrative Block -->
-            <div class="w-full max-w-4xl text-left border-0 pt-4">
-                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm md:text-base leading-relaxed font-body space-y-4 whitespace-pre-line">
+            <!-- Conceptual Framework Narrative Block (Centered with Yu Gothic Light Font) -->
+            <div class="w-full max-w-4xl mx-auto text-center border-0 pt-4">
+                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm md:text-base leading-relaxed font-yugothic space-y-4 whitespace-pre-line text-center">
                     Description content.
                 </div>
             </div>
 
             <!-- Animation GIF Section (Placed after concept description) -->
-            <div id="detail-animation-block" class="w-full hidden pt-4">
-                <div class="w-full overflow-hidden bg-zen-100">
-                    <img id="detail-animation-img" src="" alt="Project Animation" class="w-full h-auto block object-cover">
+            <div id="detail-animation-block" class="w-full hidden pt-4 flex justify-center">
+                <div class="w-full overflow-hidden bg-zen-100 flex justify-center">
+                    <img id="detail-animation-img" src="" alt="Project Animation" class="max-h-[85vh] w-auto max-w-full mx-auto block object-contain">
                 </div>
             </div>
 
         </div>
 
-        <!-- Vertical Visual Sequence (Large Photos Stack) -->
-        <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-20 flex flex-col space-y-12 sm:space-y-16">
+        <!-- Vertical Visual Sequence (Max Height Constrained for Screen Fit) -->
+        <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-20 flex flex-col items-center space-y-12 sm:space-y-16">
             <!-- Dynamic large project images -->
         </div>
 
-        <!-- Small Photo Gallery Section (Grid format at the end) -->
+        <!-- Small Photo Gallery Section (Clean grid format without header or divider line) -->
         <div id="detail-small-gallery-wrapper" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 hidden">
-            <div class="border-t border-zen-200/60 pt-12 mb-8">
-                <span class="text-[10px] sm:text-xs font-title tracking-ultra uppercase text-zen-400">Process & Details Gallery</span>
-            </div>
             <div id="detail-small-gallery-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Dynamic small thumbnail images -->
             </div>
@@ -777,7 +778,7 @@
                         animBlock.classList.add('hidden');
                     }
 
-                    // Stacked Large Images Gallery (Sequential Order)
+                    // Stacked Large Images Gallery (Screen Height Constrained)
                     const galleryContainer = document.getElementById('detail-gallery-container');
                     galleryContainer.innerHTML = '';
                     
@@ -786,7 +787,7 @@
                         const imgEl = document.createElement('img');
                         imgEl.src = imgUrl;
                         imgEl.alt = `${projectData.title} - Visual ${idx + 2}`;
-                        imgEl.className = "w-full h-auto block object-cover bg-zen-100";
+                        imgEl.className = "max-h-[85vh] w-auto max-w-full mx-auto block object-contain bg-zen-100";
                         imgEl.onerror = function() {
                             if (projectData.fallbackImages && projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length]) {
                                 this.src = projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length];
@@ -795,7 +796,7 @@
                         galleryContainer.appendChild(imgEl);
                     });
 
-                    // Small Thumbnail Gallery (Placed at the end)
+                    // Small Thumbnail Gallery (Clean grid format at the end)
                     const smallWrapper = document.getElementById('detail-small-gallery-wrapper');
                     const smallContainer = document.getElementById('detail-small-gallery-container');
                     smallContainer.innerHTML = '';

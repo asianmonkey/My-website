@@ -84,9 +84,9 @@
         }
     </style>
 </head>
-<body class="bg-zen-50 text-zen-900 font-body antialiased overflow-hidden">
+<body class="bg-zen-50 text-zen-900 font-body antialiased overflow-x-hidden">
 
-    <!-- MAIN HOME VIEW -->
+    <!-- MAIN HOME VIEW (SLIDE DECK) -->
     <div id="home-view" class="h-screen w-screen overflow-hidden relative transition-opacity duration-500 ease-in-out">
         
         <!-- STATIONARY FOOTER OVERLAY -->
@@ -109,7 +109,7 @@
                 <div class="max-w-7xl mx-auto flex flex-col items-center justify-center relative w-full">
                     
                     <!-- Branding Header -->
-                    <div class="text-center mb-8 select-none flex flex-col items-center justify-center">
+                    <div class="text-center mb-6 select-none flex flex-col items-center justify-center">
                         <h1 class="text-2xl sm:text-4xl font-title tracking-[0.15em] uppercase text-zen-900 leading-none">
                             STUDIO HANDAJUWANA ZHU
                         </h1>
@@ -120,12 +120,11 @@
 
                     <!-- 3D Canvas Stage -->
                     <div class="relative w-full h-[65vh] sm:h-[75vh] lg:h-[82vh] max-h-[850px] min-h-[450px] bg-zen-50 overflow-hidden flex items-center justify-center">
-                        
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
-                        <!-- Minimal Hover Info Overlay -->
+                        <!-- Hover Info Overlay -->
                         <div id="hud-display" class="absolute bottom-6 left-6 text-left pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
-                            <span id="hud-title" class="text-sm font-title uppercase tracking-wider text-zen-900 block">Project Title</span>
+                            <span id="hud-title" class="text-xs font-title uppercase tracking-wider text-zen-900 block font-semibold">Project Title</span>
                         </div>
                     </div>
 
@@ -140,7 +139,7 @@
                         
                         <!-- Studio Partners Portrait -->
                         <div class="max-w-md mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000" 
+                            <img src="01_About photo.jpg" 
                                  alt="Studio Partners" 
                                  class="w-full h-full object-cover filter grayscale contrast-115 hover:scale-[1.03] transition-transform duration-700 ease-out"
                                  onerror="this.src='https://placehold.co/600x400/f5f4ef/1c1b1a?text=Studio+Partners'">
@@ -221,99 +220,133 @@
         </div>
     </div>
 
-    <!-- PROJECT CASE STUDY MODAL -->
-    <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pt-28 pb-20 px-6 transition-opacity duration-500 ease-in-out">
-        <div class="max-w-6xl mx-auto">
+    <!-- EDITORIAL ARCHITECTURAL CASE STUDY VIEW -->
+    <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pt-16 pb-24 px-6 sm:px-12 transition-opacity duration-500 ease-in-out">
+        <div class="max-w-4xl mx-auto space-y-12">
             
-            <button onclick="navigateToHome()" class="group mb-12 flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
-                <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
-                <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
-            </button>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-                
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-zen-100 overflow-hidden">
-                        <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-full object-cover transition-opacity duration-500">
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-4" id="detail-carousel-strip"></div>
-                </div>
-
-                <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-32">
-                    <div>
-                        <h1 id="detail-title" class="text-2xl sm:text-3xl font-title font-light tracking-wide text-zen-900 mt-2 leading-tight">Project Title</h1>
-                    </div>
-
-                    <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed border-t border-zen-100 pt-6 font-body">
-                        Description content goes here.
-                    </p>
-
-                    <div class="border-t border-b border-zen-200/60 py-6 space-y-4">
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Location:</span>
-                            <span id="detail-spec-location" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Footprint Area:</span>
-                            <span id="detail-spec-area" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Primary Textures:</span>
-                            <span id="detail-spec-materials" class="text-zen-900 font-semibold uppercase tracking-wider font-body">-</span>
-                        </div>
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="text-zen-400 font-medium font-title">Completed Year:</span>
-                            <span id="detail-spec-year" class="text-zen-900 font-semibold uppercase tracking-wider font-title">-</span>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- Top Navigation -->
+            <div class="pb-6 flex justify-between items-center">
+                <button onclick="navigateToHome()" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
+                    <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
+                    <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
+                </button>
             </div>
+
+            <!-- Centered Minimal Title -->
+            <div class="text-center py-2">
+                <h1 id="detail-title" class="text-xl sm:text-2xl lg:text-3xl font-title font-light tracking-wide text-zen-900 text-center leading-tight">
+                    Project Title
+                </h1>
+            </div>
+
+            <!-- Main Hero Visual (Full natural dimensions, original colors) -->
+            <div class="w-full bg-zen-100 overflow-hidden">
+                <img id="detail-hero-img" src="" alt="Project Visual" class="w-full h-auto block">
+            </div>
+
+            <!-- Standalone Left-Justified Project Index -->
+            <div class="max-w-xl mx-auto space-y-6 pt-4 text-left">
+                <div class="space-y-3 text-xs font-title max-w-md mx-auto text-left">
+                    <div class="flex justify-between items-baseline pb-2">
+                        <span class="text-zen-400 font-light text-[10px] uppercase tracking-wider">Location:</span>
+                        <span id="detail-spec-location" class="text-zen-900 font-medium text-[11px] uppercase tracking-wider text-right">-</span>
+                    </div>
+                    <div class="flex justify-between items-baseline pb-2">
+                        <span class="text-zen-400 font-light text-[10px] uppercase tracking-wider">Footprint / Scale:</span>
+                        <span id="detail-spec-area" class="text-zen-900 font-medium text-[11px] uppercase tracking-wider text-right">-</span>
+                    </div>
+                    <div class="flex justify-between items-baseline pb-2">
+                        <span class="text-zen-400 font-light text-[10px] uppercase tracking-wider">Year:</span>
+                        <span id="detail-spec-year" class="text-zen-900 font-medium text-[11px] uppercase tracking-wider text-right">-</span>
+                    </div>
+                    <div class="flex justify-between items-baseline pb-2">
+                        <span class="text-zen-400 font-light text-[10px] uppercase tracking-wider">Practice / Team:</span>
+                        <span class="text-zen-900 font-medium text-[11px] uppercase tracking-wider text-right">Studio Handajuwana Zhu</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept Narrative Column -->
+            <div class="max-w-2xl mx-auto space-y-6 pt-4 text-center">
+                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed space-y-4 font-body text-center sm:text-left">
+                    Description content goes here.
+                </div>
+            </div>
+
+            <!-- Tanaka | Tomidei Style Vertical Visual Gallery Stream (Full Dimensions, Original Colors) -->
+            <div class="space-y-12 sm:space-y-16 pt-4">
+                <div id="detail-gallery-stack" class="space-y-12 sm:space-y-16">
+                    <!-- Dynamic Gallery Stack Injected via JS -->
+                </div>
+            </div>
+
+            <!-- Project-to-Project Footer Navigation -->
+            <div class="pt-16 flex justify-between items-center text-xs font-title">
+                <button id="nav-prev-btn" onclick="navigateProject(-1)" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300">
+                    <i class="fa-solid fa-arrow-left text-[10px] transition-transform duration-300 group-hover:-translate-x-1"></i>
+                    <span id="nav-prev-title" class="uppercase tracking-wider font-light">Previous</span>
+                </button>
+
+                <button onclick="navigateToHome()" class="text-zen-400 hover:text-zen-900 uppercase tracking-mega text-[10px] font-semibold transition-colors duration-300">
+                    Index
+                </button>
+
+                <button id="nav-next-btn" onclick="navigateProject(1)" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300">
+                    <span id="nav-next-title" class="uppercase tracking-wider font-light">Next</span>
+                    <i class="fa-solid fa-arrow-right text-[10px] transition-transform duration-300 group-hover:translate-x-1"></i>
+                </button>
+            </div>
+
         </div>
     </div>
 
-    <!-- Application Script -->
+    <!-- APPLICATION LOGIC SCRIPT -->
     <script>
-        // Database
+        // Global Navigation Declarations
+        window.navigateToHome = function() {
+            window.location.hash = 'home';
+        };
+
+        let currentProjectId = 1;
+
+        // Portfolio Database
         const projectDatabase = {
             1: {
                 title: "SBR Lobby",
-                desc: "An architectural exploration balancing primary structural forms with ambient light.",
                 location: "Tokyo, Japan",
                 area: "3,400 sqft",
-                materials: "Fair-faced Concrete, Timber, Glass",
                 year: "2025",
+                desc: "SBR Lobby explores the dialogue between structural mass and translucent ambient illumination. Conceived as a tranquil threshold within central Tokyo, the spatial layout utilizes layered concrete planes, warm timber acoustic baffle fins, and custom recessed lighting channels to carve quiet moments out of dense urban surroundings.",
                 images: [
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1200"
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1600"
                 ]
             },
             2: {
                 title: "Not a Hotel",
-                desc: "A public ritual retreat dedicated to quiet spatial experience and integrated landscape contouring.",
-                location: "Kyoto, Japan",
-                area: "12,200 sqft",
-                materials: "Clay Plaster, Reclaimed Elm, Local Vegetation",
-                year: "2025",
+                location: "Tochigi, Japan",
+                area: "12,500 sqft",
+                year: "2024",
+                desc: "Not a Hotel is an expansive landscape and villa masterplan integrated into the forested contours of Tochigi. The architecture dissolves boundary lines between living quarters and surrounding topography, featuring subterranean courtyards, sweeping turf roofs, and floor-to-ceiling glass pavilions that frame seasonal shifts across the valley.",
                 images: [
-                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200"
+                    "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1600"
                 ]
             },
             3: {
                 title: "Chummy Chair Collection",
-                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes.",
                 location: "Tokyo, Japan",
-                area: "Furniture Scale",
-                materials: "Cast Plaster, Dark Cedar",
+                area: "Furniture Maquette",
                 year: "2024",
+                desc: "Winner of the Starchitects Chair design competition, the Chummy Chair series investigates geometric fluidity and anatomical support. Sculpted through a sequence of interlocking curved profiles, the collection transitions seamlessly between architectural prototype and functional tactile object.",
                 images: [
-                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1200"
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1600",
+                    "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1600"
                 ]
             }
         };
@@ -358,7 +391,7 @@
             scene.fog = new THREE.FogExp2('#fbfbfa', 0.035);
 
             camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-            camera.position.set(0, 11, 22);
+            camera.position.set(0, 9, 22);
             camera.lookAt(0, 0, 0);
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -371,11 +404,11 @@
             interactionGroup = new THREE.Group();
             scene.add(interactionGroup);
 
-            // Lighting
-            const ambientLight = new THREE.AmbientLight('#ffffff', 0.7);
+            // Studio Lighting Setup
+            const ambientLight = new THREE.AmbientLight('#ffffff', 0.75);
             scene.add(ambientLight);
 
-            const dirLight = new THREE.DirectionalLight('#ffffff', 1.0);
+            const dirLight = new THREE.DirectionalLight('#ffffff', 1.1);
             dirLight.position.set(12, 18, 10);
             dirLight.castShadow = true;
             dirLight.shadow.mapSize.width = 2048;
@@ -403,29 +436,27 @@
         }
 
         function buildDefaultModels() {
-            // Widened X coordinates (-8.2, 0.0, 8.2) for generous breathing room
             const positions = [
-                { x: -8.2, z: 0.8, rot: 0.25 },   
-                { x: 0.0, z: -0.5, rot: -0.05 },   
-                { x: 8.2, z: 0.8, rot: -0.25 }      
+                { x: -8.2, z: 0.5, rot: 0.3 },   
+                { x: 0.0, z: -0.8, rot: -0.1 },   
+                { x: 8.2, z: 0.5, rot: -0.3 }      
             ];
 
             // Model 1 Placeholder (SBR Lobby)
             const m1 = new THREE.Group();
-            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), studioPlasterMaterial);
+            const seat = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.08, 1.4), studioPlasterMaterial);
             seat.position.set(0, 0.5, 0);
             m1.add(seat);
-            const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), studioPlasterMaterial);
-            back.position.set(0, 0.95, -0.56);
+            const back = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.1, 0.08), studioPlasterMaterial);
+            back.position.set(0, 1.05, -0.66);
             m1.add(back);
-            for(let x of [-0.5, 0.5]) {
-                for(let z of [-0.5, 0.5]) {
-                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 0.08), timberMaterial);
+            for(let x of [-0.6, 0.6]) {
+                for(let z of [-0.6, 0.6]) {
+                    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.5, 0.1), timberMaterial);
                     leg.position.set(x, 0.25, z);
                     m1.add(leg);
                 }
             }
-            m1.scale.set(2, 2, 2);
             m1.position.set(positions[0].x, -0.2, positions[0].z);
             m1.rotation.y = positions[0].rot;
             m1.userData = { id: 1, baseHeight: -0.2 };
@@ -434,35 +465,33 @@
 
             // Model 2 Placeholder (Not a Hotel)
             const m2 = new THREE.Group();
-            const m2Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.1, 1.8), studioPlasterMaterial);
+            const m2Base = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.1, 2.4), studioPlasterMaterial);
             m2.add(m2Base);
-            const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
-            m2Cylinder.position.set(0, 0.6, 0);
+            const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 1.3, 16), studioPlasterMaterial);
+            m2Cylinder.position.set(0, 0.7, 0);
             m2.add(m2Cylinder);
-            m2.scale.set(2, 2, 2);
             m2.position.set(positions[1].x, -0.1, positions[1].z);
             m2.rotation.y = positions[1].rot;
             m2.userData = { id: 2, baseHeight: -0.1 };
             interactionGroup.add(m2);
             maquetteObjects.push(m2);
 
-            // Model 3 Placeholder (Chummy Chair Collection)
+            // Model 3 Placeholder (Chummy Chair)
             const m3 = new THREE.Group();
-            const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 1.5), studioPlasterMaterial);
+            const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.08, 1.8), studioPlasterMaterial);
             m3.add(m3Base);
             for (let i = 0; i < 3; i++) {
-                const w = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.35 + i * 0.35, 1.1 - i * 0.2), studioPlasterMaterial);
-                w.position.set(-0.45 + i * 0.3, (0.35 + i * 0.35) / 2 + 0.04, 0);
+                const w = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.4 + i * 0.4, 1.3 - i * 0.2), studioPlasterMaterial);
+                w.position.set(-0.5 + i * 0.35, (0.4 + i * 0.4) / 2 + 0.04, 0);
                 m3.add(w);
             }
-            m3.scale.set(2, 2, 2);
             m3.position.set(positions[2].x, -0.3, positions[2].z);
             m3.rotation.y = positions[2].rot;
             m3.userData = { id: 3, baseHeight: -0.3 };
             interactionGroup.add(m3);
             maquetteObjects.push(m3);
 
-            // Enable Shadows
+            // Shadows
             maquetteObjects.forEach(group => {
                 group.traverse(child => {
                     if (child.isMesh) {
@@ -476,12 +505,6 @@
         function loadRepositoryModels() {
             if (typeof THREE.GLTFLoader === 'undefined') return;
 
-            const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
-            if (!isHttp) {
-                console.log('Running in preview sandbox environment; using procedural studio maquettes.');
-                return;
-            }
-
             const loader = new THREE.GLTFLoader();
 
             const repoModels = [
@@ -490,35 +513,36 @@
                 { slot: 2, path: 'Project 03_Chummy Chair.glb', title: 'Chummy Chair Collection', targetScale: 2.5 }
             ];
 
+            const isHttp = window.location.protocol.startsWith('http');
+
             repoModels.forEach(item => {
                 const targetGroup = maquetteObjects[item.slot];
                 if (!targetGroup) return;
 
-                try {
-                    const fullUrl = new URL(item.path, window.location.href).href;
+                const modelUrl = isHttp ? new URL(item.path, window.location.href).href : encodeURI(item.path);
 
+                try {
                     loader.load(
-                        fullUrl,
+                        modelUrl,
                         (gltf) => {
                             const model = gltf.scene;
 
-                            // Calculate mesh bounding box
-                            const box = new THREE.Box3().setFromObject(model);
-                            const size = box.getSize(new THREE.Vector3());
-                            const maxDim = Math.max(size.x, size.y, size.z);
+                            // Calculate Mesh Bounding Box
+                            const box = computeMeshBoundingBox(model);
 
-                            if (maxDim > 0) {
-                                const scale = item.targetScale / maxDim;
-                                model.scale.set(scale, scale, scale);
+                            if (!box.isEmpty()) {
+                                const center = box.getCenter(new THREE.Vector3());
+                                const size = box.getSize(new THREE.Vector3());
+
+                                // Align ground level
+                                model.position.set(-center.x, -box.min.y, -center.z);
+
+                                const maxDim = Math.max(size.x, size.y, size.z);
+                                if (maxDim > 0) {
+                                    const scale = item.targetScale / maxDim;
+                                    model.scale.set(scale, scale, scale);
+                                }
                             }
-
-                            // Align ground surface
-                            const scaledBox = new THREE.Box3().setFromObject(model);
-                            model.position.set(
-                                - (scaledBox.min.x + scaledBox.max.x) / 2,
-                                - scaledBox.min.y,
-                                - (scaledBox.min.z + scaledBox.max.z) / 2
-                            );
 
                             // Clear procedural placeholder
                             while (targetGroup.children.length > 0) {
@@ -547,13 +571,26 @@
                         },
                         undefined,
                         (error) => {
-                            console.log(`GLB file "${item.path}" fallback active.`);
+                            console.log(`GLB "${item.path}" fallback active.`);
                         }
                     );
                 } catch (e) {
-                    console.log(`Could not load GLB model "${item.path}":`, e);
+                    console.log(`Loading error fallback active for ${item.path}`);
                 }
             });
+        }
+
+        function computeMeshBoundingBox(object) {
+            const box = new THREE.Box3();
+            object.traverse((child) => {
+                if (child.isMesh && child.geometry) {
+                    child.geometry.computeBoundingBox();
+                    const meshBox = child.geometry.boundingBox.clone();
+                    meshBox.applyMatrix4(child.matrixWorld);
+                    box.union(meshBox);
+                }
+            });
+            return box;
         }
 
         function onWindowResize() {
@@ -564,7 +601,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
 
-            let scaleFactor = width < 640 ? 0.35 : width < 1024 ? 0.6 : width < 1440 ? 0.85 : 1.0;
+            let scaleFactor = width < 640 ? 0.35 : width < 1024 ? 0.65 : width < 1440 ? 0.85 : 1.00;
             interactionGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
         }
 
@@ -585,8 +622,8 @@
 
                 dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
 
-                targetRotationY += deltaX * 0.01;
-                targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.01));
+                targetRotationY += deltaX * 0.008;
+                targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.008));
 
                 previousMousePosition = { x: e.clientX, y: e.clientY };
             }
@@ -613,8 +650,8 @@
             const deltaY = e.touches[0].clientY - previousMousePosition.y;
 
             dragDistance += Math.abs(deltaX) + Math.abs(deltaY);
-            targetRotationY += deltaX * 0.012;
-            targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.012));
+            targetRotationY += deltaX * 0.01;
+            targetRotationX = Math.max(0.1, Math.min(1.1, targetRotationX + deltaY * 0.01));
 
             previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         }
@@ -641,17 +678,17 @@
             requestAnimationFrame(animate);
             if (!renderer) return;
 
-            if (!isDragging) targetRotationY += 0.0015;
+            if (!isDragging) targetRotationY += 0.0012;
 
-            interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
+            interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.08;
             
             const targetCamY = 3 + (targetRotationX * 8);
-            camera.position.y += (targetCamY - camera.position.y) * 0.1;
+            camera.position.y += (targetCamY - camera.position.y) * 0.08;
             camera.lookAt(0, 0, 0);
 
             const time = performance.now() * 0.0015;
             maquetteObjects.forEach((model, idx) => {
-                model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.12;
+                model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.08;
             });
 
             checkHover();
@@ -697,35 +734,40 @@
                 const projectData = projectDatabase[pId];
 
                 if (projectData) {
+                    currentProjectId = pId;
+
+                    // Update Top Header Line
                     document.getElementById('detail-title').innerText = projectData.title;
-                    document.getElementById('detail-desc').innerText = projectData.desc;
+
+                    // Text & Specs
+                    document.getElementById('detail-desc').innerHTML = `<p>${projectData.desc}</p>`;
                     document.getElementById('detail-spec-location').innerText = projectData.location;
                     document.getElementById('detail-spec-area').innerText = projectData.area;
-                    document.getElementById('detail-spec-materials').innerText = projectData.materials;
                     document.getElementById('detail-spec-year').innerText = projectData.year;
 
-                    const mainImg = document.getElementById('detail-main-img');
-                    mainImg.src = projectData.images[0];
+                    // Hero Image (Original Colors, Full Natural Proportions)
+                    const heroImg = document.getElementById('detail-hero-img');
+                    heroImg.src = projectData.images[0];
 
-                    const strip = document.getElementById('detail-carousel-strip');
-                    strip.innerHTML = '';
-                    projectData.images.forEach((imgUrl, idx) => {
-                        const thumb = document.createElement('div');
-                        thumb.className = `aspect-square bg-zen-100 overflow-hidden cursor-pointer border ${idx === 0 ? 'border-zen-900' : 'border-zen-200/50'} hover:border-zen-400 transition-colors duration-300`;
-                        thumb.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover transition duration-300 hover:scale-105" alt="Thumbnail">`;
-                        
-                        thumb.addEventListener('click', () => {
-                            Array.from(strip.children).forEach(child => child.classList.replace('border-zen-900', 'border-zen-200/50'));
-                            thumb.classList.replace('border-zen-200/50', 'border-zen-900');
-                            
-                            mainImg.style.opacity = '0.3';
-                            setTimeout(() => {
-                                mainImg.src = imgUrl;
-                                mainImg.style.opacity = '1';
-                            }, 150);
-                        });
-                        strip.appendChild(thumb);
-                    });
+                    // Stacked Vertical Gallery Stream (One-by-One in full natural dimensions)
+                    const galleryStack = document.getElementById('detail-gallery-stack');
+                    galleryStack.innerHTML = '';
+
+                    for (let i = 1; i < projectData.images.length; i++) {
+                        const singleRow = document.createElement('div');
+                        singleRow.className = 'w-full bg-zen-100 overflow-hidden';
+                        singleRow.innerHTML = `
+                            <img src="${projectData.images[i]}" class="w-full h-auto block" alt="Project Documentation">
+                        `;
+                        galleryStack.appendChild(singleRow);
+                    }
+
+                    // Footer Previous / Next Links
+                    const prevId = pId === 1 ? 3 : pId - 1;
+                    const nextId = pId === 3 ? 1 : pId + 1;
+
+                    document.getElementById('nav-prev-title').innerText = projectDatabase[prevId].title;
+                    document.getElementById('nav-next-title').innerText = projectDatabase[nextId].title;
 
                     homeView.style.opacity = '0';
                     setTimeout(() => {
@@ -746,9 +788,12 @@
             }
         }
 
-        function navigateToHome() {
-            window.location.hash = 'home';
-        }
+        window.navigateProject = function(direction) {
+            let nextId = currentProjectId + direction;
+            if (nextId < 1) nextId = 3;
+            if (nextId > 3) nextId = 1;
+            window.location.hash = `project-${nextId}`;
+        };
 
         let activeSection = 0;
         let isTransitioning = false;

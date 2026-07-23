@@ -144,7 +144,7 @@
                     <div class="space-y-12 sm:space-y-16">
                         
                         <!-- Studio Partners Portrait (Static Image, Natural Color) -->
-                        <div class="max-w-md mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
+                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden">
                             <img src="01_About photo.jpg" 
                                  alt="Studio Partners" 
                                  style="transform: none !important; transition: none !important;"
@@ -239,26 +239,31 @@
         <!-- Project Title Header Section -->
         <div class="w-full text-center pb-12 px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
             <h1 id="detail-title" class="text-xs sm:text-base lg:text-lg font-title tracking-[0.2em] uppercase text-zen-900 leading-tight">Project Title</h1>
+            <span id="detail-subtitle" class="block text-[10px] sm:text-xs font-title tracking-[0.25em] uppercase text-zen-400 mt-2 hidden">Subtitle</span>
         </div>
 
         <!-- Hero Viewport Image -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
             <div class="w-full overflow-hidden bg-zen-100">
-                <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-auto block">
+                <img id="detail-main-img" src="" alt="Project Visual" class="w-full h-auto block object-cover" onerror="this.src='https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600'">
             </div>
         </div>
 
         <!-- Content Details Block -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 space-y-16">
             
-            <!-- Technical Specs Block (Left-Justified) -->
+            <!-- Technical Specs Block (Left-Justified Index) -->
             <div class="w-full max-w-xl text-left font-title text-[11px] sm:text-xs uppercase tracking-wider space-y-3.5 py-2">
+                <div class="grid grid-cols-3">
+                    <span class="text-zen-400">Type</span>
+                    <span id="detail-spec-type" class="col-span-2 text-zen-900 font-medium">Interior Transformation</span>
+                </div>
                 <div class="grid grid-cols-3">
                     <span class="text-zen-400">Location</span>
                     <span id="detail-spec-location" class="col-span-2 text-zen-900 font-medium">-</span>
                 </div>
                 <div class="grid grid-cols-3">
-                    <span class="text-zen-400">Footprint / Scale</span>
+                    <span class="text-zen-400">Footprint / Area</span>
                     <span id="detail-spec-area" class="col-span-2 text-zen-900 font-medium">-</span>
                 </div>
                 <div class="grid grid-cols-3">
@@ -273,20 +278,38 @@
 
             <!-- Conceptual Framework Narrative Block -->
             <div class="w-full max-w-4xl text-left border-0 pt-4">
-                <p id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm md:text-base leading-relaxed font-body">
+                <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm md:text-base leading-relaxed font-body space-y-4 whitespace-pre-line">
                     Description content.
-                </p>
+                </div>
             </div>
+
+            <!-- Animation GIF Section (Placed after concept description) -->
+            <div id="detail-animation-block" class="w-full hidden pt-4">
+                <div class="w-full overflow-hidden bg-zen-100">
+                    <img id="detail-animation-img" src="" alt="Project Animation" class="w-full h-auto block object-cover">
+                </div>
+            </div>
+
         </div>
 
-        <!-- Vertical Visual Sequence (Fluid Gallery Stream) -->
+        <!-- Vertical Visual Sequence (Large Photos Stack) -->
         <div id="detail-gallery-container" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-20 flex flex-col space-y-12 sm:space-y-16">
-            <!-- Dynamic project images -->
+            <!-- Dynamic large project images -->
+        </div>
+
+        <!-- Small Photo Gallery Section (Grid format at the end) -->
+        <div id="detail-small-gallery-wrapper" class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-20 hidden">
+            <div class="border-t border-zen-200/60 pt-12 mb-8">
+                <span class="text-[10px] sm:text-xs font-title tracking-ultra uppercase text-zen-400">Process & Details Gallery</span>
+            </div>
+            <div id="detail-small-gallery-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Dynamic small thumbnail images -->
+            </div>
         </div>
 
         <!-- Project Navigation Footers -->
         <div class="w-full px-6 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-24">
-            <div class="w-full flex justify-between items-center text-[10px] sm:text-xs font-title uppercase tracking-ultra pt-8">
+            <div class="w-full flex justify-between items-center text-[10px] sm:text-xs font-title uppercase tracking-ultra pt-8 border-t border-zen-200/60">
                 <button id="prev-project-btn" onclick="window.navigateProject(-1)" class="text-zen-400 hover:text-zen-900 transition flex items-center space-x-2">
                     <span>← Previous Project</span>
                 </button>
@@ -302,12 +325,38 @@
         // Project Database Definitions
         const projectDatabase = {
             1: {
-                title: "SBR Lobby",
-                desc: "An architectural exploration balancing primary structural forms with ambient light within a high-density urban context. The structure dissolves structural opacity to generate fluid internal transitions.",
-                location: "Tokyo, Japan",
-                area: "3,400 sqft",
-                year: "2025",
-                images: [
+                title: "SBR ELEMENTARY SCHOOL FRONT RENOVATION",
+                subtitle: "COLORFUL PLAYBLOCKS",
+                type: "Interior transformation",
+                location: "Bogor, Indonesia",
+                area: "320 m²",
+                year: "Completed 2021",
+                team: "In Collaboration with Oktanto Khang",
+                desc: "Our goal for this school lobby was to replace a sterile, institutional entrance with an environment that instantly feels welcoming, creative, and inspiring for children and parents alike. Because this was a partial renovation, we needed a design that would inject fresh energy without clashing with the rest of the existing school. We drew inspiration from the universal simplicity of childhood building blocks and geometric toys, taking those classic shapes and scaling them up into architectural features to create a space that feels inherently familiar and playful.\n\nThe heart of the design is a striking, repetitive runway of yellow arches. This inviting arcade serves as a joyful, sunlit gateway for students as they enter the school every morning, turning a standard hallway into an immersive experience. To balance the bright yellow, we used warm terracotta at the reception desk to welcome visitors, and paired it with deep blue administrative areas and soft, flowing curtains that easily close to create private meeting spaces when needed.",
+                animation: "01_SBR_Animation_01.gif",
+                largeImages: [
+                    "01_SBR_Large_01.jpg",
+                    "01_SBR_Large_02.png",
+                    "01_SBR_Large_03.jpg",
+                    "01_SBR_Large_04.jpg",
+                    "01_SBR_Large_05.JPG",
+                    "01_SBR_Large_06.jpg",
+                    "01_SBR_Large_07.jpg"
+                ],
+                smallImages: [
+                    "01_SBR_Small_01.jpg",
+                    "01_SBR_Small_02.jpg",
+                    "01_SBR_Small_03.jpg",
+                    "01_SBR_Small_04.jpg",
+                    "01_SBR_Small_05.jpg",
+                    "01_SBR_Small_06.jpg",
+                    "01_SBR_Small_07.jpg",
+                    "01_SBR_Small_08.jpg",
+                    "01_SBR_Small_09.jpg",
+                    "01_SBR_Small_10.jpg",
+                    "01_SBR_Small_11.jpg"
+                ],
+                fallbackImages: [
                     "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=1600"
@@ -315,27 +364,37 @@
             },
             2: {
                 title: "Not a Hotel",
-                desc: "An expansive landscape and villa masterplan integrated into the forested contours of Tochigi. The architecture dissolves boundary lines between living quarters and surrounding topography, featuring subterranean courtyards, sweeping turf roofs, and floor-to-ceiling glass pavilions that frame seasonal shifts across the valley.",
+                subtitle: "",
+                type: "Architecture & Masterplan",
                 location: "Tochigi, Japan",
                 area: "12,500 sqft",
                 year: "2024",
-                images: [
+                team: "STUDIO HANDAJUWANA ZHU",
+                desc: "An expansive landscape and villa masterplan integrated into the forested contours of Tochigi. The architecture dissolves boundary lines between living quarters and surrounding topography, featuring subterranean courtyards, sweeping turf roofs, and floor-to-ceiling glass pavilions that frame seasonal shifts across the valley.",
+                animation: null,
+                largeImages: [
                     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1600"
-                ]
+                ],
+                smallImages: []
             },
             3: {
                 title: "Chummy Chair Collection",
-                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes. Developed to investigate timber bending limitations and casting textures.",
+                subtitle: "",
+                type: "Object & Furniture Design",
                 location: "Tokyo, Japan",
                 area: "Furniture Scale",
                 year: "2024",
-                images: [
+                team: "STUDIO HANDAJUWANA ZHU",
+                desc: "A custom architectural maquette model exploring modern ergonomic furniture geometry and warm studio finishes. Developed to investigate timber bending limitations and casting textures.",
+                animation: null,
+                largeImages: [
                     "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1600",
                     "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=1600"
-                ]
+                ],
+                smallImages: []
             }
         };
 
@@ -673,24 +732,96 @@
 
                 if (projectData) {
                     document.getElementById('detail-title').innerText = projectData.title;
+                    
+                    const subtitleEl = document.getElementById('detail-subtitle');
+                    if (projectData.subtitle) {
+                        subtitleEl.innerText = projectData.subtitle;
+                        subtitleEl.classList.remove('hidden');
+                    } else {
+                        subtitleEl.classList.add('hidden');
+                    }
+
                     document.getElementById('detail-desc').innerText = projectData.desc;
+                    document.getElementById('detail-spec-type').innerText = projectData.type || "Architecture / Interior";
                     document.getElementById('detail-spec-location').innerText = projectData.location;
                     document.getElementById('detail-spec-area').innerText = projectData.area;
                     document.getElementById('detail-spec-year').innerText = projectData.year;
+                    document.getElementById('detail-spec-team').innerText = projectData.team || "STUDIO HANDAJUWANA ZHU";
 
-                    // Hero Image
-                    document.getElementById('detail-main-img').src = projectData.images[0];
+                    // Large Images / Hero Setup
+                    const largeList = projectData.largeImages && projectData.largeImages.length > 0 
+                        ? projectData.largeImages 
+                        : (projectData.fallbackImages || []);
 
-                    // Visual Gallery Sequence
+                    const heroImage = largeList[0];
+                    const detailMainImg = document.getElementById('detail-main-img');
+                    detailMainImg.src = heroImage;
+                    detailMainImg.onerror = function() {
+                        if (projectData.fallbackImages && projectData.fallbackImages[0]) {
+                            this.src = projectData.fallbackImages[0];
+                        }
+                    };
+
+                    // Animation GIF Placement (Placed right after concept description)
+                    const animBlock = document.getElementById('detail-animation-block');
+                    const animImg = document.getElementById('detail-animation-img');
+                    if (projectData.animation) {
+                        animImg.src = projectData.animation;
+                        animImg.onerror = function() {
+                            if (projectData.fallbackImages && projectData.fallbackImages[1]) {
+                                this.src = projectData.fallbackImages[1];
+                            }
+                        };
+                        animBlock.classList.remove('hidden');
+                    } else {
+                        animBlock.classList.add('hidden');
+                    }
+
+                    // Stacked Large Images Gallery (Sequential Order)
                     const galleryContainer = document.getElementById('detail-gallery-container');
                     galleryContainer.innerHTML = '';
                     
-                    projectData.images.forEach((imgUrl) => {
+                    const sequentialLarge = largeList.slice(1);
+                    sequentialLarge.forEach((imgUrl, idx) => {
                         const imgEl = document.createElement('img');
                         imgEl.src = imgUrl;
+                        imgEl.alt = `${projectData.title} - Visual ${idx + 2}`;
                         imgEl.className = "w-full h-auto block object-cover bg-zen-100";
+                        imgEl.onerror = function() {
+                            if (projectData.fallbackImages && projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length]) {
+                                this.src = projectData.fallbackImages[(idx + 1) % projectData.fallbackImages.length];
+                            }
+                        };
                         galleryContainer.appendChild(imgEl);
                     });
+
+                    // Small Thumbnail Gallery (Placed at the end)
+                    const smallWrapper = document.getElementById('detail-small-gallery-wrapper');
+                    const smallContainer = document.getElementById('detail-small-gallery-container');
+                    smallContainer.innerHTML = '';
+
+                    if (projectData.smallImages && projectData.smallImages.length > 0) {
+                        projectData.smallImages.forEach((sUrl, sIdx) => {
+                            const wrapperDiv = document.createElement('div');
+                            wrapperDiv.className = "aspect-square bg-zen-100 overflow-hidden";
+                            
+                            const sImg = document.createElement('img');
+                            sImg.src = sUrl;
+                            sImg.alt = `${projectData.title} Detail ${sIdx + 1}`;
+                            sImg.className = "w-full h-full object-cover hover:scale-105 transition-transform duration-500 ease-out";
+                            sImg.onerror = function() {
+                                if (projectData.fallbackImages && projectData.fallbackImages[sIdx % projectData.fallbackImages.length]) {
+                                    this.src = projectData.fallbackImages[sIdx % projectData.fallbackImages.length];
+                                }
+                            };
+                            
+                            wrapperDiv.appendChild(sImg);
+                            smallContainer.appendChild(wrapperDiv);
+                        });
+                        smallWrapper.classList.remove('hidden');
+                    } else {
+                        smallWrapper.classList.add('hidden');
+                    }
 
                     homeView.style.opacity = '0';
                     setTimeout(() => {
@@ -698,7 +829,6 @@
                         projectView.classList.remove('hidden');
                         projectView.style.opacity = '1';
                         window.scrollTo(0, 0);
-                        // Ensure header is visible at top of project view
                         if (mainHeader) {
                             mainHeader.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
                             mainHeader.classList.add('opacity-100', 'translate-y-0');
@@ -726,7 +856,6 @@
             const projectView = document.getElementById('project-view');
             if (!mainHeader || !projectView) return;
 
-            // Only trigger hide behavior if currently inside the project detail view
             if (!projectView.classList.contains('hidden')) {
                 if (window.scrollY > 40) {
                     mainHeader.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');

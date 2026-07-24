@@ -99,24 +99,24 @@
             <span class="font-body text-[9px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1 block">
                 form + space
             </span>
-        </div>
-    </header>
-
-    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-4 sm:pb-6 px-4 sm:px-12">
-        <div class="w-full mx-auto flex flex-col sm:grid sm:grid-cols-3 items-center gap-1 sm:gap-4 text-center">
+    <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-3 sm:pb-6 px-4 sm:px-12">
+        <!-- Mobile Layout: Left Email, Right Instagram + Copyright column | Desktop Layout: 3 Columns -->
+        <div class="w-full mx-auto flex justify-between items-end sm:grid sm:grid-cols-3 sm:items-center gap-2 sm:gap-4">
             
             <!-- Left: Contact Email -->
-            <div class="pointer-events-auto text-center sm:text-left">
-                <a href="mailto:info@handajuwanazhu.com" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">info@handajuwanazhu.com</a>
+            <div class="pointer-events-auto text-left">
+                <a href="mailto:info@handajuwanazhu.com" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition block">info@handajuwanazhu.com</a>
             </div>
 
-            <!-- Center: Instagram Profile -->
-            <div class="pointer-events-auto text-center">
-                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition">@han___zhu</a>
+            <!-- Center (Desktop) / Right (Mobile) Instagram & Mobile Copyright -->
+            <div class="pointer-events-auto text-right sm:text-center">
+                <a href="https://instagram.com/han___zhu" target="_blank" rel="noopener noreferrer" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition block">@han___zhu</a>
+                <!-- Mobile-only Copyright directly below Instagram link -->
+                <span class="sm:hidden text-[7px] font-title font-light uppercase tracking-wider text-zen-400 block mt-0.5">&copy; 2026 Studio Handajuwana Zhu</span>
             </div>
 
-            <!-- Right: Copyright Statement -->
-            <div class="pointer-events-auto text-center sm:text-right text-[8px] sm:text-[10px] font-title font-light uppercase tracking-wider text-zen-400">
+            <!-- Right: Copyright Statement (Desktop Only) -->
+            <div class="hidden sm:block pointer-events-auto text-right text-[10px] font-title font-light uppercase tracking-wider text-zen-400">
                 <span>&copy; 2026 Studio Handajuwana Zhu</span>
             </div>
 
@@ -128,22 +128,22 @@
         <div id="slide-wrapper" class="h-full w-full transition-transform duration-[1400ms] ease-[cubic-bezier(0.23,1,0.32,1)] will-change-transform">
             
             <!-- Slide 1: Interactive 3D Projects -->
-            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden px-0 sm:px-6 pt-16 sm:pt-20 pb-12 relative">
-                <div class="w-full mx-auto flex flex-col items-center justify-center relative">
+            <section id="projects" class="h-screen w-full shrink-0 flex flex-col justify-center items-center bg-zen-50 overflow-hidden relative">
+                <div class="w-full h-full absolute inset-0 flex items-center justify-center">
                     
-                    <div class="relative w-full h-[68vh] sm:h-[75vh] lg:h-[80vh] max-h-[850px] min-h-[420px] bg-zen-50 overflow-hidden flex items-center justify-center">
+                    <div class="relative w-full h-full bg-zen-50 overflow-hidden flex items-center justify-center">
                         <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
                         <!-- Hover Overlay Title centered at stage bottom -->
-                        <div id="hud-display" class="absolute bottom-20 sm:bottom-6 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2">
+                        <div id="hud-display" class="absolute bottom-28 sm:bottom-12 left-1/2 -translate-x-1/2 text-center pointer-events-none transition-all duration-300 opacity-0 transform translate-y-2 z-20">
                             <span id="hud-title" class="text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 mt-1 block">Project Title</span>
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Downward Arrow Cue for About Section on Mobile -->
-                <button onclick="glideToSection(1)" class="sm:hidden absolute bottom-12 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider">
+                <!-- Downward Arrow Cue for About Section on Mobile (Elevated so it's instantly visible on mobile) -->
+                <button onclick="glideToSection(1)" class="sm:hidden absolute bottom-20 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider z-30 pointer-events-auto">
                     <span>About Studio</span>
                     <i class="fa-solid fa-chevron-down text-[8px] animate-bounce"></i>
                 </button>
@@ -745,7 +745,7 @@
             camera.aspect = width / height;
             camera.fov = isMobile ? 68 : 36;
             camera.position.z = isMobile ? 22 : 22;
-            camera.position.y = isMobile ? 7 : 9;
+            camera.position.y = isMobile ? 4 : 9;
             camera.updateProjectionMatrix();
 
             renderer.setSize(width, height);
@@ -814,7 +814,7 @@
             if (!isDragging) targetRotationY += 0.0015;
             interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
             
-            camera.position.y += (((window.innerWidth < 640 ? 7 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
+            camera.position.y += (((window.innerWidth < 640 ? 4 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
             camera.lookAt(0, 0, 0);
 
             const time = performance.now() * 0.0015;

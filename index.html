@@ -146,7 +146,7 @@
                 </div>
 
                 <!-- Downward Arrow Cue for About Section on Mobile (Elevated so it's instantly visible on mobile) -->
-                <button onclick="glideToSection(1)" class="sm:hidden absolute bottom-20 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider z-30 pointer-events-auto">
+                <button onclick="glideToSection(1)" class="sm:hidden absolute bottom-28 left-1/2 -translate-x-1/2 text-zen-400 hover:text-zen-900 transition flex flex-col items-center gap-0.5 text-[9px] font-title uppercase tracking-wider z-30 pointer-events-auto">
                     <span>About Studio</span>
                     <i class="fa-solid fa-chevron-down text-[8px] animate-bounce"></i>
                 </button>
@@ -164,7 +164,7 @@
                     <div class="space-y-10 sm:space-y-12">
                         
                         <!-- Studio Partners Portrait -->
-                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm">
+                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm mb-12 sm:mb-20">
                             <img src="01_About photo.jpg" 
                                  alt="Studio Partners" 
                                  style="transform: none !important; transition: none !important;"
@@ -255,14 +255,14 @@
             </button>
         </div>
 
-        <!-- Hero Viewport Image Container (Edge-to-edge on mobile, generous margins on desktop) -->
+        <!-- Hero Viewport Image Container -->
         <div class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80">
             <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
                 <img id="detail-main-img" src="" alt="Project Visual" class="w-full max-h-[80vh] sm:max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
-        <!-- Scaled Down Project Title Header (Positioned Under First Image) -->
+        <!-- Scaled Down Project Title Header -->
         <div class="w-full text-center pt-6 sm:pt-8 pb-4 px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 space-y-1">
             <h1 id="detail-title" class="text-xs sm:text-base lg:text-lg font-title tracking-[0.2em] uppercase text-zen-900 leading-tight">Project Title</h1>
             <h2 id="detail-subtitle" class="text-[10px] sm:text-xs font-title tracking-[0.15em] uppercase text-zen-400">Subtitle</h2>
@@ -271,7 +271,7 @@
         <!-- Content Details Block -->
         <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-8 sm:mt-12 space-y-10 sm:space-y-16">
             
-            <!-- Technical Specs Block (Centered Container with Left-Aligned Key-Values in Yu Gothic Light Font) -->
+            <!-- Technical Specs Block -->
             <div class="w-full max-w-md mx-auto font-yugothic text-[10px] sm:text-xs uppercase tracking-wider space-y-3 py-2">
                 <div class="grid grid-cols-3 text-left">
                     <span class="text-zen-400">Type</span>
@@ -295,7 +295,7 @@
                 </div>
             </div>
 
-            <!-- Conceptual Framework Narrative Block (Centered with Yu Gothic Light Font) -->
+            <!-- Conceptual Framework Narrative Block -->
             <div class="w-full max-w-3xl mx-auto text-center border-0 pt-2">
                 <div id="detail-desc" class="text-zen-800 font-light text-xs sm:text-sm leading-relaxed font-yugothic space-y-4">
                     Description content.
@@ -303,19 +303,19 @@
             </div>
         </div>
 
-        <!-- Animation GIF Slot (Edge-to-edge on mobile) -->
+        <!-- Animation GIF Slot -->
         <div id="detail-animation-container" class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-12 sm:mt-28 hidden">
             <div class="w-full overflow-hidden bg-zen-50 flex items-center justify-center cursor-zoom-in" onclick="openLightbox(this.querySelector('img').src)">
                 <img id="detail-animation-gif" src="" alt="Project Animation" class="w-full max-h-[80vh] sm:max-h-[85vh] object-contain block mx-auto">
             </div>
         </div>
 
-        <!-- Vertical Visual Sequence (Edge-to-edge images on mobile, stacked with desktop side margins) -->
+        <!-- Vertical Visual Sequence -->
         <div id="detail-gallery-container" class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-12 sm:mt-28 flex flex-col space-y-12 sm:space-y-28 lg:space-y-36">
             <!-- Dynamic large project images print here -->
         </div>
 
-        <!-- Small Photo Grid Gallery (Maximized width on mobile) -->
+        <!-- Small Photo Grid Gallery -->
         <div id="detail-small-gallery-wrapper" class="w-full px-2 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-16 sm:mt-36 hidden space-y-8">
             <div id="detail-small-gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-6 lg:gap-8">
                 <!-- Dynamic small thumbnail photos print here -->
@@ -1069,6 +1069,8 @@
                     } else {
                         mainHeader.classList.remove('opacity-0', '-translate-y-4');
                     }
+                } else if (activeSection === 1 && window.innerWidth < 768) {
+                    mainHeader.classList.add('opacity-0', '-translate-y-6', 'pointer-events-none');
                 } else {
                     mainHeader.classList.remove('opacity-0', '-translate-y-4');
                 }
@@ -1084,11 +1086,11 @@
             document.getElementById('slide-wrapper').style.transform = `translateY(-${index * 100}vh)`;
             
             const mainHeader = document.getElementById('main-header');
-            if (index === 1 && window.innerWidth < 640) {
-                // Tuck header slightly up when in About section on mobile to give full clearance to back button
-                mainHeader.classList.add('-translate-y-6', 'opacity-60');
+            if (index === 1 && window.innerWidth < 768) {
+                // Completely hide studio logo header on mobile when in About/Studio section
+                mainHeader.classList.add('opacity-0', '-translate-y-6', 'pointer-events-none');
             } else {
-                mainHeader.classList.remove('-translate-y-6', 'opacity-60');
+                mainHeader.classList.remove('opacity-0', '-translate-y-6', 'pointer-events-none');
             }
 
             setTimeout(() => { isTransitioning = false; }, 1400);

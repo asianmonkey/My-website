@@ -91,7 +91,7 @@
 </head>
 <body class="bg-zen-50 text-zen-900 font-body antialiased overflow-x-hidden">
 
-    <header id="main-header" class="fixed top-0 left-0 w-full z-50 pointer-events-none pt-20 sm:pt-16 lg:pt-20 transition-all duration-500 ease-in-out">
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 pointer-events-none pt-12 sm:pt-16 lg:pt-20 transition-all duration-500 ease-in-out">
         <div class="w-full text-center select-none flex flex-col items-center justify-center pointer-events-auto cursor-pointer" onclick="window.navigateToHome()">
             <h1 class="text-sm sm:text-xl lg:text-2xl font-title tracking-[0.18em] uppercase text-zen-900 leading-none hover:text-zen-400 transition-colors px-4">
                 STUDIO HANDAJUWANA ZHU
@@ -99,6 +99,9 @@
             <span class="font-body text-[9px] sm:text-xs font-light lowercase tracking-[0.2em] text-zen-900/50 mt-1 block">
                 form + space
             </span>
+        </div>
+    </header>
+
     <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-3 sm:pb-6 px-4 sm:px-12">
         <!-- Mobile Layout: Left Email, Right Instagram + Copyright column | Desktop Layout: 3 Columns -->
         <div class="w-full mx-auto flex justify-between items-end sm:grid sm:grid-cols-3 sm:items-center gap-2 sm:gap-4">
@@ -814,8 +817,15 @@
             if (!isDragging) targetRotationY += 0.0015;
             interactionGroup.rotation.y += (targetRotationY - interactionGroup.rotation.y) * 0.1;
             
-            camera.position.y += (((window.innerWidth < 640 ? 4 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
-            camera.lookAt(0, 0, 0);
+            const isMobile = window.innerWidth < 640;
+            camera.position.y += (((isMobile ? 2.5 : 3) + (targetRotationX * 8)) - camera.position.y) * 0.1;
+            
+            // On mobile, point camera slightly lower (y: -1.2) so 3D models rise up into vertical center
+            if (isMobile) {
+                camera.lookAt(0, -1.2, 0);
+            } else {
+                camera.lookAt(0, 0, 0);
+            }
 
             const time = performance.now() * 0.0015;
             maquetteObjects.forEach((model, idx) => {
@@ -1072,6 +1082,15 @@
             activeSection = index;
             isTransitioning = true;
             document.getElementById('slide-wrapper').style.transform = `translateY(-${index * 100}vh)`;
+            
+            const mainHeader = document.getElementById('main-header');
+            if (index === 1 && window.innerWidth < 640) {
+                // Tuck header slightly up when in About section on mobile to give full clearance to back button
+                mainHeader.classList.add('-translate-y-6', 'opacity-60');
+            } else {
+                mainHeader.classList.remove('-translate-y-6', 'opacity-60');
+            }
+
             setTimeout(() => { isTransitioning = false; }, 1400);
         }
 

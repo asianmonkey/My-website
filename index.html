@@ -642,7 +642,7 @@
             interactionGroup.add(m3);
             maquetteObjects.push(m3);
 
-            // Model 4 (EW Residence)
+            // Model 4 (EW Residence) - Scaled down to 80% of original size
             const m4 = new THREE.Group();
             const m4Base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 1.4), pastelOakMaterial);
             m4.add(m4Base);
@@ -652,8 +652,8 @@
             m4Roof.position.set(-0.1, 0.8, 0); m4.add(m4Roof);
             m4.position.set(positions[3].x, -0.2, positions[3].z);
             m4.rotation.y = positions[3].rot;
-            m4.scale.set(1.2, 1.2, 1.2);
-            m4.userData = { id: 4, baseHeight: -0.2, targetScale: 3.36 };
+            m4.scale.set(0.96, 0.96, 0.96);
+            m4.userData = { id: 4, baseHeight: -0.2, targetScale: 2.688 };
             interactionGroup.add(m4);
             maquetteObjects.push(m4);
 

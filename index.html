@@ -605,8 +605,17 @@
                 });
             }
 
+            // Invisible hitbox geometry & material for smooth, forgiving hover & click interaction
+            const hitboxGeo = new THREE.CylinderGeometry(1.5, 1.5, 2.2, 16);
+            const hitboxMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
+
             // Model 1 (SBR)
             const m1 = new THREE.Group();
+            const hb1 = new THREE.Mesh(hitboxGeo, hitboxMat);
+            hb1.position.set(0, 0.8, 0);
+            hb1.userData.isHitbox = true;
+            m1.add(hb1);
+
             const seat = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.08, 1.2), pastelYellowMaterial);
             seat.position.set(0, 0.5, 0); m1.add(seat);
             const back = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.9, 0.08), pastelYellowMaterial);
@@ -626,6 +635,11 @@
 
             // Model 2 (Not a Hotel)
             const m2 = new THREE.Group();
+            const hb2 = new THREE.Mesh(hitboxGeo, hitboxMat);
+            hb2.position.set(0, 0.8, 0);
+            hb2.userData.isHitbox = true;
+            m2.add(hb2);
+
             const m2Base = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.1, 1.8), studioPlasterMaterial);
             m2.add(m2Base);
             const m2Cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 1.1, 12), studioPlasterMaterial);
@@ -639,6 +653,11 @@
 
             // Model 3 (Chummy Chair)
             const m3 = new THREE.Group();
+            const hb3 = new THREE.Mesh(hitboxGeo, hitboxMat);
+            hb3.position.set(0, 0.8, 0);
+            hb3.userData.isHitbox = true;
+            m3.add(hb3);
+
             const m3Base = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.08, 1.5), studioPlasterMaterial);
             m3.add(m3Base);
             for (let i = 0; i < 3; i++) {
@@ -654,6 +673,11 @@
 
             // Model 4 (EW Residence) - 80% Scale
             const m4 = new THREE.Group();
+            const hb4 = new THREE.Mesh(hitboxGeo, hitboxMat);
+            hb4.position.set(0, 0.8, 0);
+            hb4.userData.isHitbox = true;
+            m4.add(hb4);
+
             const m4Base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 1.4), pastelOakMaterial);
             m4.add(m4Base);
             const m4Pavilion = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.7, 1.0), pastelSageMaterial);
@@ -669,6 +693,11 @@
 
             // Model 5 (Living Ruins)
             const m5 = new THREE.Group();
+            const hb5 = new THREE.Mesh(hitboxGeo, hitboxMat);
+            hb5.position.set(0, 0.8, 0);
+            hb5.userData.isHitbox = true;
+            m5.add(hb5);
+
             const m5Base = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.08, 1.8), studioPlasterMaterial);
             m5.add(m5Base);
             const m5RuinWall1 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.9, 1.4), pastelTerracottaMaterial);
@@ -686,7 +715,7 @@
 
             maquetteObjects.forEach(group => {
                 group.traverse(child => {
-                    if (child.isMesh) { child.castShadow = true; child.receiveShadow = true; }
+                    if (child.isMesh && !child.userData.isHitbox) { child.castShadow = true; child.receiveShadow = true; }
                 });
             });
         }
@@ -719,8 +748,11 @@
 
                         model.position.set(-((box.max.x + min.x) / 2), -min.y, -((box.max.z + min.z) / 2));
 
-                        while (targetGroup.children.length > 0) {
-                            targetGroup.remove(targetGroup.children[0]);
+                        // Remove old mesh children while retaining the transparent hitbox
+                        for (let i = targetGroup.children.length - 1; i >= 0; i--) {
+                            if (!targetGroup.children[i].userData.isHitbox) {
+                                targetGroup.remove(targetGroup.children[i]);
+                            }
                         }
                         targetGroup.add(model);
 
@@ -731,7 +763,7 @@
                         }
 
                         model.traverse((node) => {
-                            if (node.isMesh) {
+                            if (node.isMesh && !node.userData.isHitbox) {
                                 node.castShadow = true;
                                 node.receiveShadow = true;
                                 if (node.material) {

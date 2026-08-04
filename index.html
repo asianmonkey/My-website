@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Handajuwana Zhu | Architecture & Interior Practice</title>
     
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Vector Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Three.js & GLTF Loader -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     
@@ -129,7 +122,7 @@
                     
                     <div class="relative w-full h-full bg-zen-50 overflow-hidden flex items-center justify-center">
                         
-                        <!-- Back to Categories Button (Appears inside Category Projects View) -->
+                        <!-- Back to Categories Button -->
                         <div id="category-back-btn" class="absolute top-36 sm:top-40 lg:top-44 left-1/2 -translate-x-1/2 z-30 opacity-0 pointer-events-none transition-all duration-300">
                             <button onclick="window.navigateToHome()" class="group flex items-center space-x-2 text-[10px] sm:text-xs font-title uppercase tracking-ultra text-zen-400 hover:text-zen-900 transition focus:outline-none">
                                 <i class="fa-solid fa-arrow-left-long transition-transform duration-300 group-hover:-translate-x-1"></i>
@@ -137,7 +130,7 @@
                             </button>
                         </div>
 
-                        <!-- Unified Background Preview Container -->
+                        <!-- Hover Preview Container -->
                         <div id="hover-preview-container" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 transition-all duration-500 ease-out opacity-0 scale-95 p-4">
                             <img id="hover-bg-img" src="" alt="Project Preview" class="max-w-[65vw] max-h-[38vh] sm:max-w-[36vw] sm:max-h-[38vh] object-contain transition-all duration-500 select-none filter contrast-105">
                             
@@ -151,10 +144,10 @@
                             </div>
                         </div>
 
-                        <!-- 3D WebGL Canvas Stage -->
+                        <!-- 3D Canvas -->
                         <div id="canvas-container" class="w-full h-full absolute inset-0 z-10"></div>
 
-                        <!-- Center Prompt: "click category to explore" or "click project to explore" -->
+                        <!-- Center Guidance Prompt -->
                         <div id="center-prompt" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-20 transition-opacity duration-300">
                             <span id="center-prompt-text" class="text-[9px] sm:text-[10px] font-title uppercase tracking-ultra text-zen-400 font-light select-none block">
                                 click category to explore
@@ -180,79 +173,87 @@
                 </button>
 
                 <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16 pt-6 sm:pt-0">
-                    <div class="space-y-10 sm:space-y-12">
+                    <div class="space-y-12 sm:space-y-16">
                         
-                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm mb-12 sm:mb-20">
+                        <!-- Studio Feature Photo -->
+                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm mb-8 sm:mb-12">
                             <img src="01_About photo.jpg" 
-                                 alt="Studio Partners" 
+                                 alt="Studio Handajuwana Zhu" 
                                  style="transform: none !important; transition: none !important;"
                                  class="w-full h-full object-cover"
                                  onerror="this.src='https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000'">
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16">
+                        <!-- Studio Overview Text -->
+                        <div class="max-w-2xl mx-auto text-center px-2">
+                            <p class="text-xs sm:text-sm text-zen-800 font-light leading-relaxed font-sans">
+                                Studio Handajuwana Zhu is an interior and architecture practice which works across all scales and disciplines, from residential and public buildings to interiors and furniture. Established in 2026 based in Jakarta, Indonesia with backgrounds in Japan and the Netherlands, we bring fresh perspectives shaped by international experiences. Each project responds to the people and place, grounded in cultural, economic, and environmental context. Designing with simplicity, space, atmosphere, and clarity, we create buildings and designs that last socially and physically. We work through all stages of the process from concept to completion, tailored towards the project.
+                            </p>
+                        </div>
+
+                        <!-- Co-Founders Timelines -->
+                        <div class="space-y-10 sm:space-y-12 max-w-xl mx-auto pt-4">
+                            
                             <!-- Profile 1: Natasya Handajuwana -->
-                            <div class="space-y-5 sm:space-y-6">
-                                <div class="text-center">
-                                    <h2 class="text-lg sm:text-2xl font-title tracking-wide text-zen-900">Natasya Handajuwana</h2>
-                                </div>
-                                <div class="space-y-3 sm:space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
-                                    <p>I am an interior designer at heart, but my work focuses on the dialogue where interiors and architecture meet. Having developed my practice from Milan to Tokyo—most recently serving as a senior designer at Sou Fujimoto Architects—I specialty in bridging detailed interior spaces with large-scale architectural design. My approach balances global concepts with deeply local traditions, focusing on how spaces come to life through human interaction. I thrive on collaborating across different cultures and minds to create meaningful, human-centric environments for our clients.</p>
+                            <div class="space-y-4 font-sans text-xs sm:text-sm text-zen-800 font-light">
+                                <div class="space-y-1">
+                                    <h2 class="text-base sm:text-xl font-title tracking-wide text-zen-900 font-medium">Natasya Handajuwana</h2>
+                                    <p class="text-zen-800 font-light">2026 Co-founder of Studio Handajuwana Zhu</p>
                                 </div>
                                 
-                                <div class="space-y-2.5 sm:space-y-3 pt-2 text-[11px] sm:text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2011 - 2015</span>
-                                        <span>Bachelor of Interior Architecture at Universitas Pelita Harapan, Indonesia</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2016 - 2016</span>
-                                        <span>Master of Interior Design at Istituto Europeo di Design, Italy</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2017 - 2026</span>
-                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2019</span>
-                                        <span>Notable project: Renovation of Shiroiya Hotel in Gunma, Japan</span>
+                                <div class="pt-2 space-y-2">
+                                    <span class="block font-sans text-xs sm:text-sm uppercase tracking-wider text-zen-400 font-medium">Previously:</span>
+                                    <div class="space-y-2 text-xs sm:text-sm leading-relaxed">
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2017 - 2026</span>
+                                            <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2019</span>
+                                            <span>Notable project: Renovation of Shiroiya Hotel in Gunma, Japan</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2016</span>
+                                            <span>Master of Interior Design at Istituto Europeo di Design in Milan, Italy</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Profile 2: Ziwei Zhu -->
-                            <div class="space-y-5 sm:space-y-6">
-                                <div class="text-center">
-                                    <h2 class="text-lg sm:text-2xl font-title tracking-wide text-zen-900">Ziwei Zhu</h2>
-                                </div>
-                                <div class="space-y-3 sm:space-y-4 text-xs text-zen-800 font-light leading-relaxed font-sans">
-                                    <p>With my passion for architecture, nature and humans I explore the spatial experiences which allows one to become their true selves. Having a multicultural background allows me to transition easily between global modern architecture and true local design practices.</p>
-                                    <p>My personal hobbies are walking through nature and some natural photography which captures memories and moments which are more intimate.</p>
+                            <div class="space-y-4 font-sans text-xs sm:text-sm text-zen-800 font-light">
+                                <div class="space-y-1">
+                                    <h2 class="text-base sm:text-xl font-title tracking-wide text-zen-900 font-medium">Ziwei Zhu</h2>
+                                    <p class="text-zen-800 font-light">2026 Co-founder of Studio Handajuwana Zhu</p>
                                 </div>
 
-                                <div class="space-y-2.5 sm:space-y-3 pt-2 text-[11px] sm:text-xs text-zen-800 font-light font-sans">
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2010 - 2017</span>
-                                        <span>Bachelors and Masters of Architecture at University of Technology at Delft</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2017 - 2018</span>
-                                        <span>Junior Architect at KAAN architects in Rotterdam, the Netherlands</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2018 - 2026</span>
-                                        <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2023</span>
-                                        <span>Winner of the Starchitects Chair design competition</span>
-                                    </div>
-                                    <div class="flex gap-3 sm:gap-4 items-start">
-                                        <span class="w-20 sm:w-24 shrink-0 text-zen-500">2025</span>
-                                        <span>Golden Mention finalist for Living Ruins II design competition</span>
+                                <div class="pt-2 space-y-2">
+                                    <span class="block font-sans text-xs sm:text-sm uppercase tracking-wider text-zen-400 font-medium">Previously:</span>
+                                    <div class="space-y-2 text-xs sm:text-sm leading-relaxed">
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2017 - 2026</span>
+                                            <span>Senior Designer at Sou Fujimoto Architects in Tokyo, Japan</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2026</span>
+                                            <span>Golden mention finalist of Living Ruins II design competition</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2023</span>
+                                            <span>Winner of Starchitects Chair design competition</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2017 - 2018</span>
+                                            <span>Junior Architect at KAAN Architects in Rotterdam, the Netherlands</span>
+                                        </div>
+                                        <div class="flex gap-3 items-start">
+                                            <span class="w-24 shrink-0 text-zen-500">2017</span>
+                                            <span>M.Arch at University of Technology in Delft, the Netherlands</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -543,7 +544,7 @@
         let scene, camera, renderer, interactionGroup;
         let categoryObjects = [];
         let projectObjectsMap = {}; 
-        let currentStageMode = 'categories'; // 'categories' or 'projects'
+        let currentStageMode = 'categories';
         let currentSelectedCategoryKey = null;
 
         let isDragging = false;
@@ -641,7 +642,6 @@
             const hitboxGeo = new THREE.CylinderGeometry(1.6, 1.6, 2.4, 16);
             const hitboxMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
 
-            // --- PROJECT MODELS (ID 1 to 5) ---
             // Model 1 (SBR)
             const m1 = new THREE.Group();
             const hb1 = new THREE.Mesh(hitboxGeo, hitboxMat); hb1.position.set(0, 0.8, 0); hb1.userData.isHitbox = true; m1.add(hb1);
@@ -670,7 +670,7 @@
             m3.userData = { id: 3, isProject: true, baseHeight: -0.3, targetScale: 3.0 };
             projectObjectsMap[3] = m3;
 
-            // Model 4 (EW Residence) - 80% Scale
+            // Model 4 (EW Residence)
             const m4 = new THREE.Group();
             const hb4 = new THREE.Mesh(hitboxGeo, hitboxMat); hb4.position.set(0, 0.8, 0); hb4.userData.isHitbox = true; m4.add(hb4);
             const m4Base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 1.4), pastelOakMaterial); m4.add(m4Base);
@@ -691,27 +691,23 @@
             m5.userData = { id: 5, isProject: true, baseHeight: -0.2, targetScale: 3.12 };
             projectObjectsMap[5] = m5;
 
-            // --- CATEGORY MODELS (Randomly assigned from projects) ---
             const catKeys = ["architecture", "interior", "objects"];
             const catRadius = 6.5;
 
-            // Assign random representative project to each category
             catKeys.forEach(key => {
                 const ids = categoriesData[key].projectIds;
                 const repId = ids[Math.floor(Math.random() * ids.length)];
-                categoriesData[key].repId = repId; // Save for GLTF loader lookup
+                categoriesData[key].repId = repId;
                 if (projectDatabase[repId] && projectDatabase[repId].largeImages) {
-                    // Update hover preview image to match the randomly selected project
                     categoriesData[key].previewImg = projectDatabase[repId].largeImages[0];
                 }
             });
 
-            // Build category models as clones of the randomly selected project model
             catKeys.forEach((key, index) => {
                 const repId = categoriesData[key].repId;
                 const projGroup = projectObjectsMap[repId];
                 
-                const catGroup = projGroup.clone(); // Deep clone structure and hitbox
+                const catGroup = projGroup.clone();
                 
                 catGroup.userData = { 
                     isCategory: true, 
@@ -733,7 +729,6 @@
                 categoryObjects.push(catGroup);
             });
 
-            // Apply shadow properties
             scene.traverse(node => {
                 if (node.isMesh && !node.userData.isHitbox) {
                     node.castShadow = true;
@@ -770,11 +765,9 @@
 
                         model.position.set(-((box.max.x + min.x) / 2), -min.y, -((box.max.z + min.z) / 2));
 
-                        // Helper to apply loaded GLTF to an interaction group
                         const applyToGroup = (groupToUpdate) => {
-                            const clonedModel = model.clone(); // deep clone loaded scene
+                            const clonedModel = model.clone();
                             
-                            // Remove procedural objects but preserve the invisible hitbox
                             for (let i = groupToUpdate.children.length - 1; i >= 0; i--) {
                                 if (!groupToUpdate.children[i].userData.isHitbox) {
                                     groupToUpdate.remove(groupToUpdate.children[i]);
@@ -803,10 +796,8 @@
                             });
                         };
 
-                        // 1. Apply model to the Project 3D group
                         applyToGroup(targetGroup);
 
-                        // 2. Apply model to the Category 3D group if randomly selected as representative
                         Object.keys(categoriesData).forEach(key => {
                             if (categoriesData[key].repId === item.id) {
                                 const catGroup = categoriesData[key].catGroupRef;
@@ -832,7 +823,6 @@
             const categoryInfo = categoriesData[catKey];
             if (!categoryInfo) return;
 
-            // Clear interactionGroup
             while (interactionGroup.children.length > 0) {
                 interactionGroup.remove(interactionGroup.children[0]);
             }
@@ -855,7 +845,6 @@
                 interactionGroup.add(projGroup);
             });
 
-            // UI Elements Update
             const backBtn = document.getElementById('category-back-btn');
             if (backBtn) {
                 backBtn.classList.remove('opacity-0', 'pointer-events-none');
@@ -873,7 +862,6 @@
             currentStageMode = 'categories';
             currentSelectedCategoryKey = null;
 
-            // Clear interactionGroup
             while (interactionGroup.children.length > 0) {
                 interactionGroup.remove(interactionGroup.children[0]);
             }
@@ -882,7 +870,6 @@
                 interactionGroup.add(catGroup);
             });
 
-            // UI Elements Update
             const backBtn = document.getElementById('category-back-btn');
             if (backBtn) {
                 backBtn.classList.add('opacity-0', 'pointer-events-none');

@@ -311,6 +311,19 @@
                     Description content.
                 </div>
             </div>
+
+            <div id="detail-video-container" class="w-full max-w-3xl mx-auto mt-8 sm:mt-12 hidden space-y-3">
+                <div class="relative w-full aspect-video rounded-sm overflow-hidden bg-zen-100 shadow-sm">
+                    <iframe id="detail-youtube-iframe" class="w-full h-full" src="" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                </div>
+                <div class="text-center pt-1">
+                    <a id="detail-youtube-direct-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-title uppercase tracking-ultra text-zen-400 hover:text-zen-900 transition">
+                        <i class="fa-brands fa-youtube text-red-600 text-sm"></i>
+                        <span>Watch Video on YouTube</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[8px] ml-0.5"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div id="detail-animation-container" class="w-full px-0 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 mt-12 sm:mt-28 hidden">
@@ -362,9 +375,9 @@
         const categoriesData = {
             "architecture": {
                 name: "ARCHITECTURE",
-                countText: "#2 Projects",
+                countText: "#3 Projects",
                 previewImg: "01_Not a Hotel_Large_01.jpg",
-                projectIds: [2, 5]
+                projectIds: [2, 5, 6]
             },
             "interior": {
                 name: "INTERIOR",
@@ -391,6 +404,7 @@
                     "Our goal for this school lobby was to replace a sterile, institutional entrance with an environment that instantly feels welcoming, creative, and inspiring for children and parents alike. Because this was a partial renovation, we needed a design that would inject fresh energy without clashing with the rest of the existing school. We drew inspiration from the universal simplicity of childhood building blocks and geometric toys, taking those classic shapes and scaling them up into architectural features to create a space that feels inherently familiar and playful.",
                     "The heart of the design is a striking, repetitive runway of yellow arches. This inviting arcade serves as a joyful, sunlit gateway for students as they enter the school every morning, turning a standard hallway into an immersive experience. To balance the bright yellow, we used warm terracotta at the reception desk to welcome visitors, and paired it with deep blue administrative areas and soft, flowing curtains that easily close to create private meeting spaces when needed."
                 ],
+                youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/EJtnTC8x49g",
                 location: "Bogor, Indonesia",
                 area: "320 m²",
                 year: "Completed 2021",
@@ -538,6 +552,40 @@
                     "01_Living Ruins_Small_01.jpeg",
                     "01_Living Ruins_Small_02.jpg"
                 ]
+            },
+            6: {
+                title: "SENSORA",
+                subtitle: "BIOCLIMATIC DAY CENTER",
+                category: "Architecture",
+                categoryKey: "architecture",
+                type: "Architecture and Interior",
+                descParagraphs: [
+                    "The day center is developed around the green lung, the atrium: a green space and activities. Each side has its own separate function, offering a clear orientation and the entire building is characterized by bioclimatic architecture and plasticity that combines the simplicity of the floor plan and the functional massing in the warm climate of Cyprus. Particular emphasis has also been given to the principles of safety and care, with strategic placement of spaces with visual control in the common areas."
+                ],
+                location: "Nikosia, Cyprus",
+                area: "300 sqm",
+                year: "Proposal in 2026",
+                team: "Collaboration with Ierides Architecture",
+                animationGif: "01_ADC_Animation_01.gif",
+                largeImages: [
+                    "01_ADC_Large_01.jpg",
+                    "01_ADC_Large_02.jpg",
+                    "01_ADC_Large_03.jpg",
+                    "01_ADC_Large_04.jpg",
+                    "01_ADC_Large_05.jpg",
+                    "01_ADC_Large_06.jpg",
+                    "01_ADC_Large_07.jpg",
+                    "01_ADC_Large_08.jpg"
+                ],
+                smallImages: [
+                    "01_ADC_Small_01.jpg",
+                    "01_ADC_Small_02.jpg",
+                    "01_ADC_Small_03.jpg",
+                    "01_ADC_Small_04.jpg",
+                    "01_ADC_Small_05.jpg",
+                    "01_ADC_Small_06.jpg",
+                    "01_ADC_Small_07.jpg"
+                ]
             }
         };
 
@@ -561,7 +609,7 @@
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         
-        const canvasContainer = document.getElementById('canvas-container');
+        let canvasContainer;
 
         const studioPlasterMaterial = new THREE.MeshStandardMaterial({
             color: 0x3a3835, roughness: 0.82, metalness: 0.05, side: THREE.DoubleSide, flatShading: true
@@ -579,18 +627,9 @@
             color: 0x98a795, roughness: 0.6, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
         });
 
-        window.navigateToHome = function() {
-            window.location.hash = 'categories';
-        };
-
-        window.navigateProject = function(direction) {
-            let nextId = activeProjectId + direction;
-            if (nextId < 1) nextId = 5;
-            if (nextId > 5) nextId = 1;
-            window.location.hash = "project-" + nextId;
-        };
-
         function initThreeJS() {
+            canvasContainer = document.getElementById('canvas-container');
+            if (!canvasContainer) return;
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
             const isMobile = width < 640;
@@ -637,6 +676,17 @@
 
             onWindowResize();
         }
+
+        window.navigateToHome = function() {
+            window.location.hash = 'categories';
+        };
+
+        window.navigateProject = function(direction) {
+            let nextId = activeProjectId + direction;
+            if (nextId < 1) nextId = 6;
+            if (nextId > 6) nextId = 1;
+            window.location.hash = "project-" + nextId;
+        };
 
         function build3DSceneModels() {
             const hitboxGeo = new THREE.CylinderGeometry(1.6, 1.6, 2.4, 16);
@@ -690,6 +740,16 @@
             m5.scale.set(1.2, 1.2, 1.2);
             m5.userData = { id: 5, isProject: true, baseHeight: -0.2, targetScale: 3.12 };
             projectObjectsMap[5] = m5;
+
+            // Model 6 (SENSORA)
+            const m6 = new THREE.Group();
+            const hb6 = new THREE.Mesh(hitboxGeo, hitboxMat); hb6.position.set(0, 0.8, 0); hb6.userData.isHitbox = true; m6.add(hb6);
+            const m6Base = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.08, 2.0), studioPlasterMaterial); m6.add(m6Base);
+            const m6Courtyard = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.45, 1.6), pastelSageMaterial); m6Courtyard.position.set(0, 0.26, 0); m6.add(m6Courtyard);
+            const m6Atrium = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.6, 12), pastelYellowMaterial); m6Atrium.position.set(0, 0.35, 0); m6.add(m6Atrium);
+            m6.scale.set(1.1, 1.1, 1.1);
+            m6.userData = { id: 6, isProject: true, baseHeight: -0.2, targetScale: 3.0 };
+            projectObjectsMap[6] = m6;
 
             const catKeys = ["architecture", "interior", "objects"];
             const catRadius = 6.5;
@@ -748,7 +808,8 @@
                 { id: 2, path: 'Project 02_Not a Hotel.glb' },
                 { id: 3, path: 'Project 03_Chummy Chair.glb' },
                 { id: 4, path: 'Project 04_EW Residence.glb' },
-                { id: 5, path: 'Project 05_Living Ruins.glb' }
+                { id: 5, path: 'Project 05_Living Ruins.glb' },
+                { id: 6, path: 'Project 06_SENSORA.glb' }
             ];
 
             repoModels.forEach(item => {
@@ -1098,6 +1159,21 @@
                         p.innerText = para;
                         descContainer.appendChild(p);
                     });
+
+                    const videoContainer = document.getElementById('detail-video-container');
+                    const youtubeIframe = document.getElementById('detail-youtube-iframe');
+                    const youtubeDirectLink = document.getElementById('detail-youtube-direct-link');
+
+                    if (projectData.youtubeEmbedUrl) {
+                        youtubeIframe.src = projectData.youtubeEmbedUrl;
+                        if (youtubeDirectLink) {
+                            youtubeDirectLink.href = projectData.youtubeWatchUrl || projectData.youtubeEmbedUrl.replace('/embed/', '/watch?v=');
+                        }
+                        videoContainer.classList.remove('hidden');
+                    } else {
+                        youtubeIframe.src = "";
+                        videoContainer.classList.add('hidden');
+                    }
 
                     currentImageSequence = [];
 

@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        <!-- 3D Canvas -->
+                        <!-- 3D Canvas Container -->
                         <div id="canvas-container" class="w-full h-full absolute inset-0 z-10"></div>
 
                         <!-- Center Guidance Prompt -->
@@ -191,7 +191,7 @@
                             </p>
                         </div>
 
-                        <!-- Co-Founders Timelines -->
+                        <!-- Co-Founders Timelines (Stacked Vertically) -->
                         <div class="space-y-10 sm:space-y-12 max-w-xl mx-auto pt-4">
                             
                             <!-- Profile 1: Natasya Handajuwana -->
@@ -316,11 +316,10 @@
                 <div class="relative w-full aspect-video rounded-sm overflow-hidden bg-zen-100 shadow-sm">
                     <iframe id="detail-youtube-iframe" class="w-full h-full" src="" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
                 </div>
-                <div class="text-center pt-1">
-                    <a id="detail-youtube-direct-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-title uppercase tracking-ultra text-zen-400 hover:text-zen-900 transition">
+                <div class="text-center">
+                    <a id="detail-youtube-link" href="https://www.youtube.com/watch?v=EJtnTC8x49g" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 text-[10px] sm:text-xs font-title uppercase tracking-wider text-zen-500 hover:text-zen-900 transition">
                         <i class="fa-brands fa-youtube text-red-600 text-sm"></i>
                         <span>Watch Video on YouTube</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[8px] ml-0.5"></i>
                     </a>
                 </div>
             </div>
@@ -381,9 +380,9 @@
             },
             "interior": {
                 name: "INTERIOR",
-                countText: "#2 Projects",
+                countText: "#3 Projects",
                 previewImg: "01_SBR_Large_01.jpg",
-                projectIds: [1, 4]
+                projectIds: [1, 4, 7]
             },
             "objects": {
                 name: "OBJECTS",
@@ -555,11 +554,12 @@
             },
             6: {
                 title: "SENSORA",
-                subtitle: "An Experiment in Light, Acoustics, and Spatial Calming",
+                subtitle: "BIOCLIMATIC DAY CENTER",
                 category: "Architecture",
                 categoryKey: "architecture",
                 type: "Architecture and Interior",
                 descParagraphs: [
+                    "The day center aims to create a true oasis, a space adapted to the special needs of people with autism, with the aim of becoming a place of care and memories: a second home. A characteristic of this oasis is the transition from the urban environment to a familiar environment, through bright indoor and outdoor gardens that enrich the functions of the center.",
                     "The day center is developed around the green lung, the atrium: a green space and activities. Each side has its own separate function, offering a clear orientation and the entire building is characterized by bioclimatic architecture and plasticity that combines the simplicity of the floor plan and the functional massing in the warm climate of Cyprus. Particular emphasis has also been given to the principles of safety and care, with strategic placement of spaces with visual control in the common areas."
                 ],
                 location: "Nikosia, Cyprus",
@@ -586,6 +586,43 @@
                     "01_ADC_Small_06.jpg",
                     "01_ADC_Small_07.jpg"
                 ]
+            },
+            7: {
+                title: "I RESIDENCE",
+                subtitle: "INTERIOR TRANSFORMATION",
+                category: "Interior",
+                categoryKey: "interior",
+                type: "Interior",
+                descParagraphs: [
+                    "Description content placeholder for I Residence."
+                ],
+                location: "Location Placeholder",
+                area: "Area Placeholder",
+                year: "2026",
+                team: "STUDIO HANDAJUWANA ZHU",
+                animationGif: "",
+                largeImages: [
+                    "01_I Residence_Large_01.png",
+                    "01_I Residence_Large_02.jpg",
+                    "01_I Residence_Large_03.png",
+                    "01_I Residence_Large_04.png",
+                    "01_I Residence_Large_05.jpg",
+                    "01_I Residence_Large_06.png",
+                    "01_I Residence_Large_07.png",
+                    "01_I Residence_Large_08.png",
+                    "01_I Residence_Large_09.png",
+                    "01_I Residence_Large_10.png",
+                    "01_I Residence_Large_11.jpg",
+                    "01_I Residence_Large_12.jpg",
+                    "01_I Residence_Large_13.JPG"
+                ],
+                smallImages: [
+                    "01_I Residence_Small_01.png",
+                    "01_I Residence_Small_02.jpg",
+                    "01_I Residence_Small_03.png",
+                    "01_I Residence_Small_04.jpg",
+                    "01_I Residence_Small_05.png"
+                ]
             }
         };
 
@@ -609,7 +646,7 @@
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
         
-        let canvasContainer;
+        const canvasContainer = document.getElementById('canvas-container');
 
         const studioPlasterMaterial = new THREE.MeshStandardMaterial({
             color: 0x3a3835, roughness: 0.82, metalness: 0.05, side: THREE.DoubleSide, flatShading: true
@@ -627,9 +664,18 @@
             color: 0x98a795, roughness: 0.6, metalness: 0.0, side: THREE.DoubleSide, flatShading: true
         });
 
+        window.navigateToHome = function() {
+            window.location.hash = 'categories';
+        };
+
+        window.navigateProject = function(direction) {
+            let nextId = activeProjectId + direction;
+            if (nextId < 1) nextId = 7;
+            if (nextId > 7) nextId = 1;
+            window.location.hash = "project-" + nextId;
+        };
+
         function initThreeJS() {
-            canvasContainer = document.getElementById('canvas-container');
-            if (!canvasContainer) return;
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
             const isMobile = width < 640;
@@ -676,17 +722,6 @@
 
             onWindowResize();
         }
-
-        window.navigateToHome = function() {
-            window.location.hash = 'categories';
-        };
-
-        window.navigateProject = function(direction) {
-            let nextId = activeProjectId + direction;
-            if (nextId < 1) nextId = 6;
-            if (nextId > 6) nextId = 1;
-            window.location.hash = "project-" + nextId;
-        };
 
         function build3DSceneModels() {
             const hitboxGeo = new THREE.CylinderGeometry(1.6, 1.6, 2.4, 16);
@@ -751,6 +786,15 @@
             m6.userData = { id: 6, isProject: true, baseHeight: -0.2, targetScale: 3.0 };
             projectObjectsMap[6] = m6;
 
+            // Model 7 (I Residence)
+            const m7 = new THREE.Group();
+            const hb7 = new THREE.Mesh(hitboxGeo, hitboxMat); hb7.position.set(0, 0.8, 0); hb7.userData.isHitbox = true; m7.add(hb7);
+            const m7Base = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.08, 1.6), pastelOakMaterial); m7.add(m7Base);
+            const m7Wall = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.7, 0.2), studioPlasterMaterial); m7Wall.position.set(0, 0.39, -0.6); m7.add(m7Wall);
+            m7.scale.set(1.0, 1.0, 1.0);
+            m7.userData = { id: 7, isProject: true, baseHeight: -0.2, targetScale: 2.8 };
+            projectObjectsMap[7] = m7;
+
             const catKeys = ["architecture", "interior", "objects"];
             const catRadius = 6.5;
 
@@ -809,7 +853,8 @@
                 { id: 3, path: 'Project 03_Chummy Chair.glb' },
                 { id: 4, path: 'Project 04_EW Residence.glb' },
                 { id: 5, path: 'Project 05_Living Ruins.glb' },
-                { id: 6, path: 'Project 06_ADC.glb' }
+                { id: 6, path: 'Project 06_ADC.glb' },
+                { id: 7, path: 'Project 07_I Residence.glb' }
             ];
 
             repoModels.forEach(item => {
@@ -1162,13 +1207,8 @@
 
                     const videoContainer = document.getElementById('detail-video-container');
                     const youtubeIframe = document.getElementById('detail-youtube-iframe');
-                    const youtubeDirectLink = document.getElementById('detail-youtube-direct-link');
-
                     if (projectData.youtubeEmbedUrl) {
                         youtubeIframe.src = projectData.youtubeEmbedUrl;
-                        if (youtubeDirectLink) {
-                            youtubeDirectLink.href = projectData.youtubeWatchUrl || projectData.youtubeEmbedUrl.replace('/embed/', '/watch?v=');
-                        }
                         videoContainer.classList.remove('hidden');
                     } else {
                         youtubeIframe.src = "";

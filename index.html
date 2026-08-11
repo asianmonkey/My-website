@@ -152,6 +152,9 @@
                             <span id="center-prompt-text" class="text-[9px] sm:text-[10px] font-title uppercase tracking-ultra text-zen-400 font-light select-none block">
                                 click category to explore
                             </span>
+                            <span id="center-prompt-subtext" class="text-[7px] sm:text-[8px] font-title uppercase tracking-wider text-zen-400/60 font-light select-none block mt-1.5">
+                                tap to select &bull; tap again to open
+                            </span>
                         </div>
 
                     </div>
@@ -187,7 +190,7 @@
                         <!-- Studio Overview Text -->
                         <div class="max-w-2xl mx-auto text-center px-2">
                             <p class="text-xs sm:text-sm text-zen-800 font-light leading-relaxed font-sans">
-                                Studio Handajuwana Zhu is an interior and architecture practice which works across all scales and disciplines from residential, public buildings to interior and furniture. Established in 2026 based in Jakarta, Indonesia with backgrounds in Japan and the Netherlands we bring fresh perspectives shaped by international experiences. Each project responds to the people and place, grounded in cultural economic and environmental context. Designing with simplicity, space, atmosphere and clarity we create buildings and designs that last socially and physically. We work through all stages of the process from concept to completion tailored towards the project.
+                                Studio Handajuwana Zhu is an interior and architecture practice which works across all scales and disciplines, from residential and public buildings to interiors and furniture. Established in 2026 based in Jakarta, Indonesia with backgrounds in Japan and the Netherlands, we bring fresh perspectives shaped by international experiences. Each project responds to the people and place, grounded in cultural, economic, and environmental context. Designing with simplicity, space, atmosphere, and clarity, we create buildings and designs that last socially and physically. We work through all stages of the process from concept to completion, tailored towards the project.
                             </p>
                         </div>
 
@@ -668,7 +671,7 @@
         let activeSection = 0;
         let isTransitioning = false;
         let lastTouchTime = 0;
-        let activeSelectedTarget = null; // Mobile double-tap tracking target
+        let activeSelectedTarget = null; // Mobile tap tracking target
         
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
@@ -701,6 +704,15 @@
             if (nextId > 8) nextId = 1;
             window.location.hash = "project-" + nextId;
         };
+
+        function isDescendantOf(child, parent) {
+            let curr = child;
+            while (curr) {
+                if (curr === parent) return true;
+                curr = curr.parent;
+            }
+            return false;
+        }
 
         function initThreeJS() {
             const width = canvasContainer.clientWidth;
@@ -1111,7 +1123,7 @@
                 
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
                     if (isMobile) {
-                        // First tap: Select target and show hover card preview without opening page
+                        // First tap: Select target, freeze model floating animation, and show hover card
                         if (activeSelectedTarget !== obj) {
                             activeSelectedTarget = obj;
                             lastHoveredTarget = obj;
@@ -1156,7 +1168,12 @@
             const time = performance.now() * 0.0015;
             interactionGroup.children.forEach((model, idx) => {
                 if (model.userData.baseHeight !== undefined) {
-                    model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.12;
+                    // If this model is selected on mobile, keep it still instead of floating up and down
+                    if (activeSelectedTarget && (activeSelectedTarget === model || isDescendantOf(activeSelectedTarget, model))) {
+                        model.position.y = model.userData.baseHeight + 0.08;
+                    } else {
+                        model.position.y = model.userData.baseHeight + Math.sin(time + idx * 1.5) * 0.12;
+                    }
                 }
             });
 

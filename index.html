@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        <!-- 3D Canvas Container -->
+                        <!-- 3D Canvas -->
                         <div id="canvas-container" class="w-full h-full absolute inset-0 z-10"></div>
 
                         <!-- Center Guidance Prompt -->
@@ -191,7 +191,7 @@
                             </p>
                         </div>
 
-                        <!-- Co-Founders Timelines (Stacked Vertically) -->
+                        <!-- Co-Founders Timelines -->
                         <div class="space-y-10 sm:space-y-12 max-w-xl mx-auto pt-2">
                             
                             <!-- Profile 1: Natasya Handajuwana -->
@@ -593,12 +593,12 @@
                 subtitle: "INTERIOR TRANSFORMATION",
                 category: "Interior",
                 categoryKey: "interior",
-                type: "Interior",
+                type: "Interior Transformation",
                 descParagraphs: [
                     "Description content placeholder for I Residence."
                 ],
-                location: "Location Placeholder",
-                area: "Area Placeholder",
+                location: "Jakarta, Indonesia",
+                area: "Residential Scale",
                 year: "Completed 2026",
                 team: "STUDIO HANDAJUWANA ZHU",
                 animationGif: "",
@@ -667,6 +667,8 @@
         let currentImageIndex = 0;
         let activeSection = 0;
         let isTransitioning = false;
+        let lastTouchTime = 0;
+        let activeSelectedTarget = null; // Mobile double-tap tracking target
         
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
@@ -993,6 +995,7 @@
             if (promptText) promptText.innerText = "click project to explore";
 
             lastHoveredTarget = null;
+            activeSelectedTarget = null;
             resetHoverState();
         }
 
@@ -1018,6 +1021,7 @@
             if (promptText) promptText.innerText = "click category to explore";
 
             lastHoveredTarget = null;
+            activeSelectedTarget = null;
             resetHoverState();
         }
 
@@ -1059,7 +1063,11 @@
         }
 
         function onMouseUp() {
-            if (isDragging) { isDragging = false; if (dragDistance < 6) performRaycast(); }
+            if (Date.now() - lastTouchTime < 500) {
+                isDragging = false;
+                return;
+            }
+            if (isDragging) { isDragging = false; if (dragDistance < 6) performRaycast(false); }
         }
 
         function onTouchStart(e) {
@@ -1082,12 +1090,19 @@
         }
 
         function onTouchEnd() {
-            if (isDragging) { isDragging = false; if (dragDistance < 12) performRaycast(); }
+            if (isDragging) { 
+                isDragging = false; 
+                lastTouchTime = Date.now();
+                if (dragDistance < 16) performRaycast(true); 
+            }
         }
 
-        function performRaycast() {
+        function performRaycast(isTouch = false) {
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(interactionGroup.children, true);
+            
+            const isMobile = isTouch || window.innerWidth < 640 || ('ontouchstart' in window && window.innerWidth < 1024);
+
             if (intersects.length > 0) {
                 let obj = intersects[0].object;
                 while (obj && obj.parent && !obj.userData.isCategory && !obj.userData.isProject) {
@@ -1095,14 +1110,18 @@
                 }
                 
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
-                    const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
-                    
-                    if (isMobile && lastHoveredTarget !== obj) {
-                        lastHoveredTarget = obj;
-                        showHoverForObject(obj);
-                        return;
+                    if (isMobile) {
+                        // First tap: Select target and show hover card preview without opening page
+                        if (activeSelectedTarget !== obj) {
+                            activeSelectedTarget = obj;
+                            lastHoveredTarget = obj;
+                            showHoverForObject(obj);
+                            return; // Requires 2nd tap on same model to proceed
+                        }
                     }
 
+                    // 2nd tap on mobile or direct click on desktop: Navigate to target
+                    activeSelectedTarget = null;
                     if (obj.userData.isCategory) {
                         window.location.hash = "category-" + obj.userData.categoryKey;
                     } else if (obj.userData.isProject) {
@@ -1110,8 +1129,8 @@
                     }
                 }
             } else {
-                const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
-                if (isMobile && lastHoveredTarget !== null) {
+                if (isMobile) {
+                    activeSelectedTarget = null;
                     lastHoveredTarget = null;
                     resetHoverState();
                 }

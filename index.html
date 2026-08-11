@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        <!-- 3D Canvas -->
+                        <!-- 3D Canvas Container -->
                         <div id="canvas-container" class="w-full h-full absolute inset-0 z-10"></div>
 
                         <!-- Center Guidance Prompt -->
@@ -175,6 +175,15 @@
                 <div class="max-w-4xl mx-auto w-full my-auto overflow-y-auto max-h-[75vh] no-scrollbar pb-16 pt-6 sm:pt-0">
                     <div class="space-y-12 sm:space-y-16">
                         
+                        <!-- Studio Feature Photo -->
+                        <div class="max-w-xl mx-auto aspect-[3/2] bg-zen-100 overflow-hidden rounded-sm shadow-sm mb-8 sm:mb-12">
+                            <img src="01_About photo.jpg" 
+                                 alt="Studio Handajuwana Zhu" 
+                                 style="transform: none !important; transition: none !important;"
+                                 class="w-full h-full object-cover"
+                                 onerror="this.src='https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=1000'">
+                        </div>
+
                         <!-- Studio Overview Text -->
                         <div class="max-w-2xl mx-auto text-center px-2">
                             <p class="text-xs sm:text-sm text-zen-800 font-light leading-relaxed font-sans">
@@ -303,6 +312,7 @@
                 </div>
             </div>
 
+            <!-- YouTube Video Section -->
             <div id="detail-video-container" class="w-full max-w-3xl mx-auto mt-8 sm:mt-12 hidden space-y-3">
                 <div class="relative w-full aspect-video rounded-sm overflow-hidden bg-zen-100 shadow-sm">
                     <iframe id="detail-youtube-iframe" class="w-full h-full" src="" title="Project Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
@@ -377,9 +387,9 @@
             },
             "objects": {
                 name: "OBJECTS",
-                countText: "#1 Project",
+                countText: "#2 Projects",
                 previewImg: "01_Chummy Chair Collection_Large_01.jpg",
-                projectIds: [3]
+                projectIds: [3, 8]
             }
         };
 
@@ -614,6 +624,30 @@
                     "01_I Residence_Small_04.jpg",
                     "01_I Residence_Small_05.jpg"
                 ]
+            },
+            8: {
+                title: "SOSPESA",
+                subtitle: "AN OBJECT IN SUSPENSION",
+                category: "Objects",
+                categoryKey: "objects",
+                type: "Prototype developed for Fontanot",
+                descParagraphs: [
+                    "Sospesa is a vertical architectural object composed of a transparent inner structure and a solid outer envelope.",
+                    "A spiral staircase wraps around a central tube, with transparent plexiglass treads creating a sense of visual lightness. Slender vertical wooden elements with metal strips form a continuous cylindrical layer around it, embracing and defining the object.",
+                    "The contrast between transparency and solidity, inside and outside, creates a composition that appears both grounded and suspended—transforming the staircase into an architectural object with its own spatial presence."
+                ],
+                location: "Munich, Germany | Exhibited at BAU",
+                area: "Architectural Scale Prototype",
+                year: "2017",
+                team: "Prototype developed for Fontanot",
+                animationGif: "",
+                largeImages: [
+                    "01_Sospesa_Large_01.jpg",
+                    "01_Sospesa_Large_02.jpg",
+                    "01_Sospesa_Large_03.jpg",
+                    "01_Sospesa_Large_04.jpg"
+                ],
+                smallImages: []
             }
         };
 
@@ -661,8 +695,8 @@
 
         window.navigateProject = function(direction) {
             let nextId = activeProjectId + direction;
-            if (nextId < 1) nextId = 7;
-            if (nextId > 7) nextId = 1;
+            if (nextId < 1) nextId = 8;
+            if (nextId > 8) nextId = 1;
             window.location.hash = "project-" + nextId;
         };
 
@@ -785,6 +819,15 @@
             m7.userData = { id: 7, isProject: true, baseHeight: -0.2, targetScale: 2.5 };
             projectObjectsMap[7] = m7;
 
+            // Model 8 (Sospesa)
+            const m8 = new THREE.Group();
+            const hb8 = new THREE.Mesh(hitboxGeo, hitboxMat); hb8.position.set(0, 0.8, 0); hb8.userData.isHitbox = true; m8.add(hb8);
+            const m8Base = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 1.6, 16), studioPlasterMaterial); m8Base.position.set(0, 0.8, 0); m8.add(m8Base);
+            const m8Inner = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.8, 12), pastelOakMaterial); m8Inner.position.set(0, 0.9, 0); m8.add(m8Inner);
+            m8.scale.set(1.0, 1.0, 1.0);
+            m8.userData = { id: 8, isProject: true, baseHeight: -0.2, targetScale: 2.6 };
+            projectObjectsMap[8] = m8;
+
             const catKeys = ["architecture", "interior", "objects"];
             const catRadius = 6.5;
 
@@ -844,7 +887,8 @@
                 { id: 4, path: 'Project 04_EW Residence.glb' },
                 { id: 5, path: 'Project 05_Living Ruins.glb' },
                 { id: 6, path: 'Project 06_ADC.glb' },
-                { id: 7, path: 'Project 07_I Residence.glb' }
+                { id: 7, path: 'Project 07_I Residence.glb' },
+                { id: 8, path: 'Project 08_Sospesa.glb' }
             ];
 
             repoModels.forEach(item => {
@@ -1020,6 +1064,9 @@
 
         function onTouchStart(e) {
             if (e.touches.length === 1) {
+                const rect = renderer.domElement.getBoundingClientRect();
+                mouse.x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+                mouse.y = -((e.touches[0].clientY - rect.top) / rect.height) * 2 + 1;
                 isDragging = true; dragDistance = 0; previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             }
         }
@@ -1047,10 +1094,26 @@
                     obj = obj.parent;
                 }
                 
-                if (obj && obj.userData.isCategory) {
-                    window.location.hash = "category-" + obj.userData.categoryKey;
-                } else if (obj && obj.userData.isProject) {
-                    window.location.hash = "project-" + obj.userData.id;
+                if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
+                    const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
+                    
+                    if (isMobile && lastHoveredTarget !== obj) {
+                        lastHoveredTarget = obj;
+                        showHoverForObject(obj);
+                        return;
+                    }
+
+                    if (obj.userData.isCategory) {
+                        window.location.hash = "category-" + obj.userData.categoryKey;
+                    } else if (obj.userData.isProject) {
+                        window.location.hash = "project-" + obj.userData.id;
+                    }
+                }
+            } else {
+                const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
+                if (isMobile && lastHoveredTarget !== null) {
+                    lastHoveredTarget = null;
+                    resetHoverState();
                 }
             }
         }
@@ -1086,6 +1149,7 @@
 
         function resetHoverState() {
             const hoverPreview = document.getElementById('hover-preview-container');
+            const hoverImg = document.getElementById('hover-bg-img');
             const centerPrompt = document.getElementById('center-prompt');
 
             if (centerPrompt) centerPrompt.classList.remove('opacity-0');
@@ -1093,19 +1157,84 @@
                 hoverPreview.classList.remove('opacity-100', 'scale-100');
                 hoverPreview.classList.add('opacity-0', 'scale-95');
             }
+            if (hoverImg) hoverImg.style.display = 'block';
             if (canvasContainer) canvasContainer.style.cursor = 'grab';
         }
 
-        function checkHover() {
-            if (isDragging || !renderer) return;
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(interactionGroup.children, true);
-
+        function showHoverForObject(obj) {
             const hoverPreview = document.getElementById('hover-preview-container');
             const hoverImg = document.getElementById('hover-bg-img');
             const centerPrompt = document.getElementById('center-prompt');
             const titleText = document.getElementById('hover-project-title');
             const categoryText = document.getElementById('hover-project-category');
+
+            let title = "";
+            let catTag = "";
+            let imgSrc = "";
+            let showImg = true;
+
+            if (obj.userData.isCategory) {
+                const catData = categoriesData[obj.userData.categoryKey];
+                if (catData) {
+                    title = catData.name;
+                    catTag = catData.countText;
+                    showImg = false;
+                }
+            } else if (obj.userData.isProject) {
+                const dbEntry = projectDatabase[obj.userData.id];
+                if (dbEntry) {
+                    title = dbEntry.title;
+                    catTag = `#${dbEntry.category}`;
+                    if (dbEntry.largeImages && dbEntry.largeImages.length > 0) {
+                        imgSrc = dbEntry.largeImages[0];
+                    }
+                    showImg = true;
+                }
+            }
+
+            if (title) {
+                if (titleText) {
+                    titleText.innerText = title;
+                    if (obj.userData.isCategory) {
+                        titleText.className = "text-xl sm:text-3xl lg:text-4xl font-title uppercase tracking-[0.22em] text-zen-900 block font-light";
+                    } else {
+                        titleText.className = "text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 block font-medium";
+                    }
+                }
+                if (categoryText) categoryText.innerText = catTag;
+
+                if (centerPrompt) centerPrompt.classList.add('opacity-0');
+
+                if (hoverPreview) {
+                    if (hoverImg) {
+                        if (showImg && imgSrc) {
+                            hoverImg.style.display = 'block';
+                            hoverImg.onerror = function() {
+                                this.onerror = null;
+                                this.src = 'https://placehold.co/1200x800/f5f4ef/2d2b28?text=Preview';
+                            };
+                            hoverImg.src = encodeURI(imgSrc);
+                        } else {
+                            hoverImg.style.display = 'none';
+                            hoverImg.src = '';
+                        }
+                    }
+
+                    hoverPreview.classList.remove('opacity-0', 'scale-95');
+                    hoverPreview.classList.add('opacity-100', 'scale-100');
+                }
+
+                if (canvasContainer) canvasContainer.style.cursor = 'pointer';
+            }
+        }
+
+        function checkHover() {
+            if (isDragging || !renderer) return;
+            const isMobile = window.innerWidth < 640 || ('ontouchstart' in window);
+            if (isMobile) return;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(interactionGroup.children, true);
 
             if (intersects.length > 0) {
                 let obj = intersects[0].object;
@@ -1116,48 +1245,7 @@
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
                     if (obj !== lastHoveredTarget) {
                         lastHoveredTarget = obj;
-
-                        let title = "";
-                        let catTag = "";
-                        let imgSrc = "";
-
-                        if (obj.userData.isCategory) {
-                            const catData = categoriesData[obj.userData.categoryKey];
-                            if (catData) {
-                                title = catData.name;
-                                catTag = catData.countText;
-                                imgSrc = catData.previewImg;
-                            }
-                        } else if (obj.userData.isProject) {
-                            const dbEntry = projectDatabase[obj.userData.id];
-                            if (dbEntry) {
-                                title = dbEntry.title;
-                                catTag = `#${dbEntry.category}`;
-                                if (dbEntry.largeImages && dbEntry.largeImages.length > 0) {
-                                    imgSrc = dbEntry.largeImages[0];
-                                }
-                            }
-                        }
-
-                        if (title) {
-                            if (titleText) titleText.innerText = title;
-                            if (categoryText) categoryText.innerText = catTag;
-
-                            if (centerPrompt) centerPrompt.classList.add('opacity-0');
-
-                            if (hoverImg && hoverPreview && imgSrc) {
-                                hoverImg.onerror = function() {
-                                    this.onerror = null;
-                                    this.src = 'https://placehold.co/1200x800/f5f4ef/2d2b28?text=Preview';
-                                };
-                                hoverImg.src = encodeURI(imgSrc);
-
-                                hoverPreview.classList.remove('opacity-0', 'scale-95');
-                                hoverPreview.classList.add('opacity-100', 'scale-100');
-                            }
-
-                            if (canvasContainer) canvasContainer.style.cursor = 'pointer';
-                        }
+                        showHoverForObject(obj);
                     }
                 }
             } else if (lastHoveredTarget !== null) {
@@ -1195,8 +1283,10 @@
 
                     const videoContainer = document.getElementById('detail-video-container');
                     const youtubeIframe = document.getElementById('detail-youtube-iframe');
+                    const youtubeLink = document.getElementById('detail-youtube-link');
                     if (projectData.youtubeEmbedUrl) {
                         youtubeIframe.src = projectData.youtubeEmbedUrl;
+                        if (youtubeLink) youtubeLink.href = "https://www.youtube.com/watch?v=EJtnTC8x49g";
                         videoContainer.classList.remove('hidden');
                     } else {
                         youtubeIframe.src = "";

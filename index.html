@@ -378,9 +378,9 @@
         const categoriesData = {
             "architecture": {
                 name: "ARCHITECTURE",
-                countText: "#3 Projects",
+                countText: "#4 Projects",
                 previewImg: "01_Not a Hotel_Large_01.jpg",
-                projectIds: [2, 5, 6]
+                projectIds: [2, 5, 6, 9]
             },
             "interior": {
                 name: "INTERIOR",
@@ -651,6 +651,32 @@
                     "01_Sospesa_Large_04.jpg"
                 ],
                 smallImages: []
+            },
+            9: {
+                title: "CHILDREN'S DAYCARE CENTER IN DELFT",
+                subtitle: "AN INDUSTRIAL LANDSCAPE FOR PLAY & DISCOVERY",
+                category: "Architecture",
+                categoryKey: "architecture",
+                type: "Adaptive Reuse & Transformation",
+                descParagraphs: [
+                    "The project transforms a former industrial storage warehouse in Delft into a vibrant, inquisitive learning landscape for children. Conceived as a modern refuge within an expansive volume, the adaptive reuse design balances the raw, open character of the original structure with an interior geography tailored specifically for early childhood discovery, play, and security.",
+                    "At the heart of the main hall, individual activity studios are organized as sculptured 'rock' volumes embedded directly into the open playground terrain. By floating these studio masses within the expansive hall, the architecture blurs the boundary between structured learning and spontaneous play. These architectural landforms establish a dynamic interplay of heights, sightlines, and cozy nooks, fostering fluid social interactions between children, educators, and parents while providing an atmosphere of warmth, safety, and acoustic comfort."
+                ],
+                location: "Delft, the Netherlands",
+                area: "Industrial Storage Transformation",
+                year: "2nd Place Competition Entry (2015)",
+                team: "In Collaboration with Skander Saadi",
+                animationGif: "",
+                largeImages: [
+                    "01_DCDC_Large_01.jpg",
+                    "01_DCDC_Large_02.jpg",
+                    "01_DCDC_Large_03.jpg",
+                    "01_DCDC_Large_04.jpg",
+                    "01_DCDC_Large_05.jpg",
+                    "01_DCDC_Large_06.jpg",
+                    "01_DCDC_Large_07.jpg"
+                ],
+                smallImages: []
             }
         };
 
@@ -700,8 +726,8 @@
 
         window.navigateProject = function(direction) {
             let nextId = activeProjectId + direction;
-            if (nextId < 1) nextId = 8;
-            if (nextId > 8) nextId = 1;
+            if (nextId < 1) nextId = 9;
+            if (nextId > 9) nextId = 1;
             window.location.hash = "project-" + nextId;
         };
 
@@ -842,6 +868,16 @@
             m8.userData = { id: 8, isProject: true, baseHeight: -0.2, targetScale: 2.6 };
             projectObjectsMap[8] = m8;
 
+            // Model 9 (Children's Daycare Center in Delft)
+            const m9 = new THREE.Group();
+            const hb9 = new THREE.Mesh(hitboxGeo, hitboxMat); hb9.position.set(0, 0.8, 0); hb9.userData.isHitbox = true; m9.add(hb9);
+            const m9Base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 1.6), studioPlasterMaterial); m9.add(m9Base);
+            const m9HallRoof = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 1.4), pastelYellowMaterial); m9HallRoof.position.set(0, 0.3, 0); m9.add(m9HallRoof);
+            const m9StudioRock = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), pastelSageMaterial); m9StudioRock.position.set(-0.3, 0.6, 0.1); m9.add(m9StudioRock);
+            m9.scale.set(1.0, 1.0, 1.0);
+            m9.userData = { id: 9, isProject: true, baseHeight: -0.2, targetScale: 2.8 };
+            projectObjectsMap[9] = m9;
+
             const catKeys = ["architecture", "interior", "objects"];
             const catRadius = 6.5;
 
@@ -902,7 +938,8 @@
                 { id: 5, path: 'Project 05_Living Ruins.glb' },
                 { id: 6, path: 'Project 06_ADC.glb' },
                 { id: 7, path: 'Project 07_I Residence.glb' },
-                { id: 8, path: 'Project 08_Sospesa.glb' }
+                { id: 8, path: 'Project 08_Sospesa.glb' },
+                { id: 9, path: 'Project 07_CDC.glb' }
             ];
 
             repoModels.forEach(item => {

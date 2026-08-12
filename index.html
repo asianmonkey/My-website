@@ -152,7 +152,7 @@
                             <span id="center-prompt-text" class="text-xs sm:text-sm font-title uppercase tracking-ultra text-zen-400 font-light select-none block">
                                 click category to explore
                             </span>
-                            <span id="center-prompt-subtext" class="text-[9px] sm:text-[10px] font-title uppercase tracking-wider text-zen-400/60 font-light select-none block mt-1.5">
+                            <span id="center-prompt-subtext" class="text-xs sm:text-sm font-title uppercase tracking-wider text-zen-400/80 font-light select-none block mt-1.5">
                                 tap to select &bull; tap again to open
                             </span>
                         </div>
@@ -1225,17 +1225,18 @@
                 }
                 
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
-                    if (isMobile) {
-                        // First tap: Select target and freeze model floating animation
+                    // Double-tap requirement applies ONLY to project models on mobile
+                    if (isMobile && obj.userData.isProject) {
+                        // First tap: Select project target and freeze floating animation
                         if (activeSelectedTarget !== obj) {
                             activeSelectedTarget = obj;
                             lastHoveredTarget = obj;
                             showHoverForObject(obj);
-                            return; // Requires 2nd tap on same model to proceed
+                            return; // Requires 2nd tap on same project model to proceed
                         }
                     }
 
-                    // 2nd tap on mobile or direct click on desktop: Navigate to target
+                    // Direct single-tap for category models (or 2nd tap for project models): Navigate immediately
                     activeSelectedTarget = null;
                     if (obj.userData.isCategory) {
                         window.location.hash = "category-" + obj.userData.categoryKey;

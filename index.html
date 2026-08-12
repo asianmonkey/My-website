@@ -1207,14 +1207,8 @@
                 }
                 
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
-                    if (obj.userData.isCategory) {
-                        activeSelectedTarget = null;
-                        window.location.hash = "category-" + obj.userData.categoryKey;
-                        return;
-                    }
-
                     if (isMobile) {
-                        // First tap: Select target, freeze model floating animation, and show hover card
+                        // First tap: Select target and freeze model floating animation
                         if (activeSelectedTarget !== obj) {
                             activeSelectedTarget = obj;
                             lastHoveredTarget = obj;
@@ -1225,7 +1219,9 @@
 
                     // 2nd tap on mobile or direct click on desktop: Navigate to target
                     activeSelectedTarget = null;
-                    if (obj.userData.isProject) {
+                    if (obj.userData.isCategory) {
+                        window.location.hash = "category-" + obj.userData.categoryKey;
+                    } else if (obj.userData.isProject) {
                         window.location.hash = "project-" + obj.userData.id;
                     }
                 }

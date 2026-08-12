@@ -753,6 +753,35 @@
             return false;
         }
 
+        function createCategoryLabelSprite(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 1024, 256);
+            
+            ctx.font = '300 44px "Plus Jakarta Sans", "Yu Gothic", sans-serif';
+            ctx.fillStyle = '#1c1b1a';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            try {
+                ctx.letterSpacing = '10px';
+            } catch (e) {}
+
+            ctx.fillText(text.toUpperCase(), 512, 128);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.minFilter = THREE.LinearFilter;
+            const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
+            const sprite = new THREE.Sprite(spriteMat);
+            sprite.scale.set(4.8, 1.2, 1.0);
+            sprite.position.set(0, 2.4, 0);
+            sprite.userData.isLabel = true;
+            sprite.raycast = function() {}; // Ignores direct click interception so model hitboxes trigger clicks
+            return sprite;
+        }
+
         function initThreeJS() {
             const width = canvasContainer.clientWidth;
             const height = canvasContainer.clientHeight;
@@ -923,6 +952,9 @@
                 catGroup.position.set(posX, catGroup.userData.baseHeight, posZ);
                 catGroup.rotation.y = -angle;
                 
+                const labelSprite = createCategoryLabelSprite(categoriesData[key].name);
+                catGroup.add(labelSprite);
+
                 categoriesData[key].catGroupRef = catGroup;
                 
                 interactionGroup.add(catGroup);
@@ -973,7 +1005,7 @@
                             const clonedModel = model.clone();
                             
                             for (let i = groupToUpdate.children.length - 1; i >= 0; i--) {
-                                if (!groupToUpdate.children[i].userData.isHitbox) {
+                                if (!groupToUpdate.children[i].userData.isHitbox && !groupToUpdate.children[i].userData.isLabel) {
                                     groupToUpdate.remove(groupToUpdate.children[i]);
                                 }
                             }

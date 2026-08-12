@@ -98,7 +98,7 @@
     <div class="fixed bottom-0 left-0 w-full z-40 pointer-events-none pb-3 sm:pb-6 px-4 sm:px-12">
         <div class="w-full mx-auto flex justify-between items-end sm:grid sm:grid-cols-3 sm:items-center gap-2 sm:gap-4">
             <div class="pointer-events-auto text-left">
-                <a href="mailto:info@handajuwanazhu.com" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition block">info@handajuwanazhu.com</a>
+                <a href="mailto:info@hanzhu.studio" class="text-[9px] sm:text-xs font-title tracking-wider text-zen-800 hover:text-zen-400 transition block">info@hanzhu.studio</a>
             </div>
 
             <div class="pointer-events-auto text-right sm:text-center">
@@ -149,10 +149,10 @@
 
                         <!-- Center Guidance Prompt -->
                         <div id="center-prompt" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none z-20 transition-opacity duration-300">
-                            <span id="center-prompt-text" class="text-[9px] sm:text-[10px] font-title uppercase tracking-ultra text-zen-400 font-light select-none block">
+                            <span id="center-prompt-text" class="text-xs sm:text-sm font-title uppercase tracking-ultra text-zen-400 font-light select-none block">
                                 click category to explore
                             </span>
-                            <span id="center-prompt-subtext" class="text-[7px] sm:text-[8px] font-title uppercase tracking-wider text-zen-400/60 font-light select-none block mt-1.5">
+                            <span id="center-prompt-subtext" class="text-[9px] sm:text-[10px] font-title uppercase tracking-wider text-zen-400/60 font-light select-none block mt-1.5">
                                 tap to select &bull; tap again to open
                             </span>
                         </div>
@@ -272,10 +272,10 @@
 
     <div id="project-view" class="hidden min-h-screen bg-zen-50 text-zen-900 pb-24 w-full transition-opacity duration-500 ease-in-out">
         
-        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-20 sm:pt-32 pb-4">
-            <button onclick="window.navigateToHome()" class="group flex items-center space-x-3 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
-                <i class="fa-solid fa-arrow-left-long text-xs transition-transform duration-300 group-hover:-translate-x-1.5"></i>
-                <span class="text-[10px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
+        <div class="w-full px-4 sm:px-12 md:px-20 lg:px-36 xl:px-60 2xl:px-80 pt-28 sm:pt-36 pb-4">
+            <button onclick="window.navigateToHome()" class="group flex items-center space-x-2 text-zen-400 hover:text-zen-900 transition-colors duration-300 focus:outline-none">
+                <i class="fa-solid fa-arrow-left-long text-[9px] transition-transform duration-300 group-hover:-translate-x-1.5"></i>
+                <span class="text-[8px] sm:text-[9px] uppercase tracking-ultra font-semibold font-title">Back to Studio</span>
             </button>
         </div>
 
@@ -1207,6 +1207,12 @@
                 }
                 
                 if (obj && (obj.userData.isCategory || obj.userData.isProject)) {
+                    if (obj.userData.isCategory) {
+                        activeSelectedTarget = null;
+                        window.location.hash = "category-" + obj.userData.categoryKey;
+                        return;
+                    }
+
                     if (isMobile) {
                         // First tap: Select target, freeze model floating animation, and show hover card
                         if (activeSelectedTarget !== obj) {
@@ -1219,9 +1225,7 @@
 
                     // 2nd tap on mobile or direct click on desktop: Navigate to target
                     activeSelectedTarget = null;
-                    if (obj.userData.isCategory) {
-                        window.location.hash = "category-" + obj.userData.categoryKey;
-                    } else if (obj.userData.isProject) {
+                    if (obj.userData.isProject) {
                         window.location.hash = "project-" + obj.userData.id;
                     }
                 }
@@ -1283,6 +1287,12 @@
         }
 
         function showHoverForObject(obj) {
+            if (obj.userData.isCategory) {
+                resetHoverState();
+                if (canvasContainer) canvasContainer.style.cursor = 'pointer';
+                return;
+            }
+
             const hoverPreview = document.getElementById('hover-preview-container');
             const hoverImg = document.getElementById('hover-bg-img');
             const centerPrompt = document.getElementById('center-prompt');
@@ -1294,14 +1304,7 @@
             let imgSrc = "";
             let showImg = true;
 
-            if (obj.userData.isCategory) {
-                const catData = categoriesData[obj.userData.categoryKey];
-                if (catData) {
-                    title = catData.name;
-                    catTag = catData.countText;
-                    showImg = false;
-                }
-            } else if (obj.userData.isProject) {
+            if (obj.userData.isProject) {
                 const dbEntry = projectDatabase[obj.userData.id];
                 if (dbEntry) {
                     title = dbEntry.title;
@@ -1316,11 +1319,7 @@
             if (title) {
                 if (titleText) {
                     titleText.innerText = title;
-                    if (obj.userData.isCategory) {
-                        titleText.className = "text-xl sm:text-3xl lg:text-4xl font-title uppercase tracking-[0.22em] text-zen-900 block font-light";
-                    } else {
-                        titleText.className = "text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 block font-medium";
-                    }
+                    titleText.className = "text-xs sm:text-sm font-title uppercase tracking-wider text-zen-900 block font-medium";
                 }
                 if (categoryText) categoryText.innerText = catTag;
 

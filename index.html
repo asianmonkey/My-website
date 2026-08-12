@@ -760,24 +760,27 @@
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0, 0, 1024, 256);
             
-            ctx.font = '300 44px "Plus Jakarta Sans", "Yu Gothic", sans-serif';
+            // Title case: "Architecture", "Interior", "Objects"
+            const formattedText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+
+            ctx.font = '300 70px "Canela", "Shippori Mincho", Georgia, serif';
             ctx.fillStyle = '#1c1b1a';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            
-            try {
-                ctx.letterSpacing = '10px';
-            } catch (e) {}
+            if ('letterSpacing' in ctx) {
+                ctx.letterSpacing = '8px';
+            }
 
-            ctx.fillText(text.toUpperCase(), 512, 128);
+            ctx.fillText(formattedText, 512, 128);
 
             const texture = new THREE.CanvasTexture(canvas);
             texture.minFilter = THREE.LinearFilter;
-            const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false });
+            const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, depthTest: false });
             const sprite = new THREE.Sprite(spriteMat);
             sprite.scale.set(4.8, 1.2, 1.0);
-            sprite.position.set(0, 2.4, 0);
+            sprite.position.set(0, 2.5, 0);
             sprite.userData.isLabel = true;
+            sprite.renderOrder = 999;
             sprite.raycast = function() {}; // Ignores direct click interception so model hitboxes trigger clicks
             return sprite;
         }
